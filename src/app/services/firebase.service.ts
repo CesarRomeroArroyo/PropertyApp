@@ -3,17 +3,18 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { UserAuthentication } from '../models/usuarios.model';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class FirebaseService {
 
-  items: Observable<any[]>;
+	items: Observable<any[]>;
 	private itemsCollection: AngularFirestoreCollection<any>;
-  constructor(private db: AngularFirestore) { }
-  
-  obtener(tabla, show?): Observable<any> {
+	constructor(private db: AngularFirestore) { }
+
+	obtener(tabla, show?): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla);
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
@@ -24,20 +25,20 @@ export class FirebaseService {
 				});
 			})
 		);
-  }
+	}
 
-  async obtenerPromise(tabla, show?) {
-	let returnData = [];
-	var data = await this.db.collection(tabla).get().toPromise();
-	data.forEach(info => {
-		var d = info.data();
-		d["id"] = info.id;
-		returnData.push(d);
-	});
-	return returnData;
-  }
-  
-  obtenerId(tabla, id, show?): Observable<any> {
+	async obtenerPromise(tabla, show?) {
+		let returnData = [];
+		var data = await this.db.collection(tabla).get().toPromise();
+		data.forEach(info => {
+			var d = info.data();
+			d["id"] = info.id;
+			returnData.push(d);
+		});
+		return returnData;
+	}
+
+	obtenerId(tabla, id, show?): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla, ref => ref.where('id', '==', id));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
@@ -48,32 +49,32 @@ export class FirebaseService {
 				});
 			})
 		);
-  }
-  
-  async obtenerIdPromise(tabla, id, show?) {
-	let returnData = [];
-	var data = await this.db.collection(tabla, ref => ref.where('id', '==', id)).get().toPromise();
-	data.forEach(info => {
-		var d = info.data();
-		d["id"] = info.id;
-		returnData.push(d);
-	});
-	return returnData;
-  }
+	}
+
+	async obtenerIdPromise(tabla, id, show?) {
+		let returnData = [];
+		var data = await this.db.collection(tabla, ref => ref.where('id', '==', id)).get().toPromise();
+		data.forEach(info => {
+			var d = info.data();
+			d["id"] = info.id;
+			returnData.push(d);
+		});
+		return returnData;
+	}
 
 
-  async obtenerXFechaPromise(tabla, id, show?) {
-	let returnData = [];
-	var data = await this.db.collection(tabla, ref => ref.where('fecha', '==', id)).get().toPromise();
-	data.forEach(info => {
-		var d = info.data();
-		d["id"] = info.id;
-		returnData.push(d);
-	});
-	return returnData;
-  }
+	async obtenerXFechaPromise(tabla, id, show?) {
+		let returnData = [];
+		var data = await this.db.collection(tabla, ref => ref.where('fecha', '==', id)).get().toPromise();
+		data.forEach(info => {
+			var d = info.data();
+			d["id"] = info.id;
+			returnData.push(d);
+		});
+		return returnData;
+	}
 
-  obtenerUniqueId(tabla, id): Observable<any> {
+	obtenerUniqueId(tabla, id): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla, ref => ref.where('idunico', '==', id));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
@@ -84,22 +85,22 @@ export class FirebaseService {
 				});
 			})
 		);
-  }
+	}
 
 
-  async obtenerUniqueIdPromise(tabla, id) {
-	let returnData = [];
-	var data = await this.db.collection(tabla, ref => ref.where('idunico', '==', id)).get().toPromise();
-	data.forEach(info => {
-		var d = info.data();
-		d["id"] = info.id;
-		returnData.push(d);
-	});
-	return returnData;
-  }
+	async obtenerUniqueIdPromise(tabla, id) {
+		let returnData = [];
+		var data = await this.db.collection(tabla, ref => ref.where('idunico', '==', id)).get().toPromise();
+		data.forEach(info => {
+			var d = info.data();
+			d["id"] = info.id;
+			returnData.push(d);
+		});
+		return returnData;
+	}
 
-  obtenerLogin(user, pass): Observable<any> {
-		this.itemsCollection = this.db.collection('usuarios', ref => ref.where('user', '==', user).where('pass', '==', pass));
+	obtenerLogin(user, pass): Observable<any> {
+		this.itemsCollection = this.db.collection('usuarios', ref => ref.where('usuario', '==', user).where('password', '==', pass));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
 				return data.map(d => {
@@ -109,9 +110,25 @@ export class FirebaseService {
 				});
 			})
 		);
-  }
-  
-  obtenerChat(id) {
+	}
+
+
+	async obtenerLoginPromise(userAuth: UserAuthentication) {
+
+		let returnData = [];
+		var data = await this.db.collection('usuarios', ref => ref.where('email', '==', userAuth.user).where('password', '==', userAuth.password)).get().toPromise();
+
+		data.forEach(info => {
+			var d = info.data();
+			d["id"] = info.id;
+			returnData.push(d);
+		});
+
+		return returnData;
+	}
+
+
+	obtenerChat(id) {
 		this.itemsCollection = this.db.collection('chat', ref => ref.where('uniqueId', '==', id));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
@@ -182,5 +199,5 @@ export class FirebaseService {
 			return false;
 		});
 	}
-  
+
 }

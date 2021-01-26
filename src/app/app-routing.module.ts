@@ -8,8 +8,28 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./Components/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'registrar-usuarios',
+    loadChildren: () => import('./Components/registrar-usuarios/registrar-usuarios.module').then( m => m.RegistrarUsuariosPageModule)
+  },
+  {
+    path: 'recuperar-password',
+    loadChildren: () => import('./Components/recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./Components/admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'cuenta-desabilitada',
+    loadChildren: () => import('./Components/cuenta-desabilitada/cuenta-desabilitada.module').then( m => m.CuentaDesabilitadaPageModule)
   },
 ];
 

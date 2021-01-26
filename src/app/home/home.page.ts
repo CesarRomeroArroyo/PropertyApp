@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FileManagerService } from '../services/file-manager.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,11 @@ import { FileManagerService } from '../services/file-manager.service';
 })
 export class HomePage {
 
+
+    dato :any=[];
   constructor(
-    private fileManager: FileManagerService
+    private fileManager: FileManagerService,
+    private navCtrl: Router
   ) {}
 
   async fileChangeEvent(e: any){
@@ -18,6 +22,17 @@ export class HomePage {
     var url = await this.fileManager.uploadURL;
     console.log(fileupload)
     console.log(url)
-	}
+  }
+  
+
+  ionViewWillEnter(){
+    const user = JSON.parse(localStorage.getItem('IDUSER'));
+   
+    console.log(user);
+    if(user){
+      this.dato= user;
+      this.navCtrl.navigate(['/home']);
+    }
 
 }
+ }

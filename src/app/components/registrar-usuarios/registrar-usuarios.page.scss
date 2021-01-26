@@ -1,0 +1,55 @@
+.container-form-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.form-btn {
+    height: 58px;
+    width: 60%;
+    color: white;
+    background-color: #5028bd;
+    border-radius: 200px;
+    font-size: 22px;
+    outline: none;
+}
+
+.form-btn2 {
+    height: 58px;
+    width: 60%;
+    color: #5028bd;
+    background-color: #ffffff;
+    border-radius: 200px;
+    font-size: 22px;
+    outline: none;
+}
+
+ion-back-button {
+    --color: #5028bd;
+}
+
+ion-input {
+    background: #F2F3F4;
+    color: gray;
+    border-radius: 30px;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    text-align: center;
+    height: 56px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+ion-icon {
+    width: 14%;
+    height: 100%;
+}
+
+ion-back-button {
+    --color: #5028bd;
+    --padding-top: 20px;
+}
+
+ion-toolbar {
+    --padding-bottom: 20px;
+}
