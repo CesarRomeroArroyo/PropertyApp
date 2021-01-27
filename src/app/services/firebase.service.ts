@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import Swal from 'sweetalert2';
-import { UserAuthentication } from '../models/usuarios.model';
+import { UserAuthentication, Usermodel } from '../models/usuarios.model';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -11,8 +12,11 @@ import { UserAuthentication } from '../models/usuarios.model';
 export class FirebaseService {
 
 	items: Observable<any[]>;
+	public user$: Observable<UserAuthentication>;
 	private itemsCollection: AngularFirestoreCollection<any>;
-	constructor(private db: AngularFirestore) { }
+	constructor(private db: AngularFirestore,
+		private afAuth: AngularFireAuth
+	) { }
 
 	obtener(tabla, show?): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla);
@@ -116,7 +120,7 @@ export class FirebaseService {
 	async obtenerLoginPromise(userAuth: UserAuthentication) {
 
 		let returnData = [];
-		var data = await this.db.collection('usuarios', ref => ref.where('email', '==', userAuth.user).where('password', '==', userAuth.password)).get().toPromise();
+		var data = await this.db.collection('usuarios', ref => ref.where('email', '==', userAuth.user)).get().toPromise();
 
 		data.forEach(info => {
 			var d = info.data();
@@ -199,5 +203,49 @@ export class FirebaseService {
 			return false;
 		});
 	}
+
+	async login(email: string, password: string) {
+		try {
+			const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
+
+			return user;
+
+		} catch (error) {
+			console.log('Error->', error);
+
+		}
+	}
+	async registerUser(userAuth: Usermodel): Promise<any> {
+		try {
+			const { user } = await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
+			await this.sendVerifcationEmail();
+			return user;
+		} catch (error) {
+			console.log('Error->', error);
+
+			return error;
+		}
+	}
+
+	async sendVerifcationEmail(): Promise<void> {
+		try {
+			return (await this.afAuth.currentUser).sendEmailVerification();
+		} catch (error) {
+			console.log('Error->', error);
+		}
+	}
+
+	async resetPassword(email: string) {
+		try {
+			return await this.afAuth.sendPasswordResetEmail(email);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+
+
+
+
 
 }

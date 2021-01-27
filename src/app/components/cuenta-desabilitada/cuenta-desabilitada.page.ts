@@ -18,7 +18,7 @@ export class CuentaDesabilitadaPage implements OnInit {
   ionViewWillEnter(){
     const user = JSON.parse(localStorage.getItem('IDUSER'));
 
-    if(user){
+    if(user != null){
       if (user.estado==1) {
         if(user.tipo == "admin"){
         this.navCtrl.navigate(['/admin']);

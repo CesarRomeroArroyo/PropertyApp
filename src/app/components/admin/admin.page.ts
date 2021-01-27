@@ -36,6 +36,7 @@ export class AdminPage implements OnInit {
 
   sali(){
      localStorage.removeItem('IDUSER');
+      
       this.navCtrl.navigate(['/login']);
   }
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { inputs } from '../../constants/inputs';
+import { FirebaseService } from '../../services/firebase.service';
 
 @Component({
   selector: 'app-recuperar-password',
@@ -8,27 +11,36 @@ import { Router } from '@angular/router';
 })
 export class RecuperarPasswordPage implements OnInit {
 
-  constructor(private navCtrl: Router ) { }
+
+  
+  frmResetPass: FormGroup;
+  constructor( private frmbuilder: FormBuilder, private fb: FirebaseService,private navctrl: Router ) { }
 
   ngOnInit() {
+    this.initializeFormResetPass();
   }
 
-  ionViewWillEnter(){
-    const user = JSON.parse(localStorage.getItem('IDUSER'));
-
-    if(user){
-      if (user.estado==1) {
-        if(user.tipo == "admin"){
-        this.navCtrl.navigate(['/admin']);
-        }else{
-          this.navCtrl.navigate(['/home']);
-        }
-    }else{
-      this.navCtrl.navigate(['/cuenta-desabilitada']);
-    }
-
-    }
-    
+  initializeFormResetPass(){
+    this.frmResetPass = this.frmbuilder.group({
+      email: ['', [Validators.required,Validators.email, Validators.pattern(inputs.EMAIL)]],
+    });
   }
 
-}
+    resetPass(){
+      console.log(this.frmResetPass.value);
+      if(!this.frmResetPass.valid){
+        console.log("no va")
+      }else{
+          this.fb.resetPassword(this.frmResetPass.value.email);
+          this.navctrl.navigate(['/login'])
+      }
+    }
+
+  }
+
+
+
+
+
+
+
