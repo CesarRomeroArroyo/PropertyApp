@@ -76,7 +76,7 @@ export class RegistrarUsuariosPage implements OnInit {
           this.frmRegister.value.email).then(data => data.present());
         this.navCtrl.navigate(['/login']);
       } else {
-        console.log("error");
+        console.log("Error");
       }
 
       (await loader).dismiss();
@@ -118,7 +118,7 @@ export class RegistrarUsuariosPage implements OnInit {
       { type: 'required', message: 'Usuario requerido' }
     ],
     password: [
-      { type: 'required', message: 'nombre requerido' }
+      { type: 'required', message: 'Nombre requerido' }
     ],
     tel: [
       { type: 'required', message: 'Telefono requerido' }
