@@ -25,7 +25,7 @@ export class HomePage {
   }
   
 
-  ionViewWillEnter(){
+/*   ionViewWillEnter(){
     const user = JSON.parse(localStorage.getItem('IDUSER'));
    
     console.log(user);
@@ -34,5 +34,5 @@ export class HomePage {
       this.navCtrl.navigate(['/home']);
     }
 
-}
+} */
  }

@@ -16,7 +16,7 @@
             <ion-col size="1"></ion-col>
             <ion-col size="10">
                 <form [formGroup]="frmAuth">
-                    <ion-input type="text" formControlName="user" placeholder="Usuario"></ion-input>
+                    <ion-input inputmode="email" formControlName="user" placeholder="Usuario"></ion-input>
                     <ion-input type="password" formControlName="password" placeholder="Contraseña"> </ion-input>
                 </form>
                 <ion-row>
@@ -38,7 +38,7 @@
                 </ion-row>
 
                 <div class="container-form-btn">
-                    <button class="form-btn custom-font" [disabled]="!frmAuth.valid" (click)="login()">Ingresar</button>
+                    <button class="form-btn custom-font" (click)="login()">Ingresar</button>
                 </div>
                 <div class="container-form-btn">
                     <button class="form-btn2 custom-font" [routerLink]="['/registrar-usuarios']">Registrar</button>
