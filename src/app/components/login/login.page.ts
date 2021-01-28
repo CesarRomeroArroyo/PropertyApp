@@ -29,21 +29,21 @@ export class LoginPage implements OnInit {
         private loadCtrl: LoadingController,
         public afAuth: AngularFireAuth) { }
 
-    ngOnInit() {
+    ngOnInit() {    
         this.initializeFormAuth();
     }
 
     initializeFormAuth() {
         this.frmAuth = this.frmbuilder.group({
-            user: ['', [Validators.required, Validators.email, Validators.pattern(inputs.EMAIL)]],
-            password: ['', [Validators.required]]
+            user: ['fernandomonterroza48@gmail.com', [Validators.required, Validators.email, Validators.pattern(inputs.EMAIL)]],
+            password: ['123456', [Validators.required]]
         });
     }
 
     ionViewWillEnter() {
         const user = JSON.parse(localStorage.getItem('IDUSER'));
 
-        if (user) {
+        if (user && user != null) {
             if (user.estado === states.ACTIVE) {
                 if (user.tipo === roles.ADMIN)
                     this.navCtrl.navigate(['/admin']);
@@ -54,8 +54,8 @@ export class LoginPage implements OnInit {
                 this.navCtrl.navigate(['/cuenta-desabilitada']);
         }
     }
-    async login() {
 
+    async login(credenciales) {
         if (!this.frmAuth.valid) {
             if (this.frmAuth.value.user === "") {
                 this.utils.showToast("Por favor ingrese su correo", 3000).then(toasData => toasData.present());
@@ -65,39 +65,46 @@ export class LoginPage implements OnInit {
             }
         }
         else {
-
             const user = await this.frservice.login(this.frmAuth.value.user, this.frmAuth.value.password);
 
             let loader = this.loadCtrl.create({
                 message: "Por favor espere..."
             });
             (await loader).present();
-            if (user.emailVerified != false) {
-                if (user != null) {
+
+            if (user != null) {
+                if (user.emailVerified != false) {
                     const userlogin = await this.frservice.obtenerLoginPromise(this.frmAuth.value);
+
                     localStorage.setItem("IDUSER", JSON.stringify(userlogin[0]));
 
                     if (userlogin.length > 0) {
-
-                        if (userlogin[0].estado == states.ACTIVE) {
-
+                        if (userlogin[0].estado === states.ACTIVE) {
+                           
                             if (userlogin[0].tipo == "residente")
-                                this.navCtrl.navigate(['/home']);
+                               return false;// this.navCtrl.navigate(['/home']);
                             else
                                 this.navCtrl.navigate(['/admin']);
+
                         } else
                             this.navCtrl.navigate(['/cuenta-desabilitada']);
                     }
                 } else {
-                    this.utils.showToast("Usuario/contraseña son incorrectos", 3000).then(toasData => toasData.present());
+                    this.utils.showToast("Cuenta no ha sido verificada", 3000).then(toasData => toasData.present());
                 }
             } else {
-                this.utils.showToast("Cuenta no ha sido verificada", 3000).then(toasData => toasData.present());
+
+                this.utils.showToast("Usuario/contraseña son incorrectos", 3000).then(toasData => toasData.present());
             }
             (await loader).dismiss();
 
         }
 
+        this.resetFormAuth();
+    }
+
+    resetFormAuth() {
+        this.frmAuth.reset();
     }
 
 }

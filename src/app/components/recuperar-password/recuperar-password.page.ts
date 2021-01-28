@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { inputs } from '../../constants/inputs';
 import { FirebaseService } from '../../services/firebase.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-recuperar-password',
@@ -14,7 +15,7 @@ export class RecuperarPasswordPage implements OnInit {
 
   
   frmResetPass: FormGroup;
-  constructor( private frmbuilder: FormBuilder, private fb: FirebaseService,private navctrl: Router ) { }
+  constructor( private frmbuilder: FormBuilder, private fb: FirebaseService,private navctrl: Router, private utils:UtilsService) { }
 
   ngOnInit() {
     this.initializeFormResetPass();
@@ -27,9 +28,9 @@ export class RecuperarPasswordPage implements OnInit {
   }
 
     resetPass(){
-      console.log(this.frmResetPass.value);
+     
       if(!this.frmResetPass.valid){
-        console.log("no va")
+          this.utils.showToast("Ingrese un correo", 3000).then(data => data.present())
       }else{
           this.fb.resetPassword(this.frmResetPass.value.email);
           this.navctrl.navigate(['/login'])
