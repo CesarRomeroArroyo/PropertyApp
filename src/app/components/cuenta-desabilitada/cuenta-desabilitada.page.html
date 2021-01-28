@@ -1,0 +1,39 @@
+<ion-content>
+    <ion-toolbar>
+
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+
+        </ion-buttons>
+
+        <ion-title>
+            <h6> Cuenta desabilitada</h6>
+        </ion-title>
+    </ion-toolbar>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col class="ion-margin-start">
+                <h5> <i> Su cuenta ha sido desabilitada, por favor pongase en contacto con un administrador </i> </h5>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+
+<ion-menu side="start" menuId="first" contentId="main">
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-title>Start Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item>Menu Item</ion-item>
+            <ion-item>
+                <ion-button (click)="salir()">Salir</ion-button>
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+</ion-menu>
