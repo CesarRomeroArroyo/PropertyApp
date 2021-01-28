@@ -1,5 +1,4 @@
 export interface Usermodel {
-  
     idunico: string;
     nombre: string;
     cedula: number;

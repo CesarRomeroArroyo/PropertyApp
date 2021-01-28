@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { roles } from 'src/app/constants/roles';
+import { states } from '../../constants/states';
 
 @Component({
   selector: 'app-cuenta-desabilitada',
@@ -15,24 +17,21 @@ export class CuentaDesabilitadaPage implements OnInit {
 
  
   
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     const user = JSON.parse(localStorage.getItem('IDUSER'));
 
-    if(user != null){
-      if (user.estado==1) {
-        if(user.tipo == "admin"){
-        this.navCtrl.navigate(['/admin']);
-        }else{
+    if ( user != null) {
+      if (user.estado == states.ACTIVE) {
+        if (user.tipo == roles.ADMIN) 
+          this.navCtrl.navigate(['/admin']);
+         else 
           this.navCtrl.navigate(['/home']);
-        }
-    }else{
-      this.navCtrl.navigate(['/cuenta-desabilitada']);
-    }
-
-    }else{
+      } else {
+        this.navCtrl.navigate(['/cuenta-desabilitada']);
+      }
+    } else {
       this.navCtrl.navigate(['/login']);
     }
-    
   }
   salir(){
 
