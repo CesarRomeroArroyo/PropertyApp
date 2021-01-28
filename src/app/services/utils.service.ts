@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor(private toasCtrl: ToastController,) { }
+  constructor(
+    private toasCtrl: ToastController,
+    private alerCtrl: AlertController
+    ) { }
 
   difereciaEntreDosPuntos(lon1, lat1, lon2, lat2) {
     var rad = function (x) { return x * Math.PI / 180; }
@@ -46,6 +49,13 @@ export class UtilsService {
     return this.toasCtrl.create({
       message: message,
       duration: delay
+    });
+  }
+  
+  doAlert(message:string):Promise<any> {
+    return  this.alerCtrl.create({
+      message: message,
+      buttons: ['Ok']
     });
   }
 }

@@ -1,48 +1,55 @@
 <ion-content>
-
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref='/login' text=""></ion-back-button>
-        </ion-buttons>
-        <ion-title>
-            <h6>Registrar</h6>
-        </ion-title>
-    </ion-toolbar>
-
+    <div class="container">
+        <img src="assets/img/foto.jpg" alt="">
+        <div class="btn-back">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref='/login' text=""></ion-back-button>
+            </ion-buttons>
+        </div> 
+      </div>
+    <ion-row>
+        <ion-col class="ion-text-center">
+            <h1>Registrar usuario</h1>
+        </ion-col>
+    </ion-row>
     <ion-grid class="ion-no-padding">
         <ion-row>
             <ion-col size="1"></ion-col>
             <ion-col size="10">
-                <div class="inputWithIcon">
-                    <ion-input type="text" name="nombre" [(ngModel)]="user.nombre" placeholder="Nombre" required>
-                        <ion-icon name="person-outline"></ion-icon>
-                    </ion-input>
-
-                </div>
-                <div class="inputWithIcon">
-                    <ion-input inputmode="email" name="user-email" [(ngModel)]="user.email" placeholder="Correo Electrónico" required>
-                        <ion-icon name="mail-outline"></ion-icon>
-                    </ion-input>
-                </div>
-                <div class="inputWithIcon">
-                    <ion-input type="text" name="usuario" [(ngModel)]="user.usuario" placeholder="Usuario" required>
-                        <ion-icon name="person-circle-outline"></ion-icon>
-                    </ion-input>
-                </div>
-                <div class="inputWithIcon">
-                    <ion-input type="password" name="password" [(ngModel)]="user.password" placeholder="Contraseña" required>
-                        <ion-icon name="key-outline"></ion-icon>
-                    </ion-input>
-                </div>
-                <div class="inputWithIcon">
-                    <ion-input type="number" name="telefono" [(ngModel)]="user.telefono" placeholder="Teléfono" required>
-                        <ion-icon name="call-outline"></ion-icon>
-                    </ion-input>
-                </div>
+                <form [formGroup]="frmRegister">
+                    <div class="inputWithIcon">
+                        <ion-input type="text" formControlName="name" placeholder="Nombre">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </ion-input>
+                    </div>
+                    <div class="inputWithIcon">
+                        <ion-input inputmode="email" formControlName="email" placeholder="Correo electrónico">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </ion-input>
+                    </div>
+                    <div class="inputWithIcon">
+                        <ion-input type="number" formControlName="id" placeholder="Cedula">
+                            <ion-icon name="finger-print-outline"></ion-icon>
+                        </ion-input>
+                    </div>
+                    <div class="inputWithIcon">
+                        <ion-input type="text" formControlName="user" placeholder="Usuario">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </ion-input>
+                    </div>
+                    <div class="inputWithIcon">
+                        <ion-input type="password" formControlName="password" placeholder="Contraseña">
+                            <ion-icon name="key-outline"></ion-icon>
+                        </ion-input>
+                    </div>
+                    <div class="inputWithIcon">
+                        <ion-input type="number" formControlName="tel" placeholder="Teléfono">
+                            <ion-icon name="call-outline"></ion-icon>
+                        </ion-input>
+                    </div>
+                </form>
                 <div class="container-form-btn">
-                    <button class="form-btn custom-font" (click)="registrarUsuario()">
-                                Registrar
-                    </button>
+                    <button class="form-btn custom-font" (click)="registerUser()">Registrar</button>
                 </div>
             </ion-col>
             <ion-col size="1"></ion-col>
