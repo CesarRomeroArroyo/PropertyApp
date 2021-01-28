@@ -10,14 +10,14 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class AdminPage implements OnInit {
 
-  constructor(private navCtrl: Router, private fb : FirebaseService) { }
+  constructor(private navCtrl: Router, ) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     const user = JSON.parse(localStorage.getItem('IDUSER'));
-
+    
     if ( user != null) {
       if (user.estado == states.ACTIVE) {
         if (user.tipo == roles.ADMIN) 
