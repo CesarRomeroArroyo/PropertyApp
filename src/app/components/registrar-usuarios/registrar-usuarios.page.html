@@ -17,36 +17,70 @@
             <ion-col size="1"></ion-col>
             <ion-col size="10">
                 <form [formGroup]="frmRegister">
+
                     <div class="inputWithIcon">
                         <ion-input type="text" formControlName="name" placeholder="Nombre">
                             <ion-icon name="person-outline"></ion-icon>
                         </ion-input>
+                        <div class="validation-errors" *ngIf="isValidField('name')" >
+                            {{getErrorMenssages("name")}}
+                        </div>
                     </div>
+                    
                     <div class="inputWithIcon">
                         <ion-input inputmode="email" formControlName="email" placeholder="Correo electrónico">
                             <ion-icon name="mail-outline"></ion-icon>
                         </ion-input>
+                        <div class="validation-errors" *ngIf="isValidField('email')" >
+                            {{getErrorMenssages("email")}}
+                         </div>
                     </div>
+                    
                     <div class="inputWithIcon">
-                        <ion-input type="number" formControlName="id" placeholder="Cedula">
+                        <ion-input type="number" formControlName="CC" placeholder="Cedula">
                             <ion-icon name="finger-print-outline"></ion-icon>
                         </ion-input>
+                        <div class="validation-errors" *ngIf="isValidField('CC')" >
+                            {{getErrorMenssages("CC")}}
+                         </div>
                     </div>
+
                     <div class="inputWithIcon">
                         <ion-input type="text" formControlName="user" placeholder="Usuario">
                             <ion-icon name="person-circle-outline"></ion-icon>
                         </ion-input>
+                        <div class="validation-errors" *ngIf="isValidField('user')" >
+                            {{getErrorMenssages("user")}}
+                         </div>
                     </div>
+                   
                     <div class="inputWithIcon">
                         <ion-input type="password" formControlName="password" placeholder="Contraseña">
                             <ion-icon name="key-outline"></ion-icon>
                         </ion-input>
+                        <div class="validation-errors" *ngIf="isValidField('password')" >
+                            {{getErrorMenssages("password")}}
+                         </div>
                     </div>
+                   
+                    <div class="inputWithIcon">
+                        <ion-input type="password" formControlName="passConfirmation" placeholder="Confirmacióm">
+                            <ion-icon name="key-outline"></ion-icon>
+                        </ion-input>
+                        <div class="validation-errors" *ngIf="isValidField('passConfirmation')" >
+                            {{getErrorMenssages("passConfirmation")}}
+                         </div>
+                    </div>
+                    
                     <div class="inputWithIcon">
                         <ion-input type="number" formControlName="tel" placeholder="Teléfono">
                             <ion-icon name="call-outline"></ion-icon>
                         </ion-input>
+                        <div class="validation-errors" *ngIf="isValidField('tel')" >
+                            {{getErrorMenssages("tel")}}
+                         </div>
                     </div>
+
                 </form>
                 <div class="container-form-btn">
                     <button class="form-btn custom-font" (click)="registerUser()">Registrar</button>

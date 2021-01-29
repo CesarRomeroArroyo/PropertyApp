@@ -33,11 +33,12 @@ export class RegistrarUsuariosPage implements OnInit {
   initializeFormRegister() {
     this.frmRegister = this.frmbuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern(inputs.EMAIL)]],
-      password: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      id: ['', [Validators.required]],
-      user: ['', [Validators.required]],
-      tel: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      CC: ['', [Validators.required, Validators.minLength(6)]],
+      user: ['', [Validators.required, Validators.minLength(3)]],
+      tel: ['', [Validators.required, Validators.minLength(10)]],
+      passConfirmation: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -57,30 +58,67 @@ export class RegistrarUsuariosPage implements OnInit {
   }
 
   async registerUser() {
+
     if (!this.frmRegister.valid) {
-
+      this.utils.showToast(messages.register.REQUIRED, 1000).then(toasData => toasData.present());
     } else {
-      let loader = this.loadCtrl.create({
-        message: "Por favor espere..."
-      });
-      (await loader).present();
 
-      this.frmRegister.value.tipo = roles.USER;
-      this.frmRegister.value.estado = states.ACTIVE;
-      this.frmRegister.value.fechaCreacion = this.utils.fechaActual();
+      let confirmPass = this.passCoincide(this.frmRegister.value.password, this.frmRegister.value.passConfirmation);
 
-      let data = await this.fbservice.guardarDatos("usuarios", this.frmRegister.value);
+      if (confirmPass) {
+        let loader = this.loadCtrl.create({
+          message: "Por favor espere..."
+        });
+        (await loader).present();
 
-      if (data !== null) {
-        this.fbservice.registerUser(this.frmRegister.value);
-        this.utils.doAlert(`${messages.login.SUCCESS} ${this.frmRegister.value.email}`).then(data => data.present());
-        this.frmRegister.reset();
-        this.navCtrl.navigate(['/login']);
+        this.frmRegister.value.tipo = roles.USER;
+        this.frmRegister.value.estado = states.ACTIVE;
+        this.frmRegister.value.fechaCreacion = this.utils.fechaActual();
+
+        let data = await this.fbservice.guardarDatos("usuarios", this.frmRegister.value);
+
+        if (data !== null) {
+          this.fbservice.registerUser(this.frmRegister.value);
+          this.utils.doAlert(`${messages.register.SUCCESS} ${this.frmRegister.value.email}`).then(data => data.present());
+          this.frmRegister.reset();
+          this.navCtrl.navigate(['/login']);
+        } else {
+          messages.register.ERROR;
+        }
+
+        (await loader).dismiss();
+
       } else {
-        console.log("Error");
+        this.utils.showToast(messages.register.PASSCONFIRMATION, 1000).then(toasData => toasData.present());
       }
+    }
+  }
 
-      (await loader).dismiss();
+  getErrorMenssages(field: string) {
+    let message;
+    if (this.frmRegister.get(field).errors.required) {
+      message = messages.register.REQUIRED;
+
+    } else if (this.frmRegister.get(field).hasError('pattern')) {
+      message = messages.register.INVALIDEMAIL;
+
+    } else if (this.frmRegister.get(field).hasError('minlength')) {
+      const minlength = this.frmRegister.get(field).errors?.minlength.requiredLength;
+      message = `${messages.register.MINLENGTH} ${minlength}`;
+    }
+    return message;
+  }
+
+  isValidField(field: string) {
+    return (this.frmRegister.get(field).touched) &&
+      !this.frmRegister.get(field).valid;
+  }
+
+  passCoincide(password: string, confirm: string) {
+    if (password === confirm) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
