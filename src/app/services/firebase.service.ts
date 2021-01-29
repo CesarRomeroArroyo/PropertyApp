@@ -15,7 +15,7 @@ export class FirebaseService {
 	public user$: Observable<UserAuthentication>;
 	private itemsCollection: AngularFirestoreCollection<any>;
 	constructor(private db: AngularFirestore,
-		private afAuth: AngularFireAuth
+	private afAuth: AngularFireAuth
 	) { }
 
 	obtener(tabla, show?): Observable<any> {
@@ -242,13 +242,4 @@ export class FirebaseService {
 			console.log(error);
 		}
 	}
-
-
-	
-
-
-
-
-
-
 }
