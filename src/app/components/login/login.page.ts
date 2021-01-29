@@ -36,7 +36,8 @@ export class LoginPage implements OnInit {
     initializeFormAuth() {
         this.frmAuth = this.frmbuilder.group({
             user: ['fernandomonterroza48@gmail.com', [Validators.required, Validators.email, Validators.pattern(inputs.EMAIL)]],
-            password: ['123456', [Validators.required]]
+            password: ['123456', [Validators.required]],
+            check: false
         });
     }
 
@@ -55,7 +56,7 @@ export class LoginPage implements OnInit {
         }
     }
 
-    async login(credenciales) {
+    async login() {
         if (!this.frmAuth.valid) {
             if (this.frmAuth.value.user === "") {
                 this.utils.showToast("Por favor ingrese su correo", 3000).then(toasData => toasData.present());
@@ -81,7 +82,7 @@ export class LoginPage implements OnInit {
                     if (userlogin.length > 0) {
                         if (userlogin[0].estado === states.ACTIVE) {
                            
-                            if (userlogin[0].tipo == "residente")
+                            if (userlogin[0].tipo == roles.RESIDENTE)
                                return false;// this.navCtrl.navigate(['/home']);
                             else
                                 this.navCtrl.navigate(['/admin']);
@@ -96,10 +97,15 @@ export class LoginPage implements OnInit {
 
                 this.utils.showToast("Usuario/contraseña son incorrectos", 3000).then(toasData => toasData.present());
             }
+              
+                if(this.frmAuth.value.check != false){
+                    localStorage.setItem("USER2", JSON.stringify(user));
+                }
+           
+                    
+            
             (await loader).dismiss();
-
         }
-
         this.resetFormAuth();
     }
 

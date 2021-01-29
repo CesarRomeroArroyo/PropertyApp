@@ -13,23 +13,23 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./Components/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./components/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'registrar-usuarios',
-    loadChildren: () => import('./Components/registrar-usuarios/registrar-usuarios.module').then( m => m.RegistrarUsuariosPageModule)
+    loadChildren: () => import('./components/registrar-usuarios/registrar-usuarios.module').then( m => m.RegistrarUsuariosPageModule)
   },
   {
     path: 'recuperar-password',
-    loadChildren: () => import('./Components/recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
+    loadChildren: () => import('./components/recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
   },
   {
     path: 'admin',
-    loadChildren: () => import('./Components/admin/admin.module').then( m => m.AdminPageModule)
+    loadChildren: () => import('./components/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
     path: 'cuenta-desabilitada',
-    loadChildren: () => import('./Components/cuenta-desabilitada/cuenta-desabilitada.module').then( m => m.CuentaDesabilitadaPageModule)
+    loadChildren: () => import('./components/cuenta-desabilitada/cuenta-desabilitada.module').then( m => m.CuentaDesabilitadaPageModule)
   },
 ];
 
