@@ -58,67 +58,30 @@ export class RegistrarUsuariosPage implements OnInit {
   }
 
   async registerUser() {
-
     if (!this.frmRegister.valid) {
       this.utils.showToast(messages.register.REQUIRED, 1000).then(toasData => toasData.present());
     } else {
 
-      let confirmPass = this.passCoincide(this.frmRegister.value.password, this.frmRegister.value.passConfirmation);
+      let loader = this.loadCtrl.create({
+        message: "Por favor espere..."
+      });
+      (await loader).present();
 
-      if (confirmPass) {
-        let loader = this.loadCtrl.create({
-          message: "Por favor espere..."
-        });
-        (await loader).present();
+      this.frmRegister.value.tipo = roles.USER;
+      this.frmRegister.value.estado = states.ACTIVE;
+      this.frmRegister.value.fechaCreacion = this.utils.fechaActual();
 
-        this.frmRegister.value.tipo = roles.USER;
-        this.frmRegister.value.estado = states.ACTIVE;
-        this.frmRegister.value.fechaCreacion = this.utils.fechaActual();
+      let data = await this.fbservice.guardarDatos("usuarios", this.frmRegister.value);
 
-        let data = await this.fbservice.guardarDatos("usuarios", this.frmRegister.value);
-
-        if (data !== null) {
-          this.fbservice.registerUser(this.frmRegister.value);
-          this.utils.doAlert(`${messages.register.SUCCESS} ${this.frmRegister.value.email}`).then(data => data.present());
-          this.frmRegister.reset();
-          this.navCtrl.navigate(['/login']);
-        } else {
-          messages.register.ERROR;
-        }
-
-        (await loader).dismiss();
-
+      if (data !== null) {
+        this.fbservice.registerUser(this.frmRegister.value);
+        this.utils.doAlert(`${messages.register.SUCCESS} ${this.frmRegister.value.email}`).then(data => data.present());
+        this.frmRegister.reset();
+        this.navCtrl.navigate(['/login']);
       } else {
-        this.utils.showToast(messages.register.PASSCONFIRMATION, 1000).then(toasData => toasData.present());
+        this.utils.doAlert(messages.register.ERROR).then(data => data.present());
       }
-    }
-  }
-
-  getErrorMenssages(field: string) {
-    let message;
-    if (this.frmRegister.get(field).errors.required) {
-      message = messages.register.REQUIRED;
-
-    } else if (this.frmRegister.get(field).hasError('pattern')) {
-      message = messages.register.INVALIDEMAIL;
-
-    } else if (this.frmRegister.get(field).hasError('minlength')) {
-      const minlength = this.frmRegister.get(field).errors?.minlength.requiredLength;
-      message = `${messages.register.MINLENGTH} ${minlength}`;
-    }
-    return message;
-  }
-
-  isValidField(field: string) {
-    return (this.frmRegister.get(field).touched) &&
-      !this.frmRegister.get(field).valid;
-  }
-
-  passCoincide(password: string, confirm: string) {
-    if (password === confirm) {
-      return true;
-    } else {
-      return false;
+      (await loader).dismiss();
     }
   }
 }
