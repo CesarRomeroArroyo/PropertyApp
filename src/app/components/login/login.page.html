@@ -16,7 +16,7 @@
             <ion-col size="1"></ion-col>
             <ion-col size="10">
                 <form [formGroup]="frmAuth " (ngSubmit)="login(frmAuth.value)">
-                    <ion-input inputmode="email" formControlName="user" placeholder="Usuario"></ion-input>
+                    <ion-input formControlName="user" placeholder="Usuario"></ion-input>
                     <ion-input type="password" formControlName="password" placeholder="Contraseña"> </ion-input>
 
                     <ion-row>
