@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
+import { roles } from '../constants/roles';
+import { states } from '../constants/states';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +12,9 @@ export class UtilsService {
 
   constructor(
     private toasCtrl: ToastController,
-    private alerCtrl: AlertController
-    ) { }
+    private alerCtrl: AlertController,
+    private navCtrl: Router,
+  ) { }
 
   difereciaEntreDosPuntos(lon1, lat1, lon2, lat2) {
     var rad = function (x) { return x * Math.PI / 180; }
@@ -51,11 +56,52 @@ export class UtilsService {
       duration: delay
     });
   }
-  
-  doAlert(message:string):Promise<any> {
-    return  this.alerCtrl.create({
+
+  doAlert(message: string): Promise<any> {
+    return this.alerCtrl.create({
       message: message,
       buttons: ['Ok']
     });
+  }
+
+  validedSession(frmAuth: FormGroup) {
+    const user = JSON.parse(localStorage.getItem('IDUSER'));
+    const rememberUser = JSON.parse(localStorage.getItem('REMEMBER_USER'));
+
+    if (user && user != null) {
+      if (user.estado === states.ACTIVE)
+        if (user.tipo === roles.ADMIN)
+          this.navCtrl.navigate(['/admin']);
+        else
+          this.navCtrl.navigate(['/home']);
+      else
+        this.navCtrl.navigate(['/cuenta-desabilitada']);
+
+    } else {
+      if (rememberUser && rememberUser != null) {
+        frmAuth.patchValue({
+          user: rememberUser.user,
+          password: rememberUser.password,
+          check: true
+        });
+      }
+    }
+  }
+
+  sessionActive() {
+    const user = JSON.parse(localStorage.getItem('IDUSER'));
+
+    if (user != null) {
+      if (user.estado == states.ACTIVE) {
+        if (user.tipo == roles.ADMIN)
+          this.navCtrl.navigate(['/admin']);
+        else
+          this.navCtrl.navigate(['/home']);
+      } else {
+        this.navCtrl.navigate(['/cuenta-desabilitada']);
+      }
+    } else {
+      this.navCtrl.navigate(['/login']);
+    }
   }
 }
