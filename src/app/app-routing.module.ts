@@ -31,6 +31,7 @@ const routes: Routes = [
     path: 'cuenta-desabilitada',
     loadChildren: () => import('./components/cuenta-desabilitada/cuenta-desabilitada.module').then( m => m.CuentaDesabilitadaPageModule)
   },
+
 ];
 
 @NgModule({

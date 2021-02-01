@@ -1,10 +1,10 @@
-.container{
+.container {
     position: relative;
     display: inline-block;
     width: 100%;
 }
 
-.btn-back{
+.btn-back {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -36,6 +36,7 @@
     border-radius: 200px;
     font-size: 22px;
     outline: none;
+    margin-bottom: 15px;
 }
 
 ion-back-button {
@@ -67,6 +68,7 @@ ion-back-button {
 ion-toolbar {
     --padding-bottom: 20px;
 }
-.validation-errors{
+
+.validation-errors {
     color: red;
 }

@@ -1,7 +1,7 @@
 <ion-content>
     <ion-grid class="ion-no-padding">
         <ion-row>
-            <ion-col class="ion-no-padding">
+            <ion-col>
                 <div class="img-toolbat">
                     <img src="assets/img/foto.jpg" alt="">
                 </div>
@@ -15,9 +15,9 @@
         <ion-row>
             <ion-col size="1"></ion-col>
             <ion-col size="10">
-                <form [formGroup]="frmAuth " (ngSubmit)="login(frmAuth.value)">
-                    <ion-input formControlName="user" placeholder="Usuario"></ion-input>
-                    <ion-input type="password" formControlName="password" placeholder="Contraseña"> </ion-input>
+                <form class="box" [formGroup]="frmAuth " (ngSubmit)="login(frmAuth.value)">
+                    <input formControlName="user" placeholder="Usuario">
+                    <input type="password" formControlName="password" placeholder="Contraseña">
 
                     <ion-row>
                         <ion-col>
@@ -48,4 +48,5 @@
             <ion-col size="1"></ion-col>
         </ion-row>
     </ion-grid>
+
 </ion-content>

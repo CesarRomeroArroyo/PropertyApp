@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { roles } from 'src/app/constants/roles';
-import { states } from '../../constants/states';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-cuenta-desabilitada',
@@ -10,34 +9,18 @@ import { states } from '../../constants/states';
 })
 export class CuentaDesabilitadaPage implements OnInit {
 
-  constructor(private navCtrl: Router ) { }
+  constructor(private navCtrl: Router, private utils: UtilsService) { }
 
   ngOnInit() {
   }
 
- 
-  
   ionViewWillEnter() {
-    const user = JSON.parse(localStorage.getItem('IDUSER'));
-
-    if ( user != null) {
-      if (user.estado == states.ACTIVE) {
-        if (user.tipo == roles.ADMIN) 
-          this.navCtrl.navigate(['/admin']);
-         else 
-          this.navCtrl.navigate(['/home']);
-      } else {
-        this.navCtrl.navigate(['/cuenta-desabilitada']);
-      }
-    } else {
-      this.navCtrl.navigate(['/login']);
-    }
+    this.utils.sessionActive();
   }
-  salir(){
 
+  salir() {
     localStorage.removeItem('IDUSER');
-     this.navCtrl.navigate(['/login']);
- }
-
+    this.navCtrl.navigate(['/login']);
+  }
 
 }

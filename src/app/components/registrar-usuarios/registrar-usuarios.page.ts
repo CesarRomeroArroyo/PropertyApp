@@ -6,9 +6,9 @@ import { inputs } from 'src/app/constants/inputs';
 import { messages } from 'src/app/constants/messages';
 import { roles } from 'src/app/constants/roles';
 import { states } from '../../constants/states';
+import { validateEqual } from '../../constants/validadorEqual';
 import { FirebaseService } from '../../services/firebase.service';
 import { UtilsService } from '../../services/utils.service';
-import { validateEqual } from '../../constants/validadorEqual';
 @Component({
   selector: 'app-registrar-usuarios',
   templateUrl: './registrar-usuarios.page.html',
@@ -18,6 +18,7 @@ import { validateEqual } from '../../constants/validadorEqual';
 export class RegistrarUsuariosPage implements OnInit {
 
   frmRegister: FormGroup;
+  datos = messages.register;
   constructor(
     private fbservice: FirebaseService,
     private utils: UtilsService,
@@ -63,30 +64,37 @@ export class RegistrarUsuariosPage implements OnInit {
   }
 
   async registerUser() {
-      if (!this.frmRegister.valid) {
-       this.utils.showToast(messages.register.REQUIRED, 1000).then(toasData => toasData.present());
-     } else {
-          let loader = this.loadCtrl.create({
+    if (!this.frmRegister.valid) {
+      this.utils.showToast(messages.register.REQUIRED, 1000).then(toasData => toasData.present());
+    } else {
+      let checkemail = await this.fbservice.existsEmail(this.frmRegister.value.email);
+      if (!checkemail) {
+        let loader = this.loadCtrl.create({
           message: "Por favor espere..."
-       });
-       (await loader).present();
- 
+        });
+        (await loader).present();
+
         this.frmRegister.value.tipo = roles.USER;
         this.frmRegister.value.estado = states.ACTIVE;
         this.frmRegister.value.fechaCreacion = this.utils.fechaActual();
- 
+
         let data = await this.fbservice.guardarDatos("usuarios", this.frmRegister.value);
- 
-       if (data !== null) {
+
+        if (data !== null) {
           this.fbservice.registerUser(this.frmRegister.value);
           this.utils.doAlert(`${messages.register.SUCCESS} ${this.frmRegister.value.email}`).then(data => data.present());
           this.frmRegister.reset();
           this.navCtrl.navigate(['/login']);
-       } else {
+        } else {
           this.utils.doAlert(messages.register.ERROR).then(data => data.present());
-       }
-       (await loader).dismiss();
-     } 
+        }
+        (await loader).dismiss();
+
+      } else {
+        this.utils.showToast(messages.register.ERROREMAIL, 1000).then(toasData => toasData.present());
+      }
+
+    }
   }
 
   get name() {
@@ -113,7 +121,7 @@ export class RegistrarUsuariosPage implements OnInit {
 
   validateEqual(): boolean {
     return this.frmRegister.hasError('noSonIguales') &&
-    this.frmRegister.get('password').dirty &&
-    this.frmRegister.get('passConfirmation').dirty;
+      this.frmRegister.get('password').dirty &&
+      this.frmRegister.get('passConfirmation').dirty;
   }
 }

@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { messages } from '../constants/messages';
+import { roles } from '../constants/roles';
+import { states } from '../constants/states';
 import { UserAuthentication, Usermodel } from '../models/usuarios.model';
+import { UtilsService } from './utils.service';
 
 
 @Injectable({
@@ -12,10 +18,12 @@ import { UserAuthentication, Usermodel } from '../models/usuarios.model';
 export class FirebaseService {
 
 	items: Observable<any[]>;
-	public user$: Observable<UserAuthentication>;
+	
 	private itemsCollection: AngularFirestoreCollection<any>;
 	constructor(private db: AngularFirestore,
-	private afAuth: AngularFireAuth
+		private afAuth: AngularFireAuth,
+		private navCtrl: Router,
+		private utils: UtilsService,
 	) { }
 
 	obtener(tabla, show?): Observable<any> {
@@ -116,7 +124,6 @@ export class FirebaseService {
 		);
 	}
 
-
 	async obtenerLoginPromise(userAuth: UserAuthentication) {
 
 		let returnData = [];
@@ -127,10 +134,18 @@ export class FirebaseService {
 			d["id"] = info.id;
 			returnData.push(d);
 		});
-
 		return returnData;
 	}
 
+	async existsEmail(email: string) {
+		let exit = false;
+		var data = await this.db.collection('usuarios', ref => ref.where('email', '==', email)).get().toPromise();
+
+		data.forEach(info => {
+			exit = info.exists;
+		});
+		return exit;
+	}
 
 	obtenerChat(id) {
 		this.itemsCollection = this.db.collection('chat', ref => ref.where('uniqueId', '==', id));
@@ -207,12 +222,10 @@ export class FirebaseService {
 	async login(email: string, password: string) {
 		try {
 			const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-
 			return user;
 
 		} catch (error) {
 			console.log('Error->', error);
-
 		}
 	}
 	async registerUser(userAuth: Usermodel): Promise<any> {
@@ -220,9 +233,9 @@ export class FirebaseService {
 			const { user } = await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
 			await this.sendVerifcationEmail();
 			return user;
-		} catch (error) {
-			console.log('Error->', error);
 
+		} catch (error) {
+			console.log('Error->', error)
 			return error;
 		}
 	}
@@ -240,6 +253,39 @@ export class FirebaseService {
 			return await this.afAuth.sendPasswordResetEmail(email);
 		} catch (error) {
 			console.log(error);
+		}
+	}
+
+	async validationLogin(user: any, frmAuth: FormGroup) {
+
+		if (user != null) {
+			if (user.emailVerified != false) {
+				const userlogin = await this.obtenerLoginPromise(frmAuth.value);
+
+				if (frmAuth.value.check) {
+					localStorage.setItem("REMEMBER_USER", JSON.stringify(frmAuth.value));
+				} else {
+					localStorage.removeItem("REMEMBER_USER");
+					frmAuth.reset();
+				}
+				localStorage.setItem("IDUSER", JSON.stringify(userlogin[0]));
+
+				if (userlogin.length > states.EXISTS) {
+					if (userlogin[0].estado === states.ACTIVE) {
+
+						if (userlogin[0].tipo == roles.RESIDENTE)
+							this.navCtrl.navigate(['/home']);
+						else
+							this.navCtrl.navigate(['/admin']);
+					} else
+						this.navCtrl.navigate(['/cuenta-desabilitada']);
+				}
+			} else {
+				this.utils.showToast(messages.login.ERRORVERIFIED, 3000).then(toasData => toasData.present());
+			}
+
+		} else {
+			this.utils.showToast(messages.login.INVALIDCREDENTIALS, 3000).then(toasData => toasData.present());
 		}
 	}
 }
