@@ -14,8 +14,10 @@ export class FirebaseService {
 	items: Observable<any[]>;
 	public user$: Observable<UserAuthentication>;
 	private itemsCollection: AngularFirestoreCollection<any>;
-	constructor(private db: AngularFirestore,
-	private afAuth: AngularFireAuth
+
+	constructor(
+		private db: AngularFirestore,
+		private afAuth: AngularFireAuth
 	) { }
 
 	obtener(tabla, show?): Observable<any> {
@@ -215,15 +217,15 @@ export class FirebaseService {
 
 		}
 	}
+
 	async registerUser(userAuth: Usermodel): Promise<any> {
 		try {
-			const { user } = await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
+			await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
 			await this.sendVerifcationEmail();
-			return user;
+			return true;
 		} catch (error) {
-			console.log('Error->', error);
 
-			return error;
+			return false;
 		}
 	}
 

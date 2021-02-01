@@ -33,8 +33,10 @@
     width: 60%;
     color: white;
     background-color: #5028bd;
-    border-radius: 200px;
+    border-radius: 50px;
     font-size: 22px;
+    margin-bottom: 20px;
+    margin-top: 20px;
     outline: none;
 }
 
@@ -42,31 +44,54 @@ ion-back-button {
     color: #ffffff;
 }
 
-ion-input {
-    background: #F2F3F4;
-    color: gray;
-    border-radius: 30px;
-    font-size: 18px;
-    outline: none;
-    text-align: center;
-    height: 56px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 ion-icon {
-    width: 14%;
+    width: 10%;
     height: 100%;
+    margin-left: 4%;
 }
 
 ion-back-button {
-    --color: #5028bd;
-    --padding-top: 20px;
+    color: #ffffff;
+    padding-top: 20px;
 }
 
 ion-toolbar {
-    --padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 .validation-errors{
     color: red;
 }
+
+input{
+    width: 100%;
+    border-radius: 50px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 0;
+    text-align: center;
+    height: 56px;
+    background: #F2F3F4;
+    color: gray;
+  }
+  
+  input:focus {
+    box-shadow: 0 0 8px 0#5028bd;
+  }
+ 
+  .frm_input input {
+    padding-left: 55px;
+    padding-right: 30px;
+  }
+ 
+  .frm_input {
+    position: relative;
+  }
+  
+  .frm_input ion-icon{
+    position: absolute;
+    left: 0;
+    color: #aaa;
+  }
+  
