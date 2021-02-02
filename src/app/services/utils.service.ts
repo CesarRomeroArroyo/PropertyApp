@@ -93,7 +93,7 @@ export class UtilsService {
     sessionActive() {
         const user = JSON.parse(localStorage.getItem('IDUSER'));
 
-        if ( user && user != null) {
+        if ( user ) {
             if (user.estado == states.ACTIVE) {
                 if (user.tipo == roles.ADMIN)
                     this.navCtrl.navigate(['/admin']);

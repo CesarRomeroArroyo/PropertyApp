@@ -18,7 +18,7 @@ import { UtilsService } from './utils.service';
 export class FirebaseService {
 
 	items: Observable<any[]>;
-	
+
 	private itemsCollection: AngularFirestoreCollection<any>;
 	constructor(private db: AngularFirestore,
 		private afAuth: AngularFireAuth,
@@ -26,7 +26,7 @@ export class FirebaseService {
 		private utils: UtilsService,
 	) { }
 
-	obtener(tabla, show?): Observable<any> {
+	obtener(tabla): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla);
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {

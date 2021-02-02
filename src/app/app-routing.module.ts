@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'cuenta-desabilitada',
     loadChildren: () => import('./components/cuenta-desabilitada/cuenta-desabilitada.module').then( m => m.CuentaDesabilitadaPageModule)
   },
+  {
+    path: 'lista-usuarios',
+    loadChildren: () => import('./components/lista-usuarios/lista-usuarios.module').then( m => m.ListaUsuariosPageModule)
+  },
 
 ];
 
