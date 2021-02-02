@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { inputs } from 'src/app/constants/inputs';
 import { messages } from 'src/app/constants/messages';
 import { roles } from 'src/app/constants/roles';
+import { StateApp } from 'src/app/services/state.service';
 import { states } from '../../constants/states';
+import { validateEqual } from '../../constants/validadorEqual';
 import { FirebaseService } from '../../services/firebase.service';
 import { UtilsService } from '../../services/utils.service';
-import { validateEqual } from '../../constants/validadorEqual';
-import { StateApp } from 'src/app/services/state.service';
 
 @Component({
 	selector: 'app-registrar-usuarios',
@@ -23,6 +25,7 @@ export class RegistrarUsuariosPage implements OnInit {
 	errorInpus = messages.INPUSTERROR;
 	codeError: boolean;
 	codigo: string;
+	private obs$: Subject<boolean> = new Subject<boolean>();
 
 	constructor(
 		private fbservice: FirebaseService,
@@ -38,12 +41,17 @@ export class RegistrarUsuariosPage implements OnInit {
 		this.getData();
 	}
 
+	ngOnDestroy() {
+		this.obs$.next(true);
+		this.obs$.unsubscribe();
+	}
 
 	getData() {
-		this.stateServis.getObservable().subscribe((data) => {
+		this.stateServis.getObservable().pipe(takeUntil(this.obs$)).subscribe((data) => {
 			this.codigo = data.codigo;
 		})
 	}
+	
 	initializeFormRegister() {
 		this.frmRegister = this.frmbuilder.group(
 			{
