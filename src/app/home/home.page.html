@@ -1,13 +1,13 @@
-<ion-header [translucent]="true">
-    <ion-toolbar>
-        <ion-title>
-            {{dato.nombre }}
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
+<ion-content>
+    <div class="img-toolbat ">
+        <img src="assets/img/foto.jpg" alt="">
 
-<ion-content [fullscreen]="true">
-    <div id="container">
-        <input type="file" name="" id="" (change)="fileChangeEvent($event.target.files)">
+        <div class="btn-start">
+            <ion-toolbar>
+                <ion-buttons>
+                    <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </div>
     </div>
 </ion-content>

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { roles } from 'src/app/constants/roles';
+import { messages } from 'src/app/constants/messages';
 import { inputs } from '../../constants/inputs';
-import { states } from '../../constants/states';
 import { Usermodel } from '../../models/usuarios.model';
 import { FirebaseService } from '../../services/firebase.service';
 import { UtilsService } from '../../services/utils.service';
@@ -21,10 +19,10 @@ export class LoginPage implements OnInit {
     user = {} as Usermodel;
     frmAuth: FormGroup;
     check: boolean = false;
+
     constructor(
         private frservice: FirebaseService,
         private frmbuilder: FormBuilder,
-        private navCtrl: Router,
         private utils: UtilsService,
         private loadCtrl: LoadingController,
         public afAuth: AngularFireAuth,
@@ -38,7 +36,7 @@ export class LoginPage implements OnInit {
         this.frmAuth = this.frmbuilder.group({
             user: ['', [Validators.required, Validators.email, Validators.pattern(inputs.EMAIL)]],
             password: ['', [Validators.required]],
-            check: this.check
+            check: false
         });
     }
 
@@ -48,61 +46,24 @@ export class LoginPage implements OnInit {
 
     async login() {
         if (!this.frmAuth.valid) {
-            if (this.frmAuth.value.user === "")
-                this.utils.showToast("Por favor ingrese su correo", 3000).then(toasData => toasData.present());
-
-            if (this.frmAuth.value.password === "")
-                this.utils.showToast("Por favor ingrese su contraseña", 3000).then(toasData => toasData.present());
+            if (this.frmAuth.value == "") {
+                this.utils.showToast(messages.login.EMPTYFIELDS, 3000).then(toasData => toasData.present());
+            }
+            this.utils.showToast(messages.login.ERROREMAIL, 3000).then(toasData => toasData.present());
         }
         else {
             const user = await this.frservice.login(this.frmAuth.value.user, this.frmAuth.value.password);
 
             let loader = this.loadCtrl.create({
-                message: "Por favor espere..."
+                message: messages.information.WAIT
             });
             (await loader).present();
 
-            if (user != null) {
-                if (user.emailVerified != false) {
-                    const userlogin = await this.frservice.obtenerLoginPromise(this.frmAuth.value);
-
-                    if (this.frmAuth.value.check) {
-                        localStorage.setItem("REMEMBER_USER", JSON.stringify(this.frmAuth.value));
-                    } else {
-                        localStorage.removeItem("REMEMBER_USER");
-                    }
-                    localStorage.setItem("IDUSER", JSON.stringify(userlogin[0]));
-
-                    if (userlogin.length > 0) {
-                        if (userlogin[0].estado === states.ACTIVE) {
-
-                            if (userlogin[0].tipo == roles.RESIDENTE)
-                                this.navCtrl.navigate(['/home']);
-                            else
-                                this.navCtrl.navigate(['/admin']);
-
-                        } else
-                            this.navCtrl.navigate(['/cuenta-desabilitada']);
-                    }
-                } else {
-                    this.utils.showToast("Cuenta no ha sido verificada", 3000).then(toasData => toasData.present());
-                }
-
-            } else {
-
-                this.utils.showToast("Usuario/contraseña son incorrectos", 3000).then(toasData => toasData.present());
-            }
+            await this.frservice.validationLogin(user, this.frmAuth);
 
             (await loader).dismiss();
+
         }
-        this.resetFormAuth();
-
     }
-
-    resetFormAuth() {
-        this.frmAuth.reset();
-    }
-
-
 
 }

@@ -12,7 +12,6 @@ import { states } from '../../constants/states';
 import { validateEqual } from '../../constants/validadorEqual';
 import { FirebaseService } from '../../services/firebase.service';
 import { UtilsService } from '../../services/utils.service';
-
 @Component({
 	selector: 'app-registrar-usuarios',
 	templateUrl: './registrar-usuarios.page.html',

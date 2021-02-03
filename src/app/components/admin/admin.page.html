@@ -1,14 +1,48 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button autoHide="false"></ion-menu-button>
-
-        </ion-buttons>
-        <ion-title>admin</ion-title>
-    </ion-toolbar>
-
-</ion-header>
-
 <ion-content>
-    <ion-button (click)="logout()">Salir</ion-button>
+    <div class="img-toolbat ">
+        <img src="assets/img/foto.jpg" alt="">
+
+        <div class="btn-start">
+            <ion-toolbar>
+                <ion-buttons>
+                    <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </div>
+        <div class="container2">
+            <ion-card>
+                <img src="" />
+                <ion-card-header>
+                    <ion-card-subtitle>Destination</ion-card-subtitle>
+                    <ion-card-title>Madison, WI</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </div>
+    <div class="container_primary">
+        <div class="container">
+            <ion-row>
+                <ion-col>
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-card-subtitle>Destination</ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                            onona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+                        </ion-card-content>
+                    </ion-card>
+                    <ion-card>
+                        <img src="" />
+
+                        <ion-card-content>
+                            Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </div>
+    </div>
 </ion-content>

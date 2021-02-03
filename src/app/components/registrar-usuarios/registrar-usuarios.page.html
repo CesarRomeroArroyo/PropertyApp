@@ -1,5 +1,3 @@
-
-
 <ion-content>
     <div class="container">
         <img src="assets/img/foto.jpg" alt="">
@@ -61,7 +59,7 @@
                             {{errorInpus.CC_MINLENGHT}}
                         </div>
                     </div>
-                   
+
 
                     <div class="frm_input">
                         <input type="text" formControlName="user" placeholder="Usuario">
@@ -75,12 +73,12 @@
                             {{errorInpus.USER_MINLENGHT}}
                         </div>
                     </div>
-                   
+
 
                     <div class="frm_input">
                         <input type="password" formControlName="password" placeholder="Contraseña">
                         <ion-icon name="key-outline"></ion-icon>
-                    </div> 
+                    </div>
                     <div *ngIf="password.invalid && password.dirty" class="validation-errors">
                         <div *ngIf="password.errors.required">
                             {{errorInpus.PASS_REQUERID}}
@@ -89,7 +87,7 @@
                             {{errorInpus.PASS_MINLENGHT}}
                         </div>
                     </div>
-                   
+
                     <div class="frm_input">
                         <input type="password" formControlName="passConfirmation" placeholder="Confirmacióm">
                         <ion-icon name="key-outline"></ion-icon>
@@ -97,11 +95,11 @@
                     <div class="validation-errors" *ngIf="validateEqual()">
                         {{errorInpus.CONF_PASS}}
                     </div>
-                
+
                     <div class="frm_input">
                         <input type="text" formControlName="tel" placeholder="Teléfono">
                         <ion-icon name="call-outline"></ion-icon>
-                    </div>   
+                    </div>
                     <div *ngIf="tel.invalid && tel.dirty" class="validation-errors">
                         <div *ngIf="tel.errors.required">
                             {{errorInpus.TEL_REQUERID}}
@@ -112,9 +110,9 @@
                         <div *ngIf="tel.errors.pattern">
                             {{errorInpus.NUMBRE}}
                         </div>
-                        </div>
+                    </div>
                     <div class="container-form-btn ">
-                        <button class="form-btn"  type="submit">Registrar</button>
+                        <button class="form-btn" type="submit">Registrar</button>
                     </div>
                 </form>
 

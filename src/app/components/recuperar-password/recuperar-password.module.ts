@@ -16,6 +16,7 @@ import { RecuperarPasswordPage } from './recuperar-password.page';
     RecuperarPasswordPageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [RecuperarPasswordPage]
+  declarations: [RecuperarPasswordPage],
+ 
 })
 export class RecuperarPasswordPageModule {}

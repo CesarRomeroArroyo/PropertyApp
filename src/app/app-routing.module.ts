@@ -30,12 +30,19 @@ const routes: Routes = [
   {
     path: 'cuenta-desabilitada',
     loadChildren: () => import('./components/cuenta-desabilitada/cuenta-desabilitada.module').then( m => m.CuentaDesabilitadaPageModule)
-  },  {
+  },
+  {
     path: 'codigo',
     loadChildren: () => import('./components/codigo/codigo.module').then( m => m.CodigoPageModule)
   },
+  {
+    path: 'lista-usuarios',
+    loadChildren: () => import('./components/lista-usuarios/lista-usuarios.module').then( m => m.ListaUsuariosPageModule)
+  },
 
 ];
+
+
 
 @NgModule({
   imports: [

@@ -6,6 +6,16 @@ export const messages = {
         REQUIRED: "Por favor, llene todo los campos",
         EXISTS_EMAIL: "auth/email-already-in-use"
     },
+    information:{
+        WAIT:"Por favor espere"
+    },
+        login:{
+            ERRORVERIFIED: "Email no esta verificado",
+            INVALIDCREDENTIALS: "Usuario/contraseña invalidos",
+            EMPTYFIELDS: "Llene los campos",
+            ERROREMAIL: "Error de email"
+        },
+    
     INPUSTERROR:{
         NAME_REQUERID:"Por favor, digite su nombre.", 
         NAME_MINLENGHT: "El nombre debe tener al menos 3 caracteres.",

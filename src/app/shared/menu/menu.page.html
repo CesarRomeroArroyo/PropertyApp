@@ -1,0 +1,40 @@
+<div *ngIf="ValidationSession()">
+    <ion-menu menuId="main-menu" contentId="main">
+        <ion-content>
+            <div class="menu-header"></div>
+            <div class="header-content">
+                <img src="assets/img/foto.jpg" alt="">
+                <ion-label>
+                    <h1>{{dato.name}}</h1>
+                    <p> {{dato.tipo}} </p>
+                </ion-label>
+            </div>
+            <ion-list class="menu-items ">
+                <div *ngIf="dato.estado === 1">
+                    <ion-item id="home" class="active">
+                        <ion-icon name="home-outline">
+                        </ion-icon> <button (click)="redirectHome()">Inicio</button>
+                    </ion-item>
+                    <ion-item id="evento" class="">
+                        <ion-icon name="calendar-outline"></ion-icon> <button (click)="redirectEvent()">Eventos</button>
+                    </ion-item>
+                    <ion-item id="pagos" class="">
+                        <ion-icon name="cash-outline"></ion-icon>
+                        <button>Pagos</button>
+                    </ion-item>
+
+                    <ion-item id="usuarios" class="">
+                        <ion-icon name="person-outline">
+                        </ion-icon> <button>Usuarios</button>
+                    </ion-item>
+                </div>
+                <ion-item>
+                    <ion-icon name="exit-outline"></ion-icon> <button (click)="logout()">Cerrar sesion</button>
+
+                </ion-item>
+            </ion-list>
+
+
+        </ion-content>
+    </ion-menu>
+</div>
