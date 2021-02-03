@@ -1,3 +1,5 @@
+
+
 <ion-content>
     <div class="container">
         <img src="assets/img/foto.jpg" alt="">
@@ -18,62 +20,33 @@
             <ion-col size="10">
                 <form [formGroup]="frmRegister" (ngSubmit)="registerUser()">
 
-                    <div class="inputWithIcon">
-                        <ion-input type="text" formControlName="name" placeholder="Nombre">
-                            <ion-icon name="person-outline"></ion-icon>
-                        </ion-input>
-                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validation-errors">
-                            <div *ngIf="name.errors.required">
-                                por favor digite su nombre
-                            </div>
-                            <div *ngIf="name.errors.minlength">
-                                El nombre debe tener al menos 3 caracteres.
-                            </div>
+                    <div class="frm_input">
+                        <input type="text" formControlName="name" placeholder="Nombre">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                    <div *ngIf="name.invalid && name.dirty" class="validation-errors">
+                        <div *ngIf="name.errors.required">
+                            {{errorInpus.NAME_REQUERID}}
+                        </div>
+                        <div *ngIf="name.errors.minlength">
+                            {{errorInpus.NAME_MINLENGHT}}
                         </div>
                     </div>
 
-                    <div class="inputWithIcon">
-                        <ion-input inputmode="email" formControlName="email" placeholder="Correo electrónico">
-                            <ion-icon name="mail-outline"></ion-icon>
-                        </ion-input>
-                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="validation-errors">
-                            <div *ngIf="email.errors.required">
-                                por favor digite su correo
-                            </div>
-                            <div *ngIf="email.errors.pattern">
-                                Correo invalido
-                            </div>
+                    <div class="frm_input">
+                        <input type="text" inputmode="email" formControlName="email" placeholder="Correo electrónico">
+                        <ion-icon name="mail-outline"></ion-icon>
+                    </div>
+                    <div *ngIf="email.invalid && email.dirty" class="validation-errors">
+                        <div *ngIf="email.errors.required">
+                            {{errorInpus.EMAIL_REQUERID}}
+                        </div>
+                        <div *ngIf="email.errors.pattern">
+                            {{errorInpus.EMAI_LINVALID}}
                         </div>
                     </div>
 
-                    <div class="inputWithIcon">
-                        <ion-input type="number" formControlName="CC" placeholder="Cedula">
-                            <ion-icon name="finger-print-outline"></ion-icon>
-                        </ion-input>
-                        <div *ngIf="CC.invalid && (name.dirty || CC.touched)" class="validation-errors">
-                            <div *ngIf="CC.errors.required">
-                                por favor digite su cedula
-                            </div>
-                            <div *ngIf="CC.errors.minlength">
-                                El cedula debe tener al menos 6 caracteres.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="inputWithIcon">
-                        <ion-input type="text" formControlName="user" placeholder="Usuario">
-                            <ion-icon name="person-circle-outline"></ion-icon>
-                        </ion-input>
-                        <div *ngIf="user.invalid && (user.dirty || user.touched)" class="validation-errors">
-                            <div *ngIf="user.errors.required">
-                                por favor digite su usuario
-                            </div>
-                            <div *ngIf="user.errors.minlength">
-                                El usuario debe tener al menos 3 caracteres.
-                            </div>
-                        </div>
-                    </div>
-
+<<<<<<< HEAD
                     <div class="inputWithIcon">
                         <ion-input type="password" formControlName="password" placeholder="Contraseña">
                             <ion-icon name="key-outline"></ion-icon>
@@ -85,33 +58,77 @@
                             <div *ngIf="password.errors.minlength">
                                 la contraseña debe tener al menos 8 caracteres.
                             </div>
+=======
+                    <div class="frm_input">
+                        <input type="text" formControlName="CC" placeholder="Cedula">
+                        <ion-icon name="finger-print-outline"></ion-icon>
+                    </div>
+                    <div *ngIf="CC.invalid && CC.dirty " class="validation-errors">
+                        <div *ngIf="CC.errors.required">
+                            {{errorInpus.CC_QUERID}}
+                        </div>
+                        <div *ngIf="CC.errors.pattern">
+                            {{errorInpus.NUMBRE}}
+                        </div>
+                        <div *ngIf="CC.errors.minlength">
+                            {{errorInpus.CC_MINLENGHT}}
+>>>>>>> 497127971421d35d7d743d368fe631e69a89159e
                         </div>
                     </div>
+                   
 
-                    <div class="inputWithIcon">
-                        <ion-input type="password" formControlName="passConfirmation" placeholder="Confirmacióm">
-                            <ion-icon name="key-outline"></ion-icon>
-                        </ion-input>
-                        <div class="validation-errors" *ngIf="validateEqual()">
-                            Las contraseñas no coinciden
+                    <div class="frm_input">
+                        <input type="text" formControlName="user" placeholder="Usuario">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </div>
+                    <div *ngIf="user.invalid && user.dirty" class="validation-errors">
+                        <div *ngIf="user.errors.required">
+                            {{errorInpus.USER_REQUERID}}
+                        </div>
+                        <div *ngIf="user.errors.minlength">
+                            {{errorInpus.USER_MINLENGHT}}
                         </div>
                     </div>
+                   
 
-                    <div class="inputWithIcon">
-                        <ion-input type="number" formControlName="tel" placeholder="Teléfono">
-                            <ion-icon name="call-outline"></ion-icon>
-                        </ion-input>
-                        <div *ngIf="tel.invalid && (tel.dirty || tel.touched)" class="validation-errors">
-                            <div *ngIf="tel.errors.required">
-                                por favor digite su telefono
-                            </div>
-                            <div *ngIf="tel.errors.minlength">
-                                El telefono debe tener al menos 10 caracteres.
-                            </div>
+                    <div class="frm_input">
+                        <input type="password" formControlName="password" placeholder="Contraseña">
+                        <ion-icon name="key-outline"></ion-icon>
+                    </div> 
+                    <div *ngIf="password.invalid && password.dirty" class="validation-errors">
+                        <div *ngIf="password.errors.required">
+                            {{errorInpus.PASS_REQUERID}}
+                        </div>
+                        <div *ngIf="password.errors.minlength">
+                            {{errorInpus.PASS_MINLENGHT}}
                         </div>
                     </div>
-                    <div class="container-form-btn">
-                        <button class="form-btn custom-font" type="submit">Registrar</button>
+                   
+                    <div class="frm_input">
+                        <input type="password" formControlName="passConfirmation" placeholder="Confirmacióm">
+                        <ion-icon name="key-outline"></ion-icon>
+                    </div>
+                    <div class="validation-errors" *ngIf="validateEqual()">
+                        {{errorInpus.CONF_PASS}}
+                    </div>
+                
+                    <div class="frm_input">
+                        <input type="text" formControlName="tel" placeholder="Teléfono">
+                        <ion-icon name="call-outline"></ion-icon>
+                    </div>   
+                    <div *ngIf="tel.invalid && tel.dirty" class="validation-errors">
+                        <div *ngIf="tel.errors.required">
+                            {{errorInpus.TEL_REQUERID}}
+                        </div>
+                        <div *ngIf="tel.errors.minlength">
+                            {{errorInpus.TEL_MINLEMGHT}}
+                        </div>
+                        <div *ngIf="tel.errors.pattern">
+                            {{errorInpus.NUMBRE}}
+                        </div>
+                        </div>
+                    <div class="container-form-btn ">
+                        <button class="form-btn"  type="submit">Registrar</button>
                     </div>
                 </form>
 

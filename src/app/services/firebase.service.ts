@@ -20,10 +20,17 @@ export class FirebaseService {
 	items: Observable<any[]>;
 
 	private itemsCollection: AngularFirestoreCollection<any>;
+<<<<<<< HEAD
 	constructor(private db: AngularFirestore,
 		private afAuth: AngularFireAuth,
 		private navCtrl: Router,
 		private utils: UtilsService,
+=======
+
+	constructor(
+		private db: AngularFirestore,
+		private afAuth: AngularFireAuth
+>>>>>>> 497127971421d35d7d743d368fe631e69a89159e
 	) { }
 
 	obtener(tabla): Observable<any> {
@@ -228,15 +235,23 @@ export class FirebaseService {
 			console.log('Error->', error);
 		}
 	}
+
 	async registerUser(userAuth: Usermodel): Promise<any> {
 		try {
-			const { user } = await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
+			await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
 			await this.sendVerifcationEmail();
+<<<<<<< HEAD
 			return user;
 
 		} catch (error) {
 			console.log('Error->', error)
 			return error;
+=======
+			return true;
+		} catch (error) {
+
+			return false;
+>>>>>>> 497127971421d35d7d743d368fe631e69a89159e
 		}
 	}
 
