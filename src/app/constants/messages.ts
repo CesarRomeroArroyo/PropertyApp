@@ -3,28 +3,19 @@ export const messages = {
         SUCCESS: "Usuario registrado correctamente, por favor verifique el mensaje de confirmacion enviado el correo",
         ERROR_EMAIL: "Correo ya registrado",
         ERROR: "Error al momento de crear el usuario",
-<<<<<<< HEAD
-        PASSCONFIRMATION: "Las contraseñas no coinciden. Vuelve a intentarlo",
-        REQUIRED: "Campo requerido",
-        INVALIDEMAIL: "Correo invalido",
-        MINLENGTH: "Minimo de caracteres requeridos",
-      
-    },
-    inputs:{
-        NAMEVALIDATION: "Por favor digite su nombre"
-    },
-    login:{
-        ERRORVERIFIED: "Cuenta no ha sido verificada",
-        INVALIDCREDENTIALS: "Usuario/contraseña son incorrectos",
-        EMPTYFIELDS:"Por favor llene los campos",
-        ERROREMAIL: "Correo no es valido",
-    },
-     information:{
-        WAIT: "Por favor espere..."
-=======
         REQUIRED: "Por favor, llene todo los campos",
         EXISTS_EMAIL: "auth/email-already-in-use"
     },
+    information:{
+        WAIT:"Por favor espere"
+    },
+        login:{
+            ERRORVERIFIED: "Email no esta verificado",
+            INVALIDCREDENTIALS: "Usuario/contraseña invalidos",
+            EMPTYFIELDS: "Llene los campos",
+            ERROREMAIL: "Error de email"
+        },
+    
     INPUSTERROR:{
         NAME_REQUERID:"Por favor, digite su nombre.", 
         NAME_MINLENGHT: "El nombre debe tener al menos 3 caracteres.",
@@ -40,7 +31,6 @@ export const messages = {
         CONF_PASS: "Las contraseñas no coinciden.",
         TEL_REQUERID:"Por favor, digite su telefono.",
         TEL_MINLEMGHT:"El telefono debe tener al menos 10 caracteres.",
->>>>>>> 497127971421d35d7d743d368fe631e69a89159e
     }
 
 }

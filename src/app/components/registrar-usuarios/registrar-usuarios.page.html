@@ -1,5 +1,3 @@
-
-
 <ion-content>
     <div class="container">
         <img src="assets/img/foto.jpg" alt="">
@@ -46,19 +44,6 @@
                         </div>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="inputWithIcon">
-                        <ion-input type="password" formControlName="password" placeholder="Contraseña">
-                            <ion-icon name="key-outline"></ion-icon>
-                        </ion-input>
-                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="validation-errors">
-                            <div *ngIf="password.errors.required">
-                                por favor digite su contraseña
-                            </div>
-                            <div *ngIf="password.errors.minlength">
-                                la contraseña debe tener al menos 8 caracteres.
-                            </div>
-=======
                     <div class="frm_input">
                         <input type="text" formControlName="CC" placeholder="Cedula">
                         <ion-icon name="finger-print-outline"></ion-icon>
@@ -72,10 +57,9 @@
                         </div>
                         <div *ngIf="CC.errors.minlength">
                             {{errorInpus.CC_MINLENGHT}}
->>>>>>> 497127971421d35d7d743d368fe631e69a89159e
                         </div>
                     </div>
-                   
+
 
                     <div class="frm_input">
                         <input type="text" formControlName="user" placeholder="Usuario">
@@ -89,12 +73,12 @@
                             {{errorInpus.USER_MINLENGHT}}
                         </div>
                     </div>
-                   
+
 
                     <div class="frm_input">
                         <input type="password" formControlName="password" placeholder="Contraseña">
                         <ion-icon name="key-outline"></ion-icon>
-                    </div> 
+                    </div>
                     <div *ngIf="password.invalid && password.dirty" class="validation-errors">
                         <div *ngIf="password.errors.required">
                             {{errorInpus.PASS_REQUERID}}
@@ -103,7 +87,7 @@
                             {{errorInpus.PASS_MINLENGHT}}
                         </div>
                     </div>
-                   
+
                     <div class="frm_input">
                         <input type="password" formControlName="passConfirmation" placeholder="Confirmacióm">
                         <ion-icon name="key-outline"></ion-icon>
@@ -111,11 +95,11 @@
                     <div class="validation-errors" *ngIf="validateEqual()">
                         {{errorInpus.CONF_PASS}}
                     </div>
-                
+
                     <div class="frm_input">
                         <input type="text" formControlName="tel" placeholder="Teléfono">
                         <ion-icon name="call-outline"></ion-icon>
-                    </div>   
+                    </div>
                     <div *ngIf="tel.invalid && tel.dirty" class="validation-errors">
                         <div *ngIf="tel.errors.required">
                             {{errorInpus.TEL_REQUERID}}
@@ -126,9 +110,9 @@
                         <div *ngIf="tel.errors.pattern">
                             {{errorInpus.NUMBRE}}
                         </div>
-                        </div>
+                    </div>
                     <div class="container-form-btn ">
-                        <button class="form-btn"  type="submit">Registrar</button>
+                        <button class="form-btn" type="submit">Registrar</button>
                     </div>
                 </form>
 

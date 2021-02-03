@@ -30,21 +30,19 @@ const routes: Routes = [
   {
     path: 'cuenta-desabilitada',
     loadChildren: () => import('./components/cuenta-desabilitada/cuenta-desabilitada.module').then( m => m.CuentaDesabilitadaPageModule)
-  },  {
+  },
+  {
     path: 'codigo',
     loadChildren: () => import('./components/codigo/codigo.module').then( m => m.CodigoPageModule)
   },
-<<<<<<< HEAD
   {
     path: 'lista-usuarios',
     loadChildren: () => import('./components/lista-usuarios/lista-usuarios.module').then( m => m.ListaUsuariosPageModule)
   },
 
 ];
-=======
->>>>>>> 497127971421d35d7d743d368fe631e69a89159e
 
-];
+
 
 @NgModule({
   imports: [
