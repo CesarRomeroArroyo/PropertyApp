@@ -12,8 +12,8 @@ export const messages = {
         login:{
             ERRORVERIFIED: "Email no esta verificado",
             INVALIDCREDENTIALS: "Usuario/contraseña invalidos",
-            EMPTYFIELDS: "Llene los campos",
-            ERROREMAIL: "Error de email"
+            EMPTYFIELDS: "Por favor llene los campos",
+            ERROREMAIL: "Correo invalido"
         },
     
     INPUSTERROR:{

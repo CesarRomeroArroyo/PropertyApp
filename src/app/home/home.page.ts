@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FileManagerService } from '../services/file-manager.service';
 
 @Component({
@@ -8,13 +8,14 @@ import { FileManagerService } from '../services/file-manager.service';
 })
 export class HomePage {
 
-
-
   constructor(
     private fileManager: FileManagerService,
    
   ) {}
-
+    
+    ngOnInit() {
+    
+    }
   async fileChangeEvent(e: any){
 		var fileName = e[0];
     var fileupload = await this.fileManager.upload(fileName, 'prueba');

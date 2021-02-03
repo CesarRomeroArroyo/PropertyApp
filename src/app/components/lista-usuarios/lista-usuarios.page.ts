@@ -19,7 +19,7 @@ export class ListaUsuariosPage implements OnInit {
   listUsers(){
   this.fb.obtener("usuarios").subscribe(data=>{
     this.dato= data;
-    
+  
   });   
    
   }
