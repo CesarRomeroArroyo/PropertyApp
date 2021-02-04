@@ -92,7 +92,7 @@ export class RegistrarUsuariosPage implements OnInit {
 				this.frmRegister.value.estado = states.ACTIVE;
 				this.frmRegister.value.fechaCreacion = this.utils.fechaActual();
 				this.frmRegister.value.apartamentoid = this.codigo;
-
+				
 				let data = await this.fbservice.guardarDatos("usuarios", this.frmRegister.value);
 
 				if (data !== null) {

@@ -16,13 +16,15 @@
         --background: none;
     }
     ion-label {
-        font-size: 25px;
+        font-size: 20px;
         color: white;
         font-weight: 300;
+        position: absolute;
+        left: 15px;
     }
     ion-menu-button {
         position: absolute;
-        right: 30px;
+        right: 25px;
         color: white;
         font-size: 45px;
     }
@@ -31,7 +33,7 @@
 .container-secundary {
     position: absolute;
     top: 93px;
-    height: auto;
+    height: 500px;
     width: 100%;
     border-top-left-radius: 55px;
     border-top-right-radius: 55px;
@@ -47,63 +49,16 @@
 
 .container-group {
     height: auto;
-    margin: 25px 14px;
+    margin: 35px 14px;
     box-shadow: 3px 3px 15px rgb(163, 162, 162);
     border-radius: 20px;
 }
 
-.container-group2 {
-    height: auto;
-    margin: 10px 14px;
-    box-shadow: 3px 3px 15px rgb(163, 162, 162);
-    border-radius: 20px;
-    color: white;
-    background: #5a31cc;
-    h2,
-    h6 {
-        color: white;
-        margin-left: 15px;
-    }
-}
-
-.container-item>div {
+.container-item {
     position: relative;
+    top: 55px;
     height: 85px;
     width: 100%;
     border-radius: 20px;
     display: flex;
-    .elemet-container {
-        display: flex;
-        width: 55%;
-        overflow: scroll;
-    }
-    h2,
-    h6 {
-        margin-left: 10px;
-    }
-    img {
-        height: 55px;
-        width: 55px;
-        border-radius: 50%;
-        margin-left: 20px;
-        margin-top: 15px;
-    }
-    ion-fab {
-        position: absolute;
-        top: 25px;
-        right: 35px;
-        button {
-            background: none;
-            outline: none;
-        }
-        ion-icon {
-            font-size: 25px;
-            color: black;
-        }
-        ion-fab-list {
-            position: absolute;
-            top: -80px;
-            right: -35px;
-        }
-    }
 }
