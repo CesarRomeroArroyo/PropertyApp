@@ -15,7 +15,10 @@ export class RecuperarPasswordPage implements OnInit {
 
   
   frmResetPass: FormGroup;
-  constructor( private frmbuilder: FormBuilder, private fb: FirebaseService,private navctrl: Router, private utils:UtilsService) { }
+  constructor( private frmbuilder: FormBuilder, 
+    private fb: FirebaseService,
+    private navctrl: Router, 
+    private utils:UtilsService) { }
 
   ngOnInit() {
     this.initializeFormResetPass();

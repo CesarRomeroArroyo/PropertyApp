@@ -40,6 +40,12 @@ const routes: Routes = [
     loadChildren: () => import('./components/lista-usuarios/lista-usuarios.module').then( m => m.ListaUsuariosPageModule)
   },
 
+  {
+    path: 'editar-usuario',
+    loadChildren: () => import('./components/editar-usuario/editar-usuario.module').then( m => m.EditarUsuarioPageModule)
+  },
+
+
 ];
 
 

@@ -45,10 +45,12 @@ export class LoginPage implements OnInit {
     }
 
     async login() {
+
         if (!this.frmAuth.valid) {
             if (this.frmAuth.value == "") {
                 this.utils.showToast(messages.login.EMPTYFIELDS, 3000).then(toasData => toasData.present());
             }
+          
             this.utils.showToast(messages.login.ERROREMAIL, 3000).then(toasData => toasData.present());
         }
         else {

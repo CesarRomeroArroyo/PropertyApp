@@ -41,6 +41,7 @@ export class MenuPage implements OnInit {
   redirectHome() {
     document.getElementById("home").classList.add("active");
     document.getElementById("evento").classList.remove("active");
+    document.getElementById("usuarios").classList.remove("active");
     this.navCtrl.navigate(['/admin']);
 
   }
@@ -48,9 +49,19 @@ export class MenuPage implements OnInit {
   redirectEvent() {
     document.getElementById("evento").classList.add("active");
     document.getElementById("home").classList.remove("active");
-
-    this.closeMenu();
+    document.getElementById("usuarios").classList.remove("active");
+    
     this.navCtrl.navigate(['/home']);
+  }
+  redirectUser() {
+    document.getElementById("usuarios").classList.add("active");
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("evento").classList.remove("active");
+
+    this.navCtrl.navigate(['/lista-usuarios']);
+  }
+  redirectBuildings(){
+    
   }
 
 }

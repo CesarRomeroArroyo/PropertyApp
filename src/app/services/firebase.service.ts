@@ -257,6 +257,17 @@ export class FirebaseService {
 			console.log(error);
 		}
 	}
+	/* async deleteUser(data){
+		try {
+			const user =	await this.afAuth.currentUser.uid()
+			
+			   
+			   return user;
+			
+		} catch (error) {
+			
+		}
+	} */
 
 	async validationLogin(user: any, frmAuth: FormGroup) {
 
@@ -275,7 +286,7 @@ export class FirebaseService {
 				if (userlogin.length > states.EXISTS) {
 					if (userlogin[0].estado === states.ACTIVE) {
 
-						if (userlogin[0].tipo == roles.RESIDENTE)
+						if (userlogin[0].tipo == roles.USER)
 							this.navCtrl.navigate(['/home']);
 						else
 							this.navCtrl.navigate(['/admin']);
