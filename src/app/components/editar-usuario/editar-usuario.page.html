@@ -1,15 +1,12 @@
 <ion-content>
     <div class="container-primary"></div>
-
     <div class="header-content">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref='/lista-usuarios' text=""></ion-back-button>
+        </ion-buttons>
         <ion-label>
             <h1>Usuario: {{dato.name}} </h1>
-
         </ion-label>
-
-
-
-
         <ion-toolbar>
             <ion-buttons>
                 <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
@@ -19,12 +16,58 @@
     <div class="container-secundary">
         <div class="container-group">
             <div class="container-item">
-
-                <form>
-                    <input type="text" value="{{dato.name}} ">
+                <form [formGroup]="frmEditarUser" (ngSubmit)="editUser()">
+                    <ion-item>
+                        <ion-label position="floating">Nombre</ion-label>
+                        <ion-input formControlName="name" value="{{dato.name}}"></ion-input>
+                    </ion-item>
+                    <div *ngIf="dato.tipo != 'admin'">
+                        <ion-item>
+                            <ion-label>Edificio</ion-label>
+                            <ion-select formControlName="edificio" [value]="edificios">
+                                <ion-select-option [value]="edificios">{{edificios.name}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Apartamento</ion-label>
+                            <ion-select formControlName="apartamento" [value]="apartamentosAsignado">
+                                <ion-select-option [value]="apartamentosAsignado">{{apartamentosAsignado.name}}
+                                </ion-select-option>
+                                <div *ngFor="let item of apartamentosDisponible">
+                                    <ion-select-option *ngIf=" apartamentosAsignado.name != item.name" [value]="item">
+                                        {{item.name}} </ion-select-option>
+                                </div>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+                    <ion-item>
+                        <ion-label position="floating">Telefono</ion-label>
+                        <ion-input formControlName="tel" value=" {{dato.tel}} "></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Cedula</ion-label>
+                        <ion-input formControlName="CC" value="{{dato.CC}} "></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Tipo</ion-label>
+                        <ion-select formControlName="tipo" value="{{dato.tipo}}">
+                            <ion-select-option value="admin">admistrador</ion-select-option>
+                            <ion-select-option value="residente">Residente</ion-select-option>
+                            <ion-select-option value="portero">Portero</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Estado</ion-label>
+                        <ion-select formControlName="estado" value="{{dato.estado}}">
+                            <ion-select-option value="1">Activo</ion-select-option>
+                            <ion-select-option value="0">Desactivado</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <div class="container-form-btn">
+                        <button type="submit" class="form-btn custom-font">Enviar</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-
 </ion-content>

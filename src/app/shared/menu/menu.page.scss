@@ -35,6 +35,11 @@
         font-weight: 100;
         letter-spacing: 0.4px;
     }
+    button {
+        background: none;
+        outline: none;
+        cursor: pointer;
+    }
 }
 
 .menu-items {

@@ -1,20 +1,16 @@
 export interface Usermodel {
-    idunico: string;
-    nombre: string;
-    cedula: number;
-    email: string;
-    telefono: number;
-    estado: number;
-    usuario: string;
-    password: string;
-    tipo: string;
-    fechaCreacion: string;
-    fechaModificacion: string;
-    turnos: string[];
-    codigoverificacion: string[];
-    apartamentoid: string;
-}
-
+    CC: number
+    codigoEdificio: string,
+    apartamento:string,
+    email:string,
+    estado: 1,
+    fechaCreacion: string,
+    name: string,
+    password: string,
+    tel: string,
+    tipo: string,
+    user: string,
+ }
 export interface UserAuthentication {
     user: string,
     password: string;

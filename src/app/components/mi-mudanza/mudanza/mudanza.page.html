@@ -1,0 +1,53 @@
+<ion-content>
+    <div class="container-primary"></div>
+
+    <div class="header-content">
+        <ion-label>
+            <h1>Edificio</h1>
+
+        </ion-label>
+        <ion-toolbar>
+            <ion-buttons>
+                <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </div>
+    <div class="container-secundary">
+        <div class="container-group">
+            <div class="container-item">
+                <form>
+
+                    <ion-text>Apartementos disponibles de edificio : Las palmas </ion-text>
+
+                    <ion-item>
+                        <ion-label position="floating">Apartamento</ion-label>
+                        <ion-select multiple="true">
+                            <ion-select-option></ion-select-option>
+                            <div>
+                                <ion-select-option> </ion-select-option>
+                            </div>
+
+                        </ion-select>
+                    </ion-item> <br>
+
+
+                    <ion-text>Edificio del cual es residente </ion-text>
+                    <ion-item>
+                        <ion-label> Edificio actual</ion-label>
+                        <ion-select value="">
+                            <ion-select-option value="admin">admistrador</ion-select-option>
+                            <ion-select-option value="residente">Residente</ion-select-option>
+                            <ion-select-option value="portero">Portero</ion-select-option>
+
+                        </ion-select>
+                    </ion-item>
+                    <br>
+                    <div class="container-form-btn">
+                        <button type="submit" class="form-btn custom-font">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</ion-content>

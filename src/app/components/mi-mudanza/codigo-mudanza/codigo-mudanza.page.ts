@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
-  selector: 'app-codigo',
-  templateUrl: './codigo.page.html',
-  styleUrls: ['./codigo.page.scss'],
+  selector: 'app-codigo-mudanza',
+  templateUrl: './codigo-mudanza.page.html',
+  styleUrls: ['./codigo-mudanza.page.scss'],
 })
-export class CodigoPage implements OnInit {
+export class CodigoMudanzaPage implements OnInit {
 
   frmCodigo: FormGroup;
   edificio: any = [];
@@ -20,11 +20,7 @@ export class CodigoPage implements OnInit {
 
   ngOnInit() {
     this.initializeFormCodigo();
-    this.fb.obtener("edificios").subscribe(data => {
-
-      this.edificio = data;
-
-    });
+   
 
   }
 
@@ -36,6 +32,7 @@ export class CodigoPage implements OnInit {
     );
   }
 
+
   setCodigo() {
     if (!this.frmCodigo.valid) {
 
@@ -43,13 +40,11 @@ export class CodigoPage implements OnInit {
       this.fb.obtenerCodigo("edificios", this.frmCodigo.value.codigo).subscribe(data => {
         this.edificio = data;
         if (data != "") {
-          this.navCtrl.navigate(['/registrar-usuarios', this.frmCodigo.value.codigo]);
+          this.navCtrl.navigate(['/mudanza', this.frmCodigo.value.codigo]);
         } else {
           console.log("erroneo");
         }
       });
     }
   }
-
 }
-

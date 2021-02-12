@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { roles } from 'src/app/constants/roles';
 import { states } from '../../constants/states';
 import { FirebaseService } from '../../services/firebase.service';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -11,41 +11,38 @@ import { Router } from '@angular/router';
 })
 export class ListaUsuariosPage implements OnInit {
 
+  dato: any = [];
+  user: any;
 
-  dato: any;
-  constructor(private fb: FirebaseService,
-    private navCtrl: Router) { }
+  constructor(
+    private fb: FirebaseService,
+    private navCtrl: Router,
+  ) { }
 
   ngOnInit() {
     this.listUsers();
   }
 
   listUsers() {
-    this.fb.obtener("usuarios").subscribe(data => {
-      this.dato = data;
+    const edificio = JSON.parse(localStorage.getItem("EDIFICIO"));
+
+    this.user = JSON.parse(localStorage.getItem("IDUSER"));
+
+    this.fb.obtenerEdificio("usuarios", edificio).subscribe(data => {
+      data.forEach(element => {
+
+        if (element.tipo != roles.ADMIN && this.dato == "")
+          this.dato.push(element);
+
+      });
+
     });
-  }
-
-  changeStatus(item: any, id: string) {
-    if (item.estado === states.DISABLED) {
-      item.estado = states.ACTIVE;
-    } else {
-      item.estado = states.DISABLED;
-    }
-    this.fb.actualizarDatos("usuarios", item, id);
+   
   }
 
 
-   async deleteUser(id: string, email: string,pass:string ) {
-       const user=  await this.fb.login(email,pass) 
-       user.delete();
-      await  this.fb.eliminarDatos("usuarios",id);
-  } 
-
-
-  editUser(id:string){
-    this.navCtrl.navigate(['/editar-usuario',id])
+  editUser(item) {
+    this.navCtrl.navigate(['/editar-usuario', item.id]);
   }
 
-  
 }

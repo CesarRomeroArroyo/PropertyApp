@@ -9,7 +9,7 @@
     </div>
     <ion-row>
         <ion-col class="ion-text-center">
-            <h1>Codigo del departamento</h1>
+            <h4>Ingrese el codigo del edificio al cual se quiere mudar</h4>
         </ion-col>
     </ion-row>
     <ion-grid>
@@ -18,7 +18,7 @@
             <ion-col size="10">
                 <form [formGroup]="frmCodigo" (ngSubmit)="setCodigo()">
                     <div class="frm-input">
-                        <input type="text" formControlName="codigo" placeholder="Ingrese el codigo del departamento">
+                        <input type="text" formControlName="codigo" placeholder="Ingrese el codigo del edificio">
                     </div>
                     <div class="container-form-btn">
                         <button type="submit" class="form-btn custom-font">Enviar</button>

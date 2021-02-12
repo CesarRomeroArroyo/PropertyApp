@@ -19,8 +19,12 @@ export class MenuPage implements OnInit {
 
   }
 
+  menuModal(){
+    this.util.openModal();
+  }
+
   logout() {
-    this.closeMenu();
+  
     localStorage.removeItem("IDUSER");
     this.navCtrl.navigate(['/login']);
   }
@@ -42,6 +46,7 @@ export class MenuPage implements OnInit {
     document.getElementById("home").classList.add("active");
     document.getElementById("evento").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
+    document.getElementById("mudanza").classList.remove("active");
     this.navCtrl.navigate(['/admin']);
 
   }
@@ -50,6 +55,7 @@ export class MenuPage implements OnInit {
     document.getElementById("evento").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
+    document.getElementById("mudanza").classList.remove("active");
     
     this.navCtrl.navigate(['/home']);
   }
@@ -57,11 +63,19 @@ export class MenuPage implements OnInit {
     document.getElementById("usuarios").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("evento").classList.remove("active");
+    document.getElementById("mudanza").classList.remove("active");
 
     this.navCtrl.navigate(['/lista-usuarios']);
   }
   redirectBuildings(){
     
+  }
+  miMudanza(){
+    document.getElementById("mudanza").classList.add("active");
+    document.getElementById("usuarios").classList.remove("active");
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("evento").classList.remove("active");
+    this.navCtrl.navigate(['/codigo-mudanza']);
   }
 
 }

@@ -3,9 +3,10 @@
         <ion-content>
             <div class="menu-header"></div>
             <div class="header-content">
-                <img src="assets/img/foto.jpg" alt="">
+                <img src="assets/img/default-user.jpg" alt="">
                 <ion-label>
-                    <h1>{{dato.name}}</h1>
+                    <button (click)="menuModal()"> <h1>{{dato.name}}</h1></button>
+
                     <p> {{dato.tipo}} </p>
                 </ion-label>
             </div>
@@ -24,6 +25,10 @@
                     <ion-item id="pagos" class="">
                         <ion-icon name="cash-outline"></ion-icon>
                         <button>Pagos</button>
+                    </ion-item>
+                    <ion-item id="mudanza" class="">
+                        <ion-icon name="briefcase-outline"></ion-icon>
+                        <button (click)="miMudanza()"> Mi mudanza</button>
                     </ion-item>
 
                     <ion-item id="usuarios" class="">

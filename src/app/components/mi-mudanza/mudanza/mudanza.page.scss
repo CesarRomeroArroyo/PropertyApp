@@ -1,14 +1,14 @@
 .container-primary {
     width: 100%;
     height: 150px;
-    background: #5a31cc;
+    background: #46289b;
     background: linear-gradient(90deg, #46289b 0%, #22134d 100%);
 }
 
 .header-content {
     position: absolute;
     top: 20px;
-    left: 18px;
+    left: 15px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -28,14 +28,6 @@
         color: white;
         font-size: 45px;
     }
-    ion-buttons {
-        ion-back-button {
-            position: absolute;
-            left: -10px;
-            color: white;
-            padding-right: 15px;
-        }
-    }
 }
 
 .container-secundary {
@@ -50,7 +42,7 @@
     h2 {
         margin-top: 20px;
         margin-left: 25px;
-        color: #5a31cc;
+        color: #22304A;
         font-weight: 100;
     }
 }
@@ -67,4 +59,21 @@
     width: 100%;
     margin-bottom: 15px;
     border-radius: 20px;
+    ion-text {
+        text-align: center;
+    }
+}
+
+.container-form-btn {
+    display: flex;
+    justify-content: center;
+    button {
+        height: 58px;
+        width: 60%;
+        color: white;
+        background-color: #5028bd;
+        border-radius: 200px;
+        font-size: 22px;
+        outline: none;
+    }
 }

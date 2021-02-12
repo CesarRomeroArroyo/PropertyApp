@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
 
     ngOnInit() {
         this.initializeFormAuth();
+       
     }
 
     initializeFormAuth() {
@@ -54,8 +55,9 @@ export class LoginPage implements OnInit {
             this.utils.showToast(messages.login.ERROREMAIL, 3000).then(toasData => toasData.present());
         }
         else {
+            
             const user = await this.frservice.login(this.frmAuth.value.user, this.frmAuth.value.password);
-
+          
             let loader = this.loadCtrl.create({
                 message: messages.information.WAIT
             });

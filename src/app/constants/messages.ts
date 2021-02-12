@@ -4,7 +4,9 @@ export const messages = {
         ERROR_EMAIL: "Correo ya registrado",
         ERROR: "Error al momento de crear el usuario",
         REQUIRED: "Por favor, llene todo los campos",
-        EXISTS_EMAIL: "auth/email-already-in-use"
+        CODE_ERROR_EMAIL:"auth/email-already-in-use",
+        MESSAGE_EMAIL_ERROR:"Correo ya registrado"
+
     },
     information:{
         WAIT:"Por favor espere"
@@ -31,6 +33,10 @@ export const messages = {
         CONF_PASS: "Las contraseñas no coinciden.",
         TEL_REQUERID:"Por favor, digite su telefono.",
         TEL_MINLEMGHT:"El telefono debe tener al menos 10 caracteres.",
+    },
+
+    modal:{
+        EMPTY_FIELDS:"Por favor seleccione una opción"
     }
 
 }

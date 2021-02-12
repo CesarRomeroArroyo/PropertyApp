@@ -111,11 +111,26 @@
                             {{errorInpus.NUMBRE}}
                         </div>
                     </div>
+
+                    <ion-list>
+                        <ion-list-header>
+                            <ion-label>
+                                Selecione el apartamento
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item>
+                            <ion-label>Apartamentos</ion-label>
+                            <ion-select formControlName="apartamento">
+                                <ion-select-option *ngFor="let item of apartamentos" [value]="item">
+                                    {{item.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
                     <div class="container-form-btn ">
                         <button class="form-btn" type="submit">Registrar</button>
                     </div>
                 </form>
-
             </ion-col>
             <ion-col size="1"></ion-col>
         </ion-row>

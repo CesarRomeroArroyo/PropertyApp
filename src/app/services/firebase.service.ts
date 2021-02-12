@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { messages } from '../constants/messages';
 import { roles } from '../constants/roles';
-import { states } from '../constants/states';
-import { UserAuthentication, Usermodel } from '../models/usuarios.model';
+import { apartamento, states } from '../constants/states';
+import { UserAuthentication } from '../models/usuarios.model';
 import { UtilsService } from './utils.service';
 
 
@@ -24,7 +24,7 @@ export class FirebaseService {
 	constructor(
 		private db: AngularFirestore,
 		private afAuth: AngularFireAuth,
-		private navCtrl : Router,
+		private navCtrl: Router,
 		private utils: UtilsService
 	) { }
 
@@ -132,10 +132,12 @@ export class FirebaseService {
 		var data = await this.db.collection('usuarios', ref => ref.where('email', '==', userAuth.user)).get().toPromise();
 
 		data.forEach(info => {
+			console.log("info" + info);
 			var d = info.data();
 			d["id"] = info.id;
 			returnData.push(d);
 		});
+
 		return returnData;
 	}
 
@@ -231,15 +233,25 @@ export class FirebaseService {
 		}
 	}
 
-	async registerUser(userAuth: Usermodel): Promise<any> {
-		try {
-			await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
-			await this.sendVerifcationEmail();
-			return true;
-		} catch (error) {
+	async registerUser(userAuth: any): Promise<any> {
 
-			return false;
-		}
+		await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password).then(cred => {
+			return this.db.collection("usuarios").doc(cred.user.uid).set({
+				CC: userAuth.CC,
+				edificio: [userAuth.edificios],
+				estado: userAuth.estado,
+				fechaCreacion: userAuth.fechaCreacion,
+				name: userAuth.name,
+				tel: userAuth.tel,
+				tipo: userAuth.tipo,
+				user: userAuth.user,
+				email: userAuth.email,
+				apartamento: [userAuth.apartamento]
+			}).then(() => {
+				return this.db.doc(`${"apartamentos"}/${userAuth.apartamento.id}`).update({ "estado": apartamento.OCUPADO });
+			});
+		});
+		await this.sendVerifcationEmail();
 	}
 
 	async sendVerifcationEmail(): Promise<void> {
@@ -257,17 +269,6 @@ export class FirebaseService {
 			console.log(error);
 		}
 	}
-	/* async deleteUser(data){
-		try {
-			const user =	await this.afAuth.currentUser.uid()
-			
-			   
-			   return user;
-			
-		} catch (error) {
-			
-		}
-	} */
 
 	async validationLogin(user: any, frmAuth: FormGroup) {
 
@@ -282,10 +283,11 @@ export class FirebaseService {
 					frmAuth.reset();
 				}
 				localStorage.setItem("IDUSER", JSON.stringify(userlogin[0]));
-
+				localStorage.setItem("MODAL", JSON.stringify(true));
 				if (userlogin.length > states.EXISTS) {
 					if (userlogin[0].estado === states.ACTIVE) {
 
+						
 						if (userlogin[0].tipo == roles.USER)
 							this.navCtrl.navigate(['/home']);
 						else
@@ -301,4 +303,40 @@ export class FirebaseService {
 			this.utils.showToast(messages.login.INVALIDCREDENTIALS, 3000).then(toasData => toasData.present());
 		}
 	}
+
+	getId(tabla: string, id: string): Observable<any> {
+		return this.db.doc(`${tabla}/${id}`).valueChanges();
+	}
+
+	obtenerCodigo(tabla, codigo, show?): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where('codigo', '==', codigo));
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+					return retorno;
+				});
+			})
+		);
+	}
+
+	obtenerEdificio(tabla, codigo, show?): Observable<any> {
+
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where('edificios', 'array-contains', codigo));
+
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+
+					return retorno;
+				});
+			})
+		);
+	}
+
+
+
 }
