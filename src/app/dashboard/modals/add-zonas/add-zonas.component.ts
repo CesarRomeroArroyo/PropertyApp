@@ -39,7 +39,7 @@ export class AddZonasComponent implements OnInit {
 
       estado: [states.DISABLED, [Validators.required]],
       edificios: [this.edificio, [Validators.required]],
-      codigoEdificio: [this.edificio[0].codigo, [Validators.required]]
+      codigoEdificio: [this.edificio[0].codigoEdificio, [Validators.required]]
     });
   }
 

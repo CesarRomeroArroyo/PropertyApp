@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { messages } from 'src/app/constants/messages';
 import { tables } from 'src/app/constants/tables';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { StateApp } from 'src/app/services/state.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -19,27 +20,29 @@ export class CodigoComponent implements OnInit {
     private frmbuilder: FormBuilder,
     private navCtrl: Router,
     private fbservice: FirebaseService,
-    private utils: UtilsService
+    private utils: UtilsService,
+    private stateServis: StateApp
   ) { }
 
   ngOnInit() {
     this.initializeFormCode();
   }
 
-  initializeFormCode():void {
+  initializeFormCode(): void {
     this.frmCodigo = this.frmbuilder.group({
-      codigo: ['', [Validators.required]]
+      codigo: ['4bb4-815f', [Validators.required]]
     });
   }
 
-  setCodigo():void {
+  setCodigo(): void {
     if (!this.frmCodigo.valid) {
       this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
     } else {
-      this.fbservice.getData(tables.EDIFICIOS, this.frmCodigo.value.codigo, "codigo").subscribe(data => {
-         if (data != "") 
-          this.navCtrl.navigate(['/dashboard/home',this.frmCodigo.value.codigo]);
-         else 
+      this.fbservice.getData(tables.EDIFICIOS, this.frmCodigo.value.codigo).subscribe(data => {
+        if (data != "") {
+          this.stateServis.setData(data);
+          this.navCtrl.navigate(['/dashboard/home']);
+        } else
           this.utils.showToast(messages.INPUST_ERROR.NODATA, 1000).then(toasData => toasData.present());
       });
     }

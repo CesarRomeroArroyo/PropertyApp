@@ -32,7 +32,7 @@ export class EdificioComponent implements OnInit {
     this.frmEdificio = this.frmbuild.group({
       name: ['', [Validators.required]],
       direction: ['', [Validators.required]],
-      codigo: [this.uniservice.codigo(), [Validators.required]]
+      codigoEdificio: [this.uniservice.codigo(), [Validators.required]]
     });
   }
 
@@ -42,6 +42,7 @@ export class EdificioComponent implements OnInit {
     } else {
       this.fbservice.guardarDatos(tables.EDIFICIOS, this.frmEdificio.value);
       this.utils.showToast(messages.PROCESOS.SUCCESSFUL, 1000).then(toasData => toasData.present());
+      this.frmEdificio.reset();
     }
   }
 

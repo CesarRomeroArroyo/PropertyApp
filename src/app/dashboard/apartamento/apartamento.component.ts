@@ -12,9 +12,8 @@ import { EditApartComponent } from '../modals/edit-apart/edit-apart.component';
 })
 export class ApartamentoComponent implements OnInit {
 
-    apart: any;
+    apartamento: any;
     @Input() edificio = [];
-    @Input() codigo: any;
 
     constructor(
         private modalController: ModalController,
@@ -27,9 +26,9 @@ export class ApartamentoComponent implements OnInit {
     }
 
     loadApart(): void {
-        this.fbservice.getData(tables.APARTAMENTS, this.codigo, "codigoEdificio").subscribe(data => {
-            this.apart = data;
-        });
+         this.fbservice.getData(tables.APARTAMENTS, this.edificio[0].codigoEdificio).subscribe(data => {
+            this.apartamento = data;
+        }); 
     }
 
     async addApartModal():Promise<any> {

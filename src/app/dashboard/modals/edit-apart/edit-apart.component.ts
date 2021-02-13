@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { messages } from 'src/app/constants/messages';
+import { tables } from 'src/app/constants/tables';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -42,7 +43,7 @@ export class EditApartComponent implements OnInit {
         if (!this.frmApartamento.valid)
             this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
         else {
-            this.fbservice.actualizarDatos("apartamentos", this.frmApartamento.value, this.data.id);
+            this.fbservice.actualizarDatos(tables.APARTAMENTS, this.frmApartamento.value, this.data.id);
             this.modalController.dismiss();
         }
 

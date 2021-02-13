@@ -12,9 +12,9 @@ import { EditZonasComponent } from '../modals/edit-zonas/edit-zonas.component';
 })
 export class ZonasComunesComponent implements OnInit {
 
-    zona: any;
+    zonasComunes: any;
     @Input() edificio: any;
-    @Input() codigo;
+    
     constructor(
         private modalController: ModalController,
         private fbservice: FirebaseService,
@@ -26,8 +26,8 @@ export class ZonasComunesComponent implements OnInit {
     }
 
     loadZona() {
-        this.fbservice.getData(tables.ZONASCOMUNES, this.codigo, "codigoEdificio").subscribe(data => {
-            this.zona = data;
+        this.fbservice.getData(tables.ZONASCOMUNES, this.edificio[0].codigoEdificio).subscribe(data => {
+            this.zonasComunes = data;
         });
     }
 

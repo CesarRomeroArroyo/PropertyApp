@@ -36,7 +36,7 @@ export class AddApartComponent implements OnInit {
     this.frmApartamento = this.frmbuild.group({
       name: ['', [Validators.required]],
       edificios: [this.edificio, [Validators.required]],
-      codigoEdificio: [this.edificio[0].codigo, [Validators.required]]
+      codigoEdificio: [this.edificio[0].codigoEdificio, [Validators.required]]
     });
   }
 

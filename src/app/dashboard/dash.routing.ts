@@ -10,7 +10,7 @@ import { ZonasComunesComponent } from "./zonas-comunes/zonas-comunes.component";
 export const dashRouting:Routes =[
     {path: 'apartamento',component:ApartamentoComponent, data:{title:"apartamento"}},
     {path: '',component:EdificioComponent, data:{title:"edificio"}},
-    {path: 'home/:id',component:HomeComponent, data:{title:"home"}},
+    {path: 'home',component:HomeComponent, data:{title:"home"}},
     {path: 'zonasComunes',component:ZonasComunesComponent, data:{title:"zonas comunes"}},
     {path: 'codigo',component:CodigoComponent, data:{title:"codigo"}},
     {path: 'asignar', component:AsignarComponent, data:{title:"asignar"}}

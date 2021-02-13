@@ -304,7 +304,7 @@ export class FirebaseService {
 				tipo: userAuth.tipo,
 				tipoInquilino: userAuth.tipoInquilino,
 				email: userAuth.email,
-				apartamento: [userAuth.apartamento]
+				apartamentos: [userAuth.apartamento]
 			}).then(() => {
 				return this.db.doc(`${"apartamentos"}/${userAuth.apartamento.id}`).update({ "estado": apartamento.OCUPADO });
 			});
@@ -337,8 +337,8 @@ export class FirebaseService {
 		});
 	}
 
-	getData(tabla, idEdificio, valor): Observable<any> {
-		this.itemsCollection = this.db.collection(tabla, ref => ref.where(valor, '==', idEdificio));
+	getData(tabla:string, codigoEdificio:string ): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where("codigoEdificio", '==', codigoEdificio));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
 				return data.map(d => {

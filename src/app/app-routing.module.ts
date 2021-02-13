@@ -44,12 +44,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/editar-usuario/editar-usuario.module').then(m => m.EditarUsuarioPageModule)
   },
   {
-    path:'dashboard', 
+    path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }
 ];
-
-
 
 @NgModule({
   imports: [
