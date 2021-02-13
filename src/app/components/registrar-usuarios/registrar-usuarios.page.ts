@@ -7,11 +7,11 @@ import { inputs } from 'src/app/constants/inputs';
 import { messages } from 'src/app/constants/messages';
 import { roles } from 'src/app/constants/roles';
 import { tables } from 'src/app/constants/tables';
-import { StateApp } from 'src/app/services/state.service';
 import { apartamento, states } from '../../constants/states';
 import { validateEqual } from '../../constants/validadorEqual';
 import { FirebaseService } from '../../services/firebase.service';
 import { UtilsService } from '../../services/utils.service';
+
 @Component({
 	selector: 'app-registrar-usuarios',
 	templateUrl: './registrar-usuarios.page.html',
@@ -33,7 +33,6 @@ export class RegistrarUsuariosPage implements OnInit {
 		private navCtrl: Router,
 		private loadCtrl: LoadingController,
 		private frmbuilder: FormBuilder,
-		private stateServis: StateApp,
 		private router: ActivatedRoute,
 	) { }
 
@@ -59,7 +58,7 @@ export class RegistrarUsuariosPage implements OnInit {
 		});
 	}
 
-	initializeFormRegister() {
+	initializeFormRegister():void {
 		this.frmRegister = this.frmbuilder.group({
 			email: ['', [Validators.required, Validators.pattern(inputs.EMAIL)]],
 			password: ['', [Validators.required, Validators.minLength(8)]],
@@ -70,7 +69,7 @@ export class RegistrarUsuariosPage implements OnInit {
 			passConfirmation: ['', [Validators.required]],
 			apartamento: ['', [Validators.required]],
 
-			tipo: [roles.RESIDENTE, [Validators.required]],
+			tipo: [roles.USER, [Validators.required]],
 			estado: [states.ACTIVE, [Validators.required]],
 			fechaCreacion: [this.utils.fechaActual(), [Validators.required]],
 			codigoEdificios: [this.codigoEdificio, [Validators.required]]
