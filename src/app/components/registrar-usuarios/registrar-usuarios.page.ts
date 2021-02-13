@@ -58,7 +58,7 @@ export class RegistrarUsuariosPage implements OnInit {
 		});
 	}
 
-	initializeFormRegister():void {
+	initializeFormRegister(): void {
 		this.frmRegister = this.frmbuilder.group({
 			email: ['', [Validators.required, Validators.pattern(inputs.EMAIL)]],
 			password: ['', [Validators.required, Validators.minLength(8)]],

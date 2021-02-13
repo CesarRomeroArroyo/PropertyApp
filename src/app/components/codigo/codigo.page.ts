@@ -21,7 +21,7 @@ export class CodigoPage implements OnInit {
         private navCtrl: Router,
         private fb: FirebaseService,
         private utils: UtilsService,
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.initializeFormCodigo();
@@ -33,16 +33,15 @@ export class CodigoPage implements OnInit {
         });
     }
 
-    setCodigo():void {
+    setCodigo(): void {
         if (!this.frmCodigo.valid) {
             this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
         } else {
             this.fb.getData(tables.EDIFICIOS, this.frmCodigo.value.codigo).subscribe(edificio => {
-                if (edificio.length > 0) {
+                if (edificio.length > 0) 
                     this.navCtrl.navigate(['/registrar-usuarios', this.frmCodigo.value.codigo])
-                } else {
-                    this.utils.showToast(messages.INPUST_ERROR.NODATA, 1000).then(toasData => toasData.present());
-                }
+                 else 
+                    this.utils.showToast(messages.INPUST_ERROR.NODATA, 1000).then(toasData => toasData.present()); 
             });
         }
     }

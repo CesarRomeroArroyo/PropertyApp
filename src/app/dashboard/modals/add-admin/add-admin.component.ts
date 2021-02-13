@@ -68,7 +68,7 @@ export class AddAdminComponent implements OnInit {
     get password() {
         return this.frmRegister.get('password');
     }
-   
+
     validateEqual(): boolean {
         return this.frmRegister.hasError('noSonIguales') &&
             this.frmRegister.get('password').dirty &&

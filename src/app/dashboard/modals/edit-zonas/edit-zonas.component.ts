@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { messages } from 'src/app/constants/messages';
+import { tables } from 'src/app/constants/tables';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -38,16 +39,13 @@ export class EditZonasComponent implements OnInit {
         });
     }
 
-    async editZona() {
-        if (!this.frmZona.valid) {
+    editZona(): void {
+        if (!this.frmZona.valid)
             this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
-        } else {
-
-            await this.fbservice.actualizarDatos("zonasComunes", this.frmZona.value, this.data.id);
+        else {
+            this.fbservice.actualizarDatos(tables.ZONASCOMUNES, this.frmZona.value, this.data.id);
             this.modalController.dismiss();
         }
-
     }
-
 }
 

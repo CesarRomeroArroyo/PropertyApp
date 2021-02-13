@@ -10,6 +10,7 @@ import { EditApartComponent } from '../modals/edit-apart/edit-apart.component';
     templateUrl: './apartamento.component.html',
     styleUrls: ['./apartamento.component.scss'],
 })
+
 export class ApartamentoComponent implements OnInit {
 
     apartamento: any;
@@ -26,12 +27,12 @@ export class ApartamentoComponent implements OnInit {
     }
 
     loadApart(): void {
-         this.fbservice.getData(tables.APARTAMENTS, this.edificio[0].codigoEdificio).subscribe(data => {
+        this.fbservice.getData(tables.APARTAMENTS, this.edificio[0].codigoEdificio).subscribe(data => {
             this.apartamento = data;
-        }); 
+        });
     }
 
-    async addApartModal():Promise<any> {
+    async addApartModal(): Promise<any> {
         const modal = await this.modalController.create({
             component: AddApartComponent,
             cssClass: 'modalCss',
@@ -42,7 +43,7 @@ export class ApartamentoComponent implements OnInit {
         await modal.present()
     }
 
-    async updateApartModal(data: any):Promise<any> {
+    async updateApartModal(data: any): Promise<any> {
         const modal = await this.modalController.create({
             component: EditApartComponent,
             componentProps: {
@@ -52,7 +53,7 @@ export class ApartamentoComponent implements OnInit {
         await modal.present()
     }
 
-    async deleteApart(data: any):Promise<any> {
+    async deleteApart(data: any): Promise<any> {
         const alert = await this.alertCtrl.create({
             header: '¿esta seguro?',
             buttons: [
@@ -60,7 +61,8 @@ export class ApartamentoComponent implements OnInit {
                     text: 'no',
                     role: 'cancel',
                     handler: () => {
-                        console.log('Confirm Cancel: blah');}
+                        console.log('Confirm Cancel: blah');
+                    }
                 }, {
                     text: 'Si',
                     handler: () => {

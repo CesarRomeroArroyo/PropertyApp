@@ -6,14 +6,12 @@ import { tables } from 'src/app/constants/tables';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
-
 @Component({
     selector: 'app-edit-apart',
     templateUrl: './edit-apart.component.html',
     styleUrls: ['./edit-apart.component.scss'],
 })
 export class EditApartComponent implements OnInit {
-
 
     @Input() data: any;
     frmApartamento: FormGroup;
@@ -46,6 +44,5 @@ export class EditApartComponent implements OnInit {
             this.fbservice.actualizarDatos(tables.APARTAMENTS, this.frmApartamento.value, this.data.id);
             this.modalController.dismiss();
         }
-
     }
 }

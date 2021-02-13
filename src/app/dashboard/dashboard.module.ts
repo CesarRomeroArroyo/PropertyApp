@@ -13,23 +13,23 @@ import { ModalsModule } from './modals/modals.module';
 import { ZonasComunesComponent } from './zonas-comunes/zonas-comunes.component';
 
 @NgModule({
-  declarations: [
-    ApartamentoComponent,
-    EdificioComponent,
-    HomeComponent,
-    ZonasComunesComponent,
-    CodigoComponent,
-    AsignarComponent,    
-  ],
-  imports: [
-    IonicModule,
-    FormsModule,
-    CommonModule,
-    RouterModule.forChild(dashRouting),
-    ReactiveFormsModule,
-    ModalsModule
-  ],
- 
+	declarations: [
+		ApartamentoComponent,
+		EdificioComponent,
+		HomeComponent,
+		ZonasComunesComponent,
+		CodigoComponent,
+		AsignarComponent,
+	],
+	imports: [
+		IonicModule,
+		FormsModule,
+		CommonModule,
+		RouterModule.forChild(dashRouting),
+		ReactiveFormsModule,
+		ModalsModule
+	],
+
 
 })
 export class DashboardModule { }

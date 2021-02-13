@@ -1,36 +1,35 @@
 <ion-content>
-  <ion-content>
-    <ion-grid class="grid1">
-      <ion-row class="row1">
-        <ion-col>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-slide>
-      <div class="contaier-login">
-        <ion-grid>
-          <ion-row>
-            <ion-button (click)="closeModal()">
-              <ion-icon name="close-outline"></ion-icon>
-            </ion-button>
-            <ion-col>
-              <h1>Nombre del apartamento</h1>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <form [formGroup]="frmApartamento">
-                <div class="frm-input">
-                  <input type="text" formControlName="name"
-                    placeholder="Departamento">
-                </div>
-                <div class="container-form-btn">
-                  <button (click)="editApart()" class="form-btn custom-font">Actualizar</button>
-                </div>
-              </form>
-            </ion-col>
-          </ion-row>
+    <ion-content>
+        <ion-grid class="grid1">
+            <ion-row class="row1">
+                <ion-col>
+                </ion-col>
+            </ion-row>
         </ion-grid>
-      </div>
-    </ion-slide>
-  </ion-content>
+        <ion-slide>
+            <div class="contaier-login">
+                <ion-grid>
+                    <ion-row>
+                        <ion-button (click)="closeModal()">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </ion-button>
+                        <ion-col>
+                            <h1>Nombre del apartamento</h1>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <form [formGroup]="frmApartamento">
+                                <div class="frm-input">
+                                    <input type="text" formControlName="name" placeholder="Departamento">
+                                </div>
+                                <div class="container-form-btn">
+                                    <button (click)="editApart()" class="form-btn custom-font">Actualizar</button>
+                                </div>
+                            </form>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ion-slide>
+    </ion-content>

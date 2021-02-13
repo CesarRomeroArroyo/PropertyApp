@@ -8,73 +8,73 @@ import { AddAdminComponent } from '../modals/add-admin/add-admin.component';
 import { ListEdifComponent } from '../modals/list-edif/list-edif.component';
 
 @Component({
-  selector: 'app-asignar',
-  templateUrl: './asignar.component.html',
-  styleUrls: ['./asignar.component.scss'],
+    selector: 'app-asignar',
+    templateUrl: './asignar.component.html',
+    styleUrls: ['./asignar.component.scss'],
 })
 
 export class AsignarComponent implements OnInit {
 
-  admin = [];
+    admin = [];
 
-  constructor(
-    private fbservice: FirebaseService,
-    private modalController: ModalController,
-    private alertCtrl: AlertController,
-    private navCtrl : Router
-  ) { }
+    constructor(
+        private fbservice: FirebaseService,
+        private modalController: ModalController,
+        private alertCtrl: AlertController,
+        private navCtrl: Router
+    ) { }
 
-  ngOnInit() {
-   this.loadUserAdmin();
-  }
+    ngOnInit() {
+        this.loadUserAdmin();
+    }
 
-  loadUserAdmin():void {
-    this.fbservice.obtener(tables.USERS).subscribe(data => {
-      data.forEach(element => (element.tipo === roles.ADMIN) ? this.admin.push(element):null);
-    });
-  }
+    loadUserAdmin(): void {
+        this.fbservice.obtener(tables.USERS).subscribe(data => {
+            data.forEach(element => (element.tipo === roles.ADMIN) ? this.admin.push(element) : null);
+        });
+    }
 
-  async assignModal(idAdmin:any):Promise<any> {
-    const modal = await this.modalController.create({
-      component: ListEdifComponent,
-      cssClass: 'modalCss',
-      componentProps: {
-        idAdmin: idAdmin
-      }
-    });
-    await modal.present()
-  }
+    async assignModal(idAdmin: any): Promise<any> {
+        const modal = await this.modalController.create({
+            component: ListEdifComponent,
+            cssClass: 'modalCss',
+            componentProps: {
+                idAdmin: idAdmin
+            }
+        });
+        await modal.present()
+    }
 
-  async removeBuilding(Edificio:any, idAdmin:any):Promise<any> {
-    const alert = await this.alertCtrl.create({
-      header: '¿esta seguro?',
-      buttons: [
-        {
-          text: 'no',
-          role: 'cancel',
-          handler: () => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: 'Si',
-          handler: () => {
-            this.fbservice.removeBuilding(Edificio, idAdmin);
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
+    async removeBuilding(Edificio: any, idAdmin: any): Promise<any> {
+        const alert = await this.alertCtrl.create({
+            header: '¿esta seguro?',
+            buttons: [
+                {
+                    text: 'no',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Confirm Cancel: blah');
+                    }
+                }, {
+                    text: 'Si',
+                    handler: () => {
+                        this.fbservice.removeBuilding(Edificio, idAdmin);
+                    }
+                }
+            ]
+        });
+        await alert.present();
+    }
 
- async registerAdminModal():Promise<any>{
-    const modal = await this.modalController.create({
-      component: AddAdminComponent,
-      cssClass: 'modalCss',
-    });
-    await modal.present()
-  }
+    async registerAdminModal(): Promise<any> {
+        const modal = await this.modalController.create({
+            component: AddAdminComponent,
+            cssClass: 'modalCss',
+        });
+        await modal.present()
+    }
 
-  Finalize():void{
-    this.navCtrl.navigate(['/dashboard']);
-  }
+    Finalize(): void {
+        this.navCtrl.navigate(['/dashboard']);
+    }
 }
