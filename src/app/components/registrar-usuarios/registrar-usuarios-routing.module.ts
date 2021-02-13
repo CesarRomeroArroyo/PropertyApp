@@ -5,7 +5,7 @@ import { RegistrarUsuariosPage } from './registrar-usuarios.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: RegistrarUsuariosPage
   }
 ];

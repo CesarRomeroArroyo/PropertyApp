@@ -1,0 +1,109 @@
+.container-primary {
+    width: 100%;
+    height: 150px;
+    background: #5a31cc;
+    background: linear-gradient(90deg, #46289b 0%, #22134d 100%);
+}
+
+.header-content {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    ion-toolbar {
+        --background: none;
+    }
+    ion-label {
+        font-size: 25px;
+        color: white;
+        font-weight: 300;
+    }
+    ion-menu-button {
+        position: absolute;
+        right: 30px;
+        color: white;
+        font-size: 45px;
+    }
+}
+
+.container-secundary {
+    position: absolute;
+    top: 93px;
+    height: auto;
+    width: 100%;
+    border-top-left-radius: 55px;
+    border-top-right-radius: 55px;
+    background-color: white;
+    h1,
+    h2 {
+        margin-top: 20px;
+        margin-left: 25px;
+        color: #5a31cc;
+        font-weight: 100;
+    }
+}
+
+.container-group {
+    height: auto;
+    margin: 25px 14px;
+    box-shadow: 3px 3px 15px rgb(163, 162, 162);
+    border-radius: 20px;
+}
+
+.container-group2 {
+    height: auto;
+    margin: 10px 14px;
+    box-shadow: 3px 3px 15px rgb(163, 162, 162);
+    border-radius: 20px;
+    color: white;
+    background: #5a31cc;
+    h2,
+    h6 {
+        color: white;
+        margin-left: 15px;
+    }
+}
+
+.container-item>div {
+    position: relative;
+    height: 85px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    .elemet-container {
+        display: flex;
+        width: 55%;
+        overflow: scroll;
+    }
+    h2,
+    h6 {
+        margin-left: 10px;
+    }
+    img {
+        height: 55px;
+        width: 55px;
+        border-radius: 50%;
+        margin-left: 20px;
+        margin-top: 15px;
+    }
+    ion-fab {
+        position: absolute;
+        top: 25px;
+        right: 35px;
+        button {
+            background: none;
+            outline: none;
+        }
+        ion-icon {
+            font-size: 25px;
+            color: black;
+        }
+        ion-fab-list {
+            position: absolute;
+            top: -80px;
+            right: -35px;
+        }
+    }
+}

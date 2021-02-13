@@ -1,0 +1,114 @@
+<ion-content>
+
+    <div class="container-primary"></div>
+
+    <div class="header-content">
+        <ion-label>
+            <h1>Usuarios</h1>
+        </ion-label>
+
+        <ion-toolbar>
+            <ion-buttons>
+                <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </div>
+
+    <div class="container-secundary">
+
+        <div>
+            <ion-label>
+                <h2> Administradores </h2>
+            </ion-label>
+        </div>
+
+        <div class="container-group">
+            <div class="container-item" *ngFor="let item of dato">
+                <div *ngIf="item.tipo == 'admin'  && item.estado != 0 ">
+
+                    <img src="assets/img/foto.jpg" alt="">
+                    <div class="elemet-container">
+                        <ion-label>
+                            <h2> {{item.name}} </h2>
+                            <h6>{{item.email}} </h6>
+                        </ion-label>
+                    </div>
+
+                    <ion-fab>
+                        <button> <ion-icon name="ellipsis-vertical-outline">  </ion-icon>  </button>
+
+                        <ion-fab-list>
+                            <button (click)="editUser(item.id)"><ion-icon name="brush-outline"></ion-icon></button>
+                            <button (click)="changeStatus( item, item.id)"><ion-icon name="close-outline"></ion-icon></button>
+
+                        </ion-fab-list>
+
+                    </ion-fab>
+                </div>
+
+            </div>
+        </div>
+
+        <ion-label>
+            <h2> Residentes </h2>
+        </ion-label>
+        <div class="container-group2">
+
+            <div class="container-item" *ngFor="let item of dato">
+                <div *ngIf="item.tipo == 'residente' && item.estado != 0 ">
+
+
+                    <img src="assets/img/foto.jpg" alt="">
+                    <div class="elemet-container">
+                        <ion-label>
+
+                            <h2> {{item.name}} </h2>
+                            <h6>{{item.email}} </h6>
+
+                        </ion-label>
+                    </div>
+                    <ion-fab>
+                        <button> <ion-icon name="ellipsis-vertical-outline">  </ion-icon>  </button>
+
+                        <ion-fab-list>
+                            <button (click)="editUser(item.id)"><ion-icon name="brush-outline"></ion-icon></button>
+                            <button (click)="changeStatus( item, item.id)"><ion-icon name="close-outline"></ion-icon></button>
+                        </ion-fab-list>
+                    </ion-fab>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <ion-label>
+                <h2> Eliminados</h2>
+            </ion-label>
+        </div>
+
+        <div class="contaner-group">
+            <div class="container-item" *ngFor="let item of dato">
+                <div *ngIf="item.estado === 0">
+                    <img src="assets/img/foto.jpg" alt="">
+                    <div class="elemet-container">
+                        <ion-label>
+                            <h2> {{item.name}} </h2>
+                            <h6>{{item.email}} </h6>
+
+                        </ion-label>
+                    </div>
+                    <ion-fab>
+                        <button> <ion-icon name="ellipsis-vertical-outline">  </ion-icon>  </button>
+
+                        <ion-fab-list>
+                            <button (click)="changeStatus( item, item.id)"><ion-icon name="reload-outline"></ion-icon></button>
+                            <button (click)="deleteUser(item.id,item.email,item.password)"><ion-icon name="close-outline"></ion-icon></button>
+                        </ion-fab-list>
+                    </ion-fab>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</ion-content>
