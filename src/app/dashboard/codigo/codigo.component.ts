@@ -4,30 +4,31 @@ import { Router } from '@angular/router';
 import { messages } from 'src/app/constants/messages';
 import { tables } from 'src/app/constants/tables';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { StateApp } from 'src/app/services/state.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
     selector: 'app-codigo',
-    templateUrl: './codigo.page.html',
-    styleUrls: ['./codigo.page.scss'],
+    templateUrl: './codigo.component.html',
+    styleUrls: ['./codigo.component.scss'],
 })
-
-export class CodigoPage implements OnInit {
+export class CodigoComponent implements OnInit {
 
     frmCodigo: FormGroup;
 
     constructor(
         private frmbuilder: FormBuilder,
         private navCtrl: Router,
-        private fb: FirebaseService,
+        private fbservice: FirebaseService,
         private utils: UtilsService,
+        private stateServis: StateApp
     ) { }
 
     ngOnInit() {
-        this.initializeFormCodigo();
+        this.initializeFormCode();
     }
 
-    initializeFormCodigo(): void {
+    initializeFormCode(): void {
         this.frmCodigo = this.frmbuilder.group({
             codigo: ['', [Validators.required]]
         });
@@ -37,14 +38,13 @@ export class CodigoPage implements OnInit {
         if (!this.frmCodigo.valid) {
             this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
         } else {
-            this.fb.getData(tables.EDIFICIOS, this.frmCodigo.value.codigo).subscribe(edificio => {
-                if (edificio.length > 0) 
-                    this.navCtrl.navigate(['/registrar-usuarios', this.frmCodigo.value.codigo])
-                 else 
-                    this.utils.showToast(messages.INPUST_ERROR.NODATA, 1000).then(toasData => toasData.present()); 
+            this.fbservice.getData(tables.EDIFICIOS, this.frmCodigo.value.codigo).subscribe(data => {
+                if (data != "") {
+                    this.stateServis.setData(data);
+                    this.navCtrl.navigate(['/dashboard/home']);
+                } else
+                    this.utils.showToast(messages.INPUST_ERROR.NODATA, 1000).then(toasData => toasData.present());
             });
         }
     }
-
 }
-

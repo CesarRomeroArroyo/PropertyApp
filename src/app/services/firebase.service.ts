@@ -10,7 +10,8 @@ import { roles } from '../constants/roles';
 import { states } from '../constants/states';
 import { UserAuthentication, Usermodel } from '../models/usuarios.model';
 import { UtilsService } from './utils.service';
-
+import * as firebase from 'firebase/app';
+import { apartamento } from '../constants/states';
 
 @Injectable({
 	providedIn: 'root'
@@ -24,7 +25,7 @@ export class FirebaseService {
 	constructor(
 		private db: AngularFirestore,
 		private afAuth: AngularFireAuth,
-		private navCtrl : Router,
+		private navCtrl: Router,
 		private utils: UtilsService
 	) { }
 
@@ -231,17 +232,6 @@ export class FirebaseService {
 		}
 	}
 
-	async registerUser(userAuth: Usermodel): Promise<any> {
-		try {
-			await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password);
-			await this.sendVerifcationEmail();
-			return true;
-		} catch (error) {
-
-			return false;
-		}
-	}
-
 	async sendVerifcationEmail(): Promise<void> {
 		try {
 			return (await this.afAuth.currentUser).sendEmailVerification();
@@ -300,5 +290,78 @@ export class FirebaseService {
 		} else {
 			this.utils.showToast(messages.login.INVALIDCREDENTIALS, 3000).then(toasData => toasData.present());
 		}
+	}
+
+	async registerUser(userAuth: any): Promise<any> {
+		await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password).then(cred => {
+			return this.db.collection("usuarios").doc(cred.user.uid).set({
+				CC: userAuth.CC,
+				codigoEdificios: userAuth.codigoEdificios,
+				estado: userAuth.estado,
+				fechaCreacion: userAuth.fechaCreacion,
+				name: userAuth.name,
+				tel: userAuth.tel,
+				tipo: userAuth.tipo,
+				tipoInquilino: userAuth.tipoInquilino,
+				email: userAuth.email,
+				apartamentos: [userAuth.apartamento]
+			}).then(() => {
+				return this.db.doc(`${"apartamentos"}/${userAuth.apartamento.id}`).update({ "estado": apartamento.OCUPADO });
+			});
+		});
+		await this.sendVerifcationEmail();
+	}
+
+	getCompative(tabla: string, IdEdificio: any, valor: string): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where(valor, 'array-contains', IdEdificio));
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+					return retorno;
+				});
+			})
+		);
+	}
+
+	assignBuilding(edificio: any, id: any): void {
+		this.db.collection('usuarios').doc(id).update({
+			edificios: firebase.firestore.FieldValue.arrayUnion(edificio)
+		});
+	}
+
+	removeBuilding(edificio: any, id: any): void {
+		this.db.collection('usuarios').doc(id).update({
+			edificios: firebase.firestore.FieldValue.arrayRemove(edificio)
+		});
+	}
+
+	getData(tabla:string, codigoEdificio:string ): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where("codigoEdificio", '==', codigoEdificio));
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+					return retorno;
+				});
+			})
+		);
+	}
+
+	getId(tabla: string, id: string): Observable<any> {
+		return this.db.doc(`${tabla}/${id}`).valueChanges();
+	}
+
+	async registrerAdmin(userAdmin: any): Promise<any> {
+		await this.afAuth.createUserWithEmailAndPassword(userAdmin.email, userAdmin.password).then(cred => {
+			return this.db.collection("usuarios").doc(cred.user.uid).set({
+				name: userAdmin.name,
+				email: userAdmin.email,
+				tipo: userAdmin.tipo
+			}
+			)
+		});
 	}
 }

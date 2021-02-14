@@ -59,22 +59,7 @@
                             {{errorInpus.CC_MINLENGHT}}
                         </div>
                     </div>
-
-
-                    <div class="frm_input">
-                        <input type="text" formControlName="user" placeholder="Usuario">
-                        <ion-icon name="person-circle-outline"></ion-icon>
-                    </div>
-                    <div *ngIf="user.invalid && user.dirty" class="validation-errors">
-                        <div *ngIf="user.errors.required">
-                            {{errorInpus.USER_REQUERID}}
-                        </div>
-                        <div *ngIf="user.errors.minlength">
-                            {{errorInpus.USER_MINLENGHT}}
-                        </div>
-                    </div>
-
-
+                    
                     <div class="frm_input">
                         <input type="password" formControlName="password" placeholder="Contraseña">
                         <ion-icon name="key-outline"></ion-icon>
@@ -111,6 +96,33 @@
                             {{errorInpus.NUMBRE}}
                         </div>
                     </div>
+
+                    <ion-list>
+                        <ion-list-header>
+                            <ion-label>
+                                Selecione el apartamento
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item>
+                            <ion-label>Apartamentos</ion-label>
+                            <ion-select formControlName="apartamento">
+                                <ion-select-option *ngFor="let item of apartamentos" [value]="item">
+                                    {{item.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>Tipo de inquilino</ion-label>
+                            <ion-select formControlName="tipoInquilino">
+                                <ion-select-option value="Propietario">Propietario</ion-select-option>
+                                <ion-select-option value="Arendatario">Arendatario</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+
                     <div class="container-form-btn ">
                         <button class="form-btn" type="submit">Registrar</button>
                     </div>

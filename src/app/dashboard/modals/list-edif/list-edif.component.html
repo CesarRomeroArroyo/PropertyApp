@@ -1,0 +1,47 @@
+<ion-content>
+	<ion-content>
+		<ion-grid class="grid1">
+			<ion-row class="row1">
+				<ion-col>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<ion-slide>
+			<div class="contaier-login">
+				<ion-grid>
+					<ion-row>
+						<ion-button (click)="closeModal()">
+							<ion-icon name="close-outline"></ion-icon>
+						</ion-button>
+						<ion-col>
+							<h1>Lista de edificios</h1>
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col>
+							<form [formGroup]="frmEdificios">
+								<ion-list>
+									<ion-list-header>
+										<ion-label>
+											Selecione el edificio
+										</ion-label>
+									</ion-list-header>
+									<ion-item>
+										<ion-label>Edificios</ion-label>
+										<ion-select formControlName="edificios">
+											<ion-select-option *ngFor="let item of edificios" [value]="item">
+												{{item.name}}
+											</ion-select-option>
+										</ion-select>
+									</ion-item>
+								</ion-list>
+								<div class="container-form-btn">
+									<button (click)="asignarEdif()" class="form-btn custom-font">Agregar</button>
+								</div>
+							</form>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</div>
+		</ion-slide>
+	</ion-content>

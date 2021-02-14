@@ -1,0 +1,23 @@
+<ion-content [fullscreen]="true">
+    <div class="contenedor">
+        <img src="assets/img/foto.jpg" alt="">
+    </div>
+    <ion-row>
+        <ion-col class="ion-text-center">
+            <div *ngFor="let item of edificio">
+                <h1>Edificio {{item.name}} </h1>
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <app-apartamento [edificio]="edificio"></app-apartamento>
+                <app-zonas-comunes [edificio]="edificio"></app-zonas-comunes>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div class="container-form-btn ">
+        <button class="form-btn" (click)="finalize()">finalizar</button>
+    </div>
+</ion-content>
