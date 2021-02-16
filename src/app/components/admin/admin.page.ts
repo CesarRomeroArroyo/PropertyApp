@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+
 import { UtilsService } from '../../services/utils.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.page.html',
@@ -11,24 +13,25 @@ export class AdminPage implements OnInit {
 
   constructor(private navCtrl: Router,
     private util: UtilsService,
-    private menu: MenuController) { }
+    private menu: MenuController,
+    ) { }
 
   ngOnInit() {
-
   }
 
   ionViewWillEnter() {
     this.util.sessionActive();
   }
 
-  logout() {
+  logout():void {
     this.menu.close("main-menu");
     localStorage.removeItem("IDUSER");
     this.navCtrl.navigate(['/login']);
   }
 
-  openMenu() {
+  openMenu():void {
     this.menu.enable(true, 'main-menu');
     this.menu.open("main-menu");
   }
+
 }

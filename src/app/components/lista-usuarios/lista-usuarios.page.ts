@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { states } from '../../constants/states';
-import { FirebaseService } from '../../services/firebase.service';
 import { Router } from '@angular/router';
 
+import { roles } from 'src/app/constants/roles';
+import { storage } from 'src/app/constants/storage';
+import { tables } from '../../constants/tables';
+import { FirebaseService } from '../../services/firebase.service';
+import { StateApp } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -11,41 +14,33 @@ import { Router } from '@angular/router';
 })
 export class ListaUsuariosPage implements OnInit {
 
+  dato: any = [];
+  user: any;
 
-  dato: any;
-  constructor(private fb: FirebaseService,
-    private navCtrl: Router) { }
+  constructor(
+    private fb: FirebaseService,
+    private navCtrl: Router,
+    private observable: StateApp
+  ) { }
 
   ngOnInit() {
     this.listUsers();
   }
 
-  listUsers() {
-    this.fb.obtener("usuarios").subscribe(data => {
-      this.dato = data;
+  listUsers(): void {
+    const edificio = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
+    this.user = JSON.parse(localStorage.getItem(storage.RESIDENTI_USER));
+
+    this.fb.obtenerEdificio(tables.USERS, edificio).subscribe(data => {
+      data.forEach(element => (element.tipo != roles.ADMIN && this.dato == "") ? this.dato.push(element) : null);
     });
+
   }
 
-  changeStatus(item: any, id: string) {
-    if (item.estado === states.DISABLED) {
-      item.estado = states.ACTIVE;
-    } else {
-      item.estado = states.DISABLED;
-    }
-    this.fb.actualizarDatos("usuarios", item, id);
+  editUser(item): void {
+
+    this.observable.setData([item]);
+    this.navCtrl.navigate(['/editar-usuario']);
   }
 
-
-   async deleteUser(id: string, email: string,pass:string ) {
-       const user=  await this.fb.login(email,pass) 
-       user.delete();
-      await  this.fb.eliminarDatos("usuarios",id);
-  } 
-
-
-  editUser(id:string){
-    this.navCtrl.navigate(['/editar-usuario',id])
-  }
-
-  
 }

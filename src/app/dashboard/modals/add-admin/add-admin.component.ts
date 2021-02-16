@@ -30,6 +30,18 @@ export class AddAdminComponent implements OnInit {
     this.initializeFormRegister();
   }
 
+<<<<<<< HEAD
+    registerAdmin(): void {
+        if (!this.frmRegister.valid) {
+            this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
+        } else {
+            this.fbservices.registrerAdmin(this.frmRegister.value).catch(error => {
+                if (error.code === messages.REGISTER.CODE_ERROR_EMAIL)
+                    this.utils.showToast(messages.REGISTER.ERROR_EMAIL, 1000).then(toasData => toasData.present());
+            });;
+            this.closeModal()
+        }
+=======
   registerAdmin(): void {
     if (!this.frmRegister.valid) {
       this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
@@ -39,6 +51,7 @@ export class AddAdminComponent implements OnInit {
           this.utils.showToast(messages.REGISTER.ERROR_EMAIL, 1000).then(toasData => toasData.present());
       });;
       this.closeModal()
+>>>>>>> 6cdb06d3d23306a5becaa10bb2c33b3b47f66196
     }
   }
 

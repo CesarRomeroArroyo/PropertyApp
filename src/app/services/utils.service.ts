@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { roles } from '../constants/roles';
 import { states } from '../constants/states';
+import { ModalPage } from '../shared/modal/modal.page';
+
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +16,9 @@ export class UtilsService {
         private toasCtrl: ToastController,
         private alerCtrl: AlertController,
         private navCtrl: Router,
-      
+        private modalCtrl: ModalController
+
+
     ) { }
 
     difereciaEntreDosPuntos(lon1, lat1, lon2, lat2) {
@@ -71,39 +75,40 @@ export class UtilsService {
 
         if (user && user != null) {
             if (user.estado === states.ACTIVE)
-                if (user.tipo === roles.ADMIN)
-                    this.navCtrl.navigate(['/admin']);
-                else
-                    this.navCtrl.navigate(['/home']);
+                if (user.tipo === roles.ADMIN) this.navCtrl.navigate(['/admin']);
+                else this.navCtrl.navigate(['/home']);
             else
                 this.navCtrl.navigate(['/cuenta-desabilitada']);
-
         } else {
-            if (rememberUser && rememberUser != null) {
-                frmAuth.patchValue({
-                    user: rememberUser.user,
-                    password: rememberUser.password,
-                    check: true
-                });
+            if (rememberUser && rememberUser != null) frmAuth.setValue(rememberUser);
+        }
+    }
+
+    sessionActive() {
+        const user = JSON.parse(localStorage.getItem('IDUSER'));
+        const modal = JSON.parse(localStorage.getItem("MODAL"));
+        if (modal) {
+            this.openModal();
+        } else {
+            if (user) {
+                if (user.estado == states.ACTIVE) {
+                    if (user.tipo == roles.ADMIN)
+                        this.navCtrl.navigate(['/admin']);
+                    else
+                        this.navCtrl.navigate(['/home']);
+                } else {
+                    this.navCtrl.navigate(['/cuenta-desabilitada']);
+                }
+            } else {
+                this.navCtrl.navigate(['/login']);
             }
         }
     }
 
-   
-    sessionActive() {
-        const user = JSON.parse(localStorage.getItem('IDUSER'));
-
-        if ( user ) {
-            if (user.estado == states.ACTIVE) {
-                if (user.tipo == roles.ADMIN)
-                    this.navCtrl.navigate(['/admin']);
-                else
-                    this.navCtrl.navigate(['/home']);
-            } else {
-                this.navCtrl.navigate(['/cuenta-desabilitada']);
-            }
-        } else {
-            this.navCtrl.navigate(['/login']);
-        }
+    async openModal() {
+        const modal = await this.modalCtrl.create({
+            component: ModalPage,
+        });
+        await modal.present();
     }
 }

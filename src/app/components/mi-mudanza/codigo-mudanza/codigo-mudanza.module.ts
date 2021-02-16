@@ -3,17 +3,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { EditarUsuarioPageRoutingModule } from './editar-usuario-routing.module';
-import { EditarUsuarioPage } from './editar-usuario.page';
+import { CodigoMudanzaPageRoutingModule } from './codigo-mudanza-routing.module';
+import { CodigoMudanzaPage } from './codigo-mudanza.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EditarUsuarioPageRoutingModule,
+    CodigoMudanzaPageRoutingModule,
     ReactiveFormsModule
+    
   ],
-  declarations: [EditarUsuarioPage]
+  declarations: [CodigoMudanzaPage]
 })
-export class EditarUsuarioPageModule {}
+export class CodigoMudanzaPageModule {}

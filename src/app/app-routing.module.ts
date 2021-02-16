@@ -44,6 +44,14 @@ const routes: Routes = [
     loadChildren: () => import('./components/editar-usuario/editar-usuario.module').then(m => m.EditarUsuarioPageModule)
   },
   {
+    path: 'mudanza',
+    loadChildren: () => import('./components/mi-mudanza/mudanza/mudanza.module').then(m => m.MudanzaPageModule)
+  },
+  {
+    path: 'codigo-mudanza',
+    loadChildren: () => import('./components/mi-mudanza/codigo-mudanza/codigo-mudanza.module').then(m => m.CodigoMudanzaPageModule)
+  },
+  {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }
