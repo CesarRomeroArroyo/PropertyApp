@@ -13,7 +13,6 @@ import { RegistrarUsuariosPage } from './registrar-usuarios.page';
     IonicModule,
     RegistrarUsuariosPageRoutingModule,
     ReactiveFormsModule,
-
   ],
   declarations: [RegistrarUsuariosPage]
 })

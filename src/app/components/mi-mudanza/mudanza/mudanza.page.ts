@@ -33,7 +33,7 @@ export class MudanzaPage implements OnInit {
   ngOnInit() {
     this.apartmentsAvaliable();
   }
-
+    
   apartmentsAvaliable() {
 
     this.observale.getObservable().pipe(takeUntil(this.obs$)).subscribe(data=> this.edificio= data[0]);

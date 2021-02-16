@@ -1,76 +1,76 @@
 <ion-content>
-    <ion-content>
-        <ion-grid class="grid1">
-            <ion-row class="row1">
-                <ion-col>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-        <ion-slide>
-            <div class="contaier-login">
-                <ion-grid>
-                    <ion-row>
-                        <ion-button (click)="closeModal()">
-                            <ion-icon name="close-outline"></ion-icon>
-                        </ion-button>
-                        <ion-col>
-                            <h1>Datos del suario</h1>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col>
-                            <form [formGroup]="frmRegister" (ngSubmit)="registerAdmin()">
-                                <ion-item>
-                                    <ion-label position="floating">Nombre</ion-label>
-                                    <ion-input formControlName="name"></ion-input>
-                                </ion-item>
-                                <div *ngIf="name.invalid && name.dirty" class="validation-errors">
-                                    <div *ngIf="name.errors.required">
-                                        {{errorInpus.NAME_REQUERID}}
-                                    </div>
-                                    <div *ngIf="name.errors.minlength">
-                                        {{errorInpus.NAME_MINLENGHT}}
-                                    </div>
-                                </div>
-                                <ion-item>
-                                    <ion-label position="floating">Correo electronico</ion-label>
-                                    <ion-input formControlName="email"></ion-input>
-                                </ion-item>
-                                <div *ngIf="email.invalid && email.dirty" class="validation-errors">
-                                    <div *ngIf="email.errors.required">
-                                        {{errorInpus.EMAIL_REQUERID}}
-                                    </div>
-                                    <div *ngIf="email.errors.pattern">
-                                        {{errorInpus.EMAI_LINVALID}}
-                                    </div>
-                                </div>
-                                <ion-item>
-                                    <ion-label position="floating">Constraseña</ion-label>
-                                    <ion-input type="password" formControlName="password"></ion-input>
-                                </ion-item>
+  <ion-content>
+    <ion-grid class="grid1">
+      <ion-row class="row1">
+        <ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-slide>
+      <div class="contaier-login">
+        <ion-grid>
+          <ion-row>
+            <ion-button (click)="closeModal()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+            <ion-col>
+              <h1>Datos del suario</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <form [formGroup]="frmRegister" (ngSubmit)="registerAdmin()">
+                <ion-item>
+                  <ion-label position="floating">Nombre</ion-label>
+                  <ion-input formControlName="name"></ion-input>
+                </ion-item>
+                <div *ngIf="name.invalid && name.dirty" class="validation-errors">
+                  <div *ngIf="name.errors.required">
+                    {{errorInpus.NAME_REQUERID}}
+                  </div>
+                  <div *ngIf="name.errors.minlength">
+                    {{errorInpus.NAME_MINLENGHT}}
+                  </div>
+                </div>
+                <ion-item>
+                  <ion-label position="floating">Correo electronico</ion-label>
+                  <ion-input formControlName="email"></ion-input>
+                </ion-item>
+                <div *ngIf="email.invalid && email.dirty" class="validation-errors">
+                  <div *ngIf="email.errors.required">
+                    {{errorInpus.EMAIL_REQUERID}}
+                  </div>
+                  <div *ngIf="email.errors.pattern">
+                    {{errorInpus.EMAI_LINVALID}}
+                  </div>
+                </div>
+                <ion-item>
+                  <ion-label position="floating">Constraseña</ion-label>
+                  <ion-input type="password" formControlName="password"></ion-input>
+                </ion-item>
 
-                                <div *ngIf="password.invalid && password.dirty" class="validation-errors">
-                                    <div *ngIf="password.errors.required">
-                                        {{errorInpus.PASS_REQUERID}}
-                                    </div>
-                                    <div *ngIf="password.errors.minlength">
-                                        {{errorInpus.PASS_MINLENGHT}}
-                                    </div>
-                                </div>
-                                <ion-item>
-                                    <ion-label position="floating">Confirmacióm</ion-label>
-                                    <ion-input type="password" formControlName="passConfirmation"></ion-input>
-                                </ion-item>
-                                <div class="validation-errors" *ngIf="validateEqual()">
-                                    {{errorInpus.CONF_PASS}}
-                                </div>
-                                <div class="container-form-btn ">
-                                    <button class="form-btn" type="submit">Registrar</button>
-                                </div>
-                            </form>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-        </ion-slide>
-    </ion-content>
+                <div *ngIf="password.invalid && password.dirty" class="validation-errors">
+                  <div *ngIf="password.errors.required">
+                    {{errorInpus.PASS_REQUERID}}
+                  </div>
+                  <div *ngIf="password.errors.minlength">
+                    {{errorInpus.PASS_MINLENGHT}}
+                  </div>
+                </div>
+                <ion-item>
+                  <ion-label position="floating">Confirmacióm</ion-label>
+                  <ion-input type="password" formControlName="passConfirmation"></ion-input>
+                </ion-item>
+                <div class="validation-errors" *ngIf="validateEqual()">
+                  {{errorInpus.CONF_PASS}}
+                </div>
+                <div class="container-form-btn ">
+                  <button class="form-btn" type="submit">Registrar</button>
+                </div>
+              </form>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-slide>
+  </ion-content>

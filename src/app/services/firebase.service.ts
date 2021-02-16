@@ -8,10 +8,12 @@ import { map } from 'rxjs/operators';
 import { messages } from '../constants/messages';
 import { roles } from '../constants/roles';
 import {  apartamento, states } from '../constants/states';
-import { UserAuthentication } from '../models/usuarios.model';
+import { UserAuthentication,Usermodel  } from '../models/usuarios.model';
 import { UtilsService } from './utils.service';
 import * as firebase from 'firebase/app';
 
+import { edificiosModels } from '../models/edificios.models';
+import { userAdminModel } from '../models/usuariosAdmin.models';
 
 @Injectable({
 	providedIn: 'root'
@@ -234,25 +236,6 @@ export class FirebaseService {
 		}
 	}
 
-	async registerUser(userAuth: any): Promise<any> {
-		await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password).then(cred => {
-			return this.db.collection("usuarios").doc(cred.user.uid).set({
-				CC: userAuth.CC,
-				codigoEdificios: userAuth.codigoEdificios,
-				estado: userAuth.estado,
-				fechaCreacion: userAuth.fechaCreacion,
-				name: userAuth.name,
-				tel: userAuth.tel,
-				tipo: userAuth.tipo,
-				tipoInquilino: userAuth.tipoInquilino,
-				email: userAuth.email,
-				apartamentos: [userAuth.apartamento]
-			}).then(() => {
-				return this.db.doc(`${"apartamentos"}/${userAuth.apartamento.id}`).update({ "estado": apartamento.OCUPADO });
-			});
-		});
-		await this.sendVerifcationEmail();
-	}
 
 	async sendVerifcationEmail(): Promise<void> {
 		try {
@@ -304,9 +287,7 @@ export class FirebaseService {
 		}
 	}
 
-	getId(tabla: string, id: string): Observable<any> {
-		return this.db.doc(`${tabla}/${id}`).valueChanges();
-	}
+
 
 	obtenerCodigo(tabla, codigo, show?): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla, ref => ref.where('codigo', '==', codigo));
@@ -336,7 +317,39 @@ export class FirebaseService {
 		);
 	}
 
-	getData(tabla:string, codigoEdificio:string ): Observable<any> {
+	async registerUser(userAuth: Usermodel): Promise<any> {
+		await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password).then(cred => {
+			return this.db.collection("usuarios").doc(cred.user.uid).set({
+				CC: userAuth.CC,
+				codigoEdificios: userAuth.codigoEdificios,
+				estado: userAuth.estado,
+				fechaCreacion: userAuth.fechaCreacion,
+				name: userAuth.name,
+				tel: userAuth.tel,
+				tipo: userAuth.tipo,
+				tipoInquilino: userAuth.tipoInquilino,
+				email: userAuth.email,
+				apartamentos: [userAuth.apartamento]
+			}).then(() => {
+				return this.db.doc(`${"apartamentos"}/${userAuth.apartamento.id}`).update({ "estado": apartamento.OCUPADO });
+			});
+		});
+		await this.sendVerifcationEmail();
+	}
+
+	assignBuilding(edificio: edificiosModels, id: string): void {
+		this.db.collection('usuarios').doc(id).update({
+			edificios: firebase.firestore.FieldValue.arrayUnion(edificio)
+		});
+	}
+
+	removeBuilding(edificio: edificiosModels, id: string): void {
+		this.db.collection('usuarios').doc(id).update({
+			edificios: firebase.firestore.FieldValue.arrayRemove(edificio)
+		});
+	}
+
+	getData(tabla: string, codigoEdificio: string): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla, ref => ref.where("codigoEdificio", '==', codigoEdificio));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
@@ -349,29 +362,20 @@ export class FirebaseService {
 		);
 	}
 
-	async registrerAdmin(userAdmin: any): Promise<any> {
+	getId(tabla: string, id: string): Observable<any> {
+		return this.db.doc(`${tabla}/${id}`).valueChanges();
+	}
+
+	async registrerAdmin(userAdmin: userAdminModel): Promise<any> {
 		await this.afAuth.createUserWithEmailAndPassword(userAdmin.email, userAdmin.password).then(cred => {
 			return this.db.collection("usuarios").doc(cred.user.uid).set({
 				name: userAdmin.name,
 				email: userAdmin.email,
-				tipo: userAdmin.tipo
+				tipo: userAdmin.tipo,
+				estado: userAdmin.estado
 			}
 			)
 		});
 		await this.sendVerifcationEmail();
 	}
-
-
-	assignBuilding(edificio: any, id: any): void {
-		this.db.collection('usuarios').doc(id).update({
-			edificios: firebase.firestore.FieldValue.arrayUnion(edificio)
-		});
-	}
-
-	removeBuilding(edificio: any, id: any): void {
-		this.db.collection('usuarios').doc(id).update({
-			edificios: firebase.firestore.FieldValue.arrayRemove(edificio)
-		});
-	}
-
 }

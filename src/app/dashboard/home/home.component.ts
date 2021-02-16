@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { edificiosModels } from 'src/app/models/edificios.models';
 import { StateApp } from 'src/app/services/state.service';
 
 @Component({
@@ -12,8 +14,8 @@ import { StateApp } from 'src/app/services/state.service';
 
 export class HomeComponent implements OnInit {
 
-	edificio = [];
-	codigo: any;
+	edificio: edificiosModels;
+	codigo: string;
 	private obs$: Subject<boolean> = new Subject<boolean>();
 
 	constructor(
@@ -25,9 +27,14 @@ export class HomeComponent implements OnInit {
 		this.getData();
 	}
 
+	ngOnDestroy() {
+		this.obs$.next(true);
+		this.obs$.unsubscribe();
+	}
+
 	getData(): void {
-		this.stateServis.getObservable().pipe(takeUntil(this.obs$)).subscribe(data => {
-			this.edificio.push(data[0]);
+		this.stateServis.getObservable().pipe(takeUntil(this.obs$)).subscribe(edificio => {
+			this.edificio =edificio;
 		});
 	}
 

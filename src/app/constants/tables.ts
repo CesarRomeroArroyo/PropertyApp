@@ -1,6 +1,6 @@
 export const tables = {
-    USERS: 'usuarios',
-    APARTAMENTS: 'apartamentos',
-    EDIFICIOS: 'edificios',
-    ZONASCOMUNES:'zonasComunes'
+  USERS: "usuarios",
+  APARTAMENTS: "apartamentos",
+  EDIFICIOS: "edificios",
+  ZONASCOMUNES: "zonasComunes"
 }
