@@ -12,6 +12,8 @@ import { UserAuthentication, Usermodel } from '../models/usuarios.model';
 import { UtilsService } from './utils.service';
 import * as firebase from 'firebase/app';
 import { apartamento } from '../constants/states';
+import { edificiosModels } from '../models/edificios.models';
+import { userAdminModel } from '../models/usuariosAdmin.models';
 
 @Injectable({
 	providedIn: 'root'
@@ -247,17 +249,6 @@ export class FirebaseService {
 			console.log(error);
 		}
 	}
-	/* async deleteUser(data){
-		try {
-			const user =	await this.afAuth.currentUser.uid()
-			
-			   
-			   return user;
-			
-		} catch (error) {
-			
-		}
-	} */
 
 	async validationLogin(user: any, frmAuth: FormGroup) {
 
@@ -292,7 +283,7 @@ export class FirebaseService {
 		}
 	}
 
-	async registerUser(userAuth: any): Promise<any> {
+	async registerUser(userAuth: Usermodel): Promise<any> {
 		await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password).then(cred => {
 			return this.db.collection("usuarios").doc(cred.user.uid).set({
 				CC: userAuth.CC,
@@ -312,32 +303,19 @@ export class FirebaseService {
 		await this.sendVerifcationEmail();
 	}
 
-	getCompative(tabla: string, IdEdificio: any, valor: string): Observable<any> {
-		this.itemsCollection = this.db.collection(tabla, ref => ref.where(valor, 'array-contains', IdEdificio));
-		return this.itemsCollection.snapshotChanges().pipe(
-			map(data => {
-				return data.map(d => {
-					const retorno = d.payload.doc.data();
-					retorno['id'] = d.payload.doc.id;
-					return retorno;
-				});
-			})
-		);
-	}
-
-	assignBuilding(edificio: any, id: any): void {
+	assignBuilding(edificio: edificiosModels, id: string): void {
 		this.db.collection('usuarios').doc(id).update({
 			edificios: firebase.firestore.FieldValue.arrayUnion(edificio)
 		});
 	}
 
-	removeBuilding(edificio: any, id: any): void {
+	removeBuilding(edificio: edificiosModels, id: string): void {
 		this.db.collection('usuarios').doc(id).update({
 			edificios: firebase.firestore.FieldValue.arrayRemove(edificio)
 		});
 	}
 
-	getData(tabla:string, codigoEdificio:string ): Observable<any> {
+	getData(tabla: string, codigoEdificio: string): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla, ref => ref.where("codigoEdificio", '==', codigoEdificio));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
@@ -354,14 +332,16 @@ export class FirebaseService {
 		return this.db.doc(`${tabla}/${id}`).valueChanges();
 	}
 
-	async registrerAdmin(userAdmin: any): Promise<any> {
+	async registrerAdmin(userAdmin: userAdminModel): Promise<any> {
 		await this.afAuth.createUserWithEmailAndPassword(userAdmin.email, userAdmin.password).then(cred => {
 			return this.db.collection("usuarios").doc(cred.user.uid).set({
 				name: userAdmin.name,
 				email: userAdmin.email,
-				tipo: userAdmin.tipo
+				tipo: userAdmin.tipo,
+				estado: userAdmin.estado
 			}
 			)
 		});
+		await this.sendVerifcationEmail();
 	}
 }

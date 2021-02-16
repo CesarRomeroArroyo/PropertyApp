@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+
 import { messages } from 'src/app/constants/messages';
 import { apartamento } from 'src/app/constants/states';
 import { tables } from 'src/app/constants/tables';
+import { edificiosModels } from 'src/app/models/edificios.models';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -14,7 +16,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class AddApartComponent implements OnInit {
 
-    @Input() edificio = [];
+    @Input() edificio:edificiosModels;
     frmApartamento: FormGroup;
 
     constructor(

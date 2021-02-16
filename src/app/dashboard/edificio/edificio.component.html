@@ -1,35 +1,35 @@
 <ion-content>
-    <div class="contenedor">
-        <img src="assets/img/foto.jpg" alt="">
-    </div>
+  <div class="contenedor">
+    <img src="assets/img/foto.jpg" alt="">
+  </div>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <h1>Agregar un edificio</h1>
+    </ion-col>
+  </ion-row>
+  <ion-grid>
     <ion-row>
-        <ion-col class="ion-text-center">
-            <h1>Agregar un edificio</h1>
-        </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <form [formGroup]="frmEdificio" (ngSubmit)="registerEdificio()">
+          <div class="frm-input">
+            <input type="text" formControlName="name" placeholder="Nombre del edificio">
+          </div>
+          <div class="frm-input">
+            <input type="text" formControlName="direction" placeholder="Dirrecion edificio">
+          </div>
+          <div class="container-form-btn">
+            <button type="submit" class="form-btn custom-font">Registrar</button>
+          </div>
+        </form>
+        <div class="container-form-btn">
+          <button type="submit" (click)="administerEdif()" class="form-btn custom-font">Administrar</button>
+        </div>
+        <div class="container-form-btn">
+          <button type="submit" (click)="asignar()" class="form-btn custom-font">Asignar</button>
+        </div>
+      </ion-col>
+      <ion-col sizw="1"></ion-col>
     </ion-row>
-    <ion-grid>
-        <ion-row>
-            <ion-col size="1"></ion-col>
-            <ion-col size="10">
-                <form [formGroup]="frmEdificio" (ngSubmit)="registerEdificio()">
-                    <div class="frm-input">
-                        <input type="text" formControlName="name" placeholder="Nombre del edificio">
-                    </div>
-                    <div class="frm-input">
-                        <input type="text" formControlName="direction" placeholder="Dirrecion edificio">
-                    </div>
-                    <div class="container-form-btn">
-                        <button type="submit" class="form-btn custom-font">Registrar</button>
-                    </div>
-                </form>
-                <div class="container-form-btn">
-                    <button type="submit" (click)="administerEdif()" class="form-btn custom-font">Administrar</button>
-                </div>
-                <div class="container-form-btn">
-                    <button type="submit" (click)="asignar()" class="form-btn custom-font">Asignar</button>
-                </div>
-            </ion-col>
-            <ion-col sizw="1"></ion-col>
-        </ion-row>
-    </ion-grid>
+  </ion-grid>
 </ion-content>

@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+
 import { messages } from 'src/app/constants/messages';
 import { tables } from 'src/app/constants/tables';
+import { apartamentosModel } from 'src/app/models/apartamentos.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -13,7 +15,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class EditApartComponent implements OnInit {
 
-    @Input() data: any;
+    @Input() apartamento: apartamentosModel;
     frmApartamento: FormGroup;
 
     constructor(
@@ -33,7 +35,7 @@ export class EditApartComponent implements OnInit {
 
     initializateFrmApart(): void {
         this.frmApartamento = this.frmbuild.group({
-            name: ['' || this.data.name, [Validators.required]],
+            name: ['' || this.apartamento.name, [Validators.required]],
         });
     }
 
@@ -41,7 +43,7 @@ export class EditApartComponent implements OnInit {
         if (!this.frmApartamento.valid)
             this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
         else {
-            this.fbservice.actualizarDatos(tables.APARTAMENTS, this.frmApartamento.value, this.data.id);
+            this.fbservice.actualizarDatos(tables.APARTAMENTS, this.frmApartamento.value, this.apartamento.id);
             this.modalController.dismiss();
         }
     }

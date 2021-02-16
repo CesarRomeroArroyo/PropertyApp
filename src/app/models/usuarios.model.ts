@@ -1,21 +1,21 @@
+import { apartamentosModel } from "./apartamentos.model";
+
 export interface Usermodel {
-    idunico: string;
-    nombre: string;
-    cedula: number;
-    email: string;
-    telefono: number;
-    estado: number;
-    usuario: string;
-    password: string;
-    tipo: string;
-    fechaCreacion: string;
-    fechaModificacion: string;
-    turnos: string[];
-    codigoverificacion: string[];
-    apartamentoid: string;
+  id: string,
+  email: string,
+  password: string,
+  CC: number,
+  codigoEdificios: string,
+  estado: number,
+  fechaCreacion: string,
+  name: string,
+  tel: number,
+  tipo: string,
+  apartamento: apartamentosModel,
+  tipoInquilino: string
 }
 
 export interface UserAuthentication {
-    user: string,
-    password: string;
+  user: string,
+  password: string,
 }
