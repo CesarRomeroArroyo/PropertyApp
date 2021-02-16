@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { messages } from '../constants/messages';
 import { roles } from '../constants/roles';
-import { apartamento, states } from '../constants/states';
+import {  apartamento, states } from '../constants/states';
 import { UserAuthentication } from '../models/usuarios.model';
 import { UtilsService } from './utils.service';
+import * as firebase from 'firebase/app';
 
 
 @Injectable({
@@ -234,19 +235,18 @@ export class FirebaseService {
 	}
 
 	async registerUser(userAuth: any): Promise<any> {
-
 		await this.afAuth.createUserWithEmailAndPassword(userAuth.email, userAuth.password).then(cred => {
 			return this.db.collection("usuarios").doc(cred.user.uid).set({
 				CC: userAuth.CC,
-				edificio: [userAuth.edificios],
+				codigoEdificios: userAuth.codigoEdificios,
 				estado: userAuth.estado,
 				fechaCreacion: userAuth.fechaCreacion,
 				name: userAuth.name,
 				tel: userAuth.tel,
 				tipo: userAuth.tipo,
-				user: userAuth.user,
+				tipoInquilino: userAuth.tipoInquilino,
 				email: userAuth.email,
-				apartamento: [userAuth.apartamento]
+				apartamentos: [userAuth.apartamento]
 			}).then(() => {
 				return this.db.doc(`${"apartamentos"}/${userAuth.apartamento.id}`).update({ "estado": apartamento.OCUPADO });
 			});
@@ -323,20 +323,55 @@ export class FirebaseService {
 
 	obtenerEdificio(tabla, codigo, show?): Observable<any> {
 
-		this.itemsCollection = this.db.collection(tabla, ref => ref.where('edificios', 'array-contains', codigo));
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where('codigoEdificios', 'array-contains', codigo));
 
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
 				return data.map(d => {
 					const retorno = d.payload.doc.data();
 					retorno['id'] = d.payload.doc.id;
-
 					return retorno;
 				});
 			})
 		);
 	}
 
+	getData(tabla:string, codigoEdificio:string ): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where("codigoEdificio", '==', codigoEdificio));
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+					return retorno;
+				});
+			})
+		);
+	}
 
+	async registrerAdmin(userAdmin: any): Promise<any> {
+		await this.afAuth.createUserWithEmailAndPassword(userAdmin.email, userAdmin.password).then(cred => {
+			return this.db.collection("usuarios").doc(cred.user.uid).set({
+				name: userAdmin.name,
+				email: userAdmin.email,
+				tipo: userAdmin.tipo
+			}
+			)
+		});
+		await this.sendVerifcationEmail();
+	}
+
+
+	assignBuilding(edificio: any, id: any): void {
+		this.db.collection('usuarios').doc(id).update({
+			edificios: firebase.firestore.FieldValue.arrayUnion(edificio)
+		});
+	}
+
+	removeBuilding(edificio: any, id: any): void {
+		this.db.collection('usuarios').doc(id).update({
+			edificios: firebase.firestore.FieldValue.arrayRemove(edificio)
+		});
+	}
 
 }

@@ -3,16 +3,12 @@
         <ion-title>modal</ion-title>
     </ion-toolbar>
 </ion-header>
-
 <ion-content><br>
-
     <ion-text>Por favor seleccione el Edificio el cual desea Administrar</ion-text>
     <form [formGroup]="frmModal">
-
         <ion-item>
             <ion-label position="floating">Edificio</ion-label>
             <ion-select formControlName="modal" [value]="edificioAdmin">
-
                 <ion-select-option *ngIf="edificioAdmin" [value]="edificioAdmin">{{edificioAdmin.name}}</ion-select-option>
                 <div *ngFor="let item of edificios">
                     <ion-select-option *ngIf="!edificioAdmin" [value]="item"> {{item.name}} </ion-select-option>
@@ -24,6 +20,5 @@
             <h4>seleccione una opcion</h4>
         </div>
     </form>
-
     <ion-button (click)="buildingAvalible()">Enviar</ion-button>
 </ion-content>

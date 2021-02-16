@@ -1,31 +1,24 @@
 <ion-content>
-
     <div class="container-primary"></div>
-
     <div class="header-content">
         <ion-label>
             <h1>Usuarios</h1>
         </ion-label>
-
         <ion-toolbar>
             <ion-buttons>
                 <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
             </ion-buttons>
         </ion-toolbar>
     </div>
-
     <div class="container-secundary">
-
         <div>
             <ion-label>
                 <h2> Mi Perfil </h2>
             </ion-label>
         </div>
-
         <div class="container-group">
             <div class="container-item">
                 <div *ngIf=" user.estado != 0 ">
-
                     <img src="assets/img/foto.jpg" alt="">
                     <div class="elemet-container">
                         <ion-label>
@@ -33,88 +26,67 @@
                             <h6>{{user.email}} </h6>
                         </ion-label>
                     </div>
-
                     <ion-fab>
                         <button>
                             <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
                         </button>
-
                         <ion-fab-list>
                             <button (click)="editUser(user,user.id)">
                                 <ion-icon name="brush-outline"></ion-icon>
                             </button>
-
                         </ion-fab-list>
-
                     </ion-fab>
                 </div>
-
             </div>
         </div>
-
         <ion-label *ngIf="user.tipo == 'admin'">
             <h2> Residentes </h2>
         </ion-label>
-        <div class="container-group2">
-
+        <div class="container-group container--purple">
             <div class="container-item" *ngFor="let item of dato">
-
                 <div *ngIf="item.tipo == 'residente' && item.estado != 0 && user.tipo == 'admin' ">
-
                     <img src="assets/img/foto.jpg" alt="">
                     <div class="elemet-container">
                         <ion-label>
-
                             <h2> {{item.name}} </h2>
                             <h6>{{item.email}} </h6>
-
                         </ion-label>
                     </div>
-
                     <ion-fab>
                         <button>
                             <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
                         </button>
-
                         <ion-fab-list>
                             <button (click)="editUser(item)">
                                 <ion-icon name="brush-outline"></ion-icon>
                             </button>
-
                         </ion-fab-list>
                     </ion-fab>
                 </div>
             </div>
         </div>
-
         <div *ngIf="user.tipo == 'admin'">
             <ion-label>
                 <h2> Inactivos</h2>
             </ion-label>
         </div>
-
         <div class="contaner-group">
-            <div class="container-item1" *ngFor="let item of dato">
+            <div *ngFor="let item of dato">
                 <div *ngIf="item.estado === 0 && user.tipo == 'admin'">
                     <img src="assets/img/foto.jpg" alt="">
                     <div class="elemet-container">
                         <ion-label>
                             <h2> {{item.name}} </h2>
                             <h6>{{item.email}} </h6>
-
                         </ion-label>
                     </div>
                     <ion-fab>
                         <button>
                             <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
                         </button>
-
                     </ion-fab>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </ion-content>

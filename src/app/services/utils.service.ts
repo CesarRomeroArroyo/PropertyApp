@@ -75,19 +75,14 @@ export class UtilsService {
 
         if (user && user != null) {
             if (user.estado === states.ACTIVE)
-
                 if (user.tipo === roles.ADMIN) this.navCtrl.navigate(['/admin']);
-
                 else this.navCtrl.navigate(['/home']);
-
             else
                 this.navCtrl.navigate(['/cuenta-desabilitada']);
-
         } else {
             if (rememberUser && rememberUser != null) frmAuth.setValue(rememberUser);
         }
     }
-
 
     sessionActive() {
         const user = JSON.parse(localStorage.getItem('IDUSER'));
@@ -97,13 +92,10 @@ export class UtilsService {
         } else {
             if (user) {
                 if (user.estado == states.ACTIVE) {
-
                     if (user.tipo == roles.ADMIN)
                         this.navCtrl.navigate(['/admin']);
                     else
                         this.navCtrl.navigate(['/home']);
-
-
                 } else {
                     this.navCtrl.navigate(['/cuenta-desabilitada']);
                 }
@@ -111,7 +103,6 @@ export class UtilsService {
                 this.navCtrl.navigate(['/login']);
             }
         }
-
     }
 
     async openModal() {

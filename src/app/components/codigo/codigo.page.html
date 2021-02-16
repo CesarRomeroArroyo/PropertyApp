@@ -1,31 +1,31 @@
 <ion-content>
-    <div class="contenedor">
-        <img src="assets/img/foto.jpg" alt="">
-        <div class="btn-back">
-            <ion-buttons slot="start">
-                <ion-back-button defaultHref='/login' text=""></ion-back-button>
-            </ion-buttons>
-        </div>
+  <div class="contenedor">
+    <img src="assets/img/foto.jpg" alt="">
+    <div class="btn-back">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref='/login' text=""></ion-back-button>
+      </ion-buttons>
     </div>
+  </div>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <h1>Codigo del edificio</h1>
+    </ion-col>
+  </ion-row>
+  <ion-grid>
     <ion-row>
-        <ion-col class="ion-text-center">
-            <h1>Codigo del departamento</h1>
-        </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <form [formGroup]="frmCodigo" (ngSubmit)="setCodigo()">
+          <div class="frm-input">
+            <input type="text" formControlName="codigo" placeholder="Ingrese el codigo del edificio">
+          </div>
+          <div class="container-form-btn">
+            <button type="submit" class="form-btn custom-font">Enviar</button>
+          </div>
+        </form>
+      </ion-col>
+      <ion-col sizw="1"></ion-col>
     </ion-row>
-    <ion-grid>
-        <ion-row>
-            <ion-col size="1"></ion-col>
-            <ion-col size="10">
-                <form [formGroup]="frmCodigo" (ngSubmit)="setCodigo()">
-                    <div class="frm-input">
-                        <input type="text" formControlName="codigo" placeholder="Ingrese el codigo del departamento">
-                    </div>
-                    <div class="container-form-btn">
-                        <button type="submit" class="form-btn custom-font">Enviar</button>
-                    </div>
-                </form>
-            </ion-col>
-            <ion-col sizw="1"></ion-col>
-        </ion-row>
-    </ion-grid>
+  </ion-grid>
 </ion-content>

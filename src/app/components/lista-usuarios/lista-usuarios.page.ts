@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { roles } from 'src/app/constants/roles';
-import { states } from '../../constants/states';
+import { storage } from 'src/app/constants/storage';
+import { tables } from '../../constants/tables';
 import { FirebaseService } from '../../services/firebase.service';
+import { StateApp } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -17,32 +20,27 @@ export class ListaUsuariosPage implements OnInit {
   constructor(
     private fb: FirebaseService,
     private navCtrl: Router,
+    private observable: StateApp
   ) { }
 
   ngOnInit() {
     this.listUsers();
   }
 
-  listUsers() {
-    const edificio = JSON.parse(localStorage.getItem("EDIFICIO"));
+  listUsers(): void {
+    const edificio = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
+    this.user = JSON.parse(localStorage.getItem(storage.RESIDENTI_USER));
 
-    this.user = JSON.parse(localStorage.getItem("IDUSER"));
-
-    this.fb.obtenerEdificio("usuarios", edificio).subscribe(data => {
-      data.forEach(element => {
-
-        if (element.tipo != roles.ADMIN && this.dato == "")
-          this.dato.push(element);
-
-      });
-
+    this.fb.obtenerEdificio(tables.USERS, edificio).subscribe(data => {
+      data.forEach(element => (element.tipo != roles.ADMIN && this.dato == "") ? this.dato.push(element) : null);
     });
-   
+
   }
 
+  editUser(item): void {
 
-  editUser(item) {
-    this.navCtrl.navigate(['/editar-usuario', item.id]);
+    this.observable.setData([item]);
+    this.navCtrl.navigate(['/editar-usuario']);
   }
 
 }

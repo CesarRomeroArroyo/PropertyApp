@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, ModalController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
+
 import { UtilsService } from '../../services/utils.service';
-import { ModalPage } from '../../shared/modal/modal.page';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.page.html',
@@ -16,24 +17,21 @@ export class AdminPage implements OnInit {
     ) { }
 
   ngOnInit() {
-
   }
 
   ionViewWillEnter() {
-   
     this.util.sessionActive();
   }
 
-  logout() {
+  logout():void {
     this.menu.close("main-menu");
     localStorage.removeItem("IDUSER");
     this.navCtrl.navigate(['/login']);
   }
 
-  openMenu() {
+  openMenu():void {
     this.menu.enable(true, 'main-menu');
     this.menu.open("main-menu");
   }
 
-  
 }

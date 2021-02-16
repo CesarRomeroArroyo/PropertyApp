@@ -1,47 +1,40 @@
-.img-toolbat>img {
-    width: 100%;
-    height: 200px;
-    border-bottom-left-radius: 40em 60px;
-    border-bottom-right-radius: 30em 60px;
-    box-shadow: 2px 2px 5px rgb(163, 162, 162);
+.img-toolbat > img {
+  width: 100%;
+  height: 200px;
+  border-bottom-left-radius: 40em 60px;
+  border-bottom-right-radius: 30em 60px;
+  box-shadow: 2px 2px 5px rgb(163, 162, 162);
 }
-
-.container2 {
-    position: absolute;
-    top: 80px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
+.container {
+  position: absolute;
+  margin: auto;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+.container--top {
+  top: 80px;
 }
 
 .btn-start {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 ion-menu-button {
-    color: white;
-    font-size: 40px;
+  color: white;
+  font-size: 40px;
 }
 
 ion-toolbar {
-    --background: none;
+  --background: none;
 }
 
 .container_primary {
-    position: relative;
-    top: 95px;
-    width: 100%;
-    margin: auto;
-}
-
-.container {
-    position: absolute;
-    margin: auto;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
+  position: relative;
+  top: 95px;
+  width: 100%;
+  margin: auto;
 }

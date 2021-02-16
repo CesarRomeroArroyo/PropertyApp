@@ -18,7 +18,7 @@ export class CuentaDesabilitadaPage implements OnInit {
     this.utils.sessionActive();
   }
 
-  salir() {
+  salir(): void {
     localStorage.removeItem('IDUSER');
     this.navCtrl.navigate(['/login']);
   }

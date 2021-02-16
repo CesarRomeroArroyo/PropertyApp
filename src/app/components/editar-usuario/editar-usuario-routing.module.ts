@@ -5,7 +5,7 @@ import { EditarUsuarioPage } from './editar-usuario.page';
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: '',
     component: EditarUsuarioPage
   }
 ];

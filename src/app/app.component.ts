@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Plugins, StatusBarStyle } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
-import { UtilsService } from './services/utils.service';
-
 
 
 @Component({
@@ -11,16 +9,11 @@ import { UtilsService } from './services/utils.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  
 
- 
-  
   constructor(
     private platform: Platform,
-  
   ) {
     this.initializeApp();
-   
   }
 
   async initializeApp() {
@@ -35,7 +28,5 @@ export class AppComponent {
       console.log('This is a normal Browser', err);
     }
   }
-
-
 
 }

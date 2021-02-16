@@ -11,25 +11,22 @@ export class HomePage {
 
   constructor(
     private fileManager: FileManagerService,
-    private util:UtilsService
-  ) {}
-    
-    ngOnInit() {
-    
-    }
+    private util: UtilsService
+  ) { }
 
-    ionViewWillEnter() {
-      this.util.sessionActive();
-    }
-    
-  async fileChangeEvent(e: any){
-		var fileName = e[0];
+  ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.util.sessionActive();
+  }
+
+  async fileChangeEvent(e: any) {
+    var fileName = e[0];
     var fileupload = await this.fileManager.upload(fileName, 'prueba');
     var url = await this.fileManager.uploadURL;
     console.log(fileupload)
     console.log(url)
   }
-  
 
-
- }
+}

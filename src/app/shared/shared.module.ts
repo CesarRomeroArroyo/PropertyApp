@@ -6,9 +6,6 @@ import { ModalPage } from './modal/modal.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UtilsService } from '../services/utils.service';
 
-
-
-
 @NgModule({
 
   declarations: [MenuPage, ModalPage],

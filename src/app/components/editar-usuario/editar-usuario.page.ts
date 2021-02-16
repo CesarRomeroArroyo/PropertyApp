@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { storage } from 'src/app/constants/storage';
-import { tables } from 'src/app/constants/tables';
 import { FirebaseService } from 'src/app/services/firebase.service';
-import { apartamento } from '../../constants/states';
+import { StateApp } from 'src/app/services/state.service';
 
 
 @Component({
@@ -14,54 +15,45 @@ import { apartamento } from '../../constants/states';
 })
 export class EditarUsuarioPage implements OnInit {
 
-  dato: any = {};
+  dato = [];
   frmEditarUser: FormGroup;
-  apartamentosAsignado: any = {};
+
+  apartamentosAsignados: any = {};
   apartamentosDisponible: any = [];
-  edificiosAdmin: any;
+  codigoEdificios: any;
   edificios: any = {};
 
-  constructor(private router: ActivatedRoute,
+  private obs$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(
     private fb: FirebaseService,
-    private frmbuild: FormBuilder) { }
+    private frmbuild: FormBuilder,
+    private stateServis: StateApp) { }
 
   ngOnInit() {
     this.getDataUser();
+    this.inicializarFrmUser(this.dato);
+
+    console.log(this.apartamentosAsignados)
   }
 
-  getDataUser():void {
-    this.inicializarFrmUser();
-    this.edificiosAdmin = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
-    this.router.params.subscribe(data => {
-      this.fb.getId(tables.USERS, data.id).subscribe(info => {
-
-        this.dato = info;
-        info.apartamento.forEach(element => this.apartamentosAsignado = element);
-
-        info.edificios.forEach(element => this.edificios = element );
-
-      });
-
-    });
-
-    this.fb.obtenerEdificio(tables.APARTAMENTS, this.edificiosAdmin).subscribe(data => {
-      data.forEach(element => (element.estado === apartamento.DESOCUPADO) ? this.apartamentosDisponible.push(element) : null);
-    });
+  getDataUser(): void {
+    this.codigoEdificios = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
+    this.stateServis.getObservable().pipe(takeUntil(this.obs$)).subscribe(info => this.dato = info[0]);
   }
 
-  inicializarFrmUser(dataUser?) {
+  inicializarFrmUser(dataUser?): void {
+
     this.frmEditarUser = this.frmbuild.group({
-      name: ['' || dataUser, [Validators.required]],
-      apartamento: ['', [Validators.required]],
-      tel: ['', [Validators.required]],
-      tipo: ['', Validators.required],
-      estado: ['', [Validators.required]],
-      edificio: ['', [Validators.required]],
-      CC: ['', [Validators.required]]
+      name: ['' || dataUser.name, [Validators.required]],
+      tel: ['' || dataUser.tel, [Validators.required]],
+      tipo: [`${dataUser.tipo}`, Validators.required],
+      estado: [`${dataUser.estado}`, [Validators.required]],
+      CC: ['' || dataUser.CC, [Validators.required]]
     });
   }
 
-  editUser() {
+  editUser(): void {
     if (!this.frmEditarUser.valid) {
       console.log("invalido");
       console.log(this.frmEditarUser.value);

@@ -1,10 +1,11 @@
 <ion-content>
     <div class="container-primary"></div>
-
     <div class="header-content">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref='/mudanza' text=""></ion-back-button>
+        </ion-buttons>
         <ion-label>
             <h1>Edificio</h1>
-
         </ion-label>
         <ion-toolbar>
             <ion-buttons>
@@ -15,30 +16,26 @@
     <div class="container-secundary">
         <div class="container-group">
             <div class="container-item">
+                <ion-text>Apartementos disponibles de edificio : {{edificio.name}} </ion-text>
                 <form>
-
-                    <ion-text>Apartementos disponibles de edificio : Las palmas </ion-text>
-
                     <ion-item>
-                        <ion-label position="floating">Apartamento</ion-label>
-                        <ion-select multiple="true">
-                            <ion-select-option></ion-select-option>
-                            <div>
-                                <ion-select-option> </ion-select-option>
-                            </div>
+                        <ion-label>Apartamentos</ion-label>
+                        <ion-select>
 
+                            <ion-select-option *ngFor="let item of apartamentosDisponible">
+                                {{item.name }}
+                            </ion-select-option>
                         </ion-select>
-                    </ion-item> <br>
+                    </ion-item>
 
 
-                    <ion-text>Edificio del cual es residente </ion-text>
+                    <ion-text class="ion-padding-top">Edificio del cual es residente </ion-text>
                     <ion-item>
                         <ion-label> Edificio actual</ion-label>
                         <ion-select value="">
                             <ion-select-option value="admin">admistrador</ion-select-option>
                             <ion-select-option value="residente">Residente</ion-select-option>
                             <ion-select-option value="portero">Portero</ion-select-option>
-
                         </ion-select>
                     </ion-item>
                     <br>
@@ -49,5 +46,4 @@
             </div>
         </div>
     </div>
-
 </ion-content>
