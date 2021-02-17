@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
 import { edificiosModels } from 'src/app/models/edificios.models';
 import { StateApp } from 'src/app/services/state.service';
 
@@ -12,7 +13,7 @@ import { StateApp } from 'src/app/services/state.service';
 	styleUrls: ['./home.component.scss'],
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
 	edificio: edificiosModels;
 	codigo: string;
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
 
 	getData(): void {
 		this.stateServis.getObservable().pipe(takeUntil(this.obs$)).subscribe(edificio => {
-			this.edificio =edificio;
+			this.edificio = edificio;
 		});
 	}
 

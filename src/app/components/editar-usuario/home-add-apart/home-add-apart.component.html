@@ -1,0 +1,16 @@
+<div>
+  <h2>Apartamentos</h2>
+  <ion-button (click)="addApartamentUser()">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-button>
+  <ion-item-sliding *ngFor="let dataApartamento of apartamentosUser">
+    <ion-item>
+      <ion-label>
+        <h2>{{dataApartamento.name}} </h2>
+      </ion-label>
+      <ion-button (click)="deleteApartmentUser(dataApartamento)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-item-sliding>
+</div>

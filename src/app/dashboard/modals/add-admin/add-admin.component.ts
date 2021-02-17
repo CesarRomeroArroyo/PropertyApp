@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+
 import { inputs } from 'src/app/constants/inputs';
 import { messages } from 'src/app/constants/messages';
 import { roles } from 'src/app/constants/roles';
@@ -14,6 +15,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './add-admin.component.html',
   styleUrls: ['./add-admin.component.scss'],
 })
+
 export class AddAdminComponent implements OnInit {
 
   frmRegister: FormGroup;
@@ -58,14 +60,14 @@ export class AddAdminComponent implements OnInit {
     );
   }
 
-  get email() {
-    return this.frmRegister.get("email");
+  get email():string {
+    return this.frmRegister.get("email").value;
   }
-  get name() {
-    return this.frmRegister.get("name");
+  get name():string {
+    return this.frmRegister.get("name").value;
   }
-  get password() {
-    return this.frmRegister.get('password');
+  get password():string {
+    return this.frmRegister.get('password').value;
   }
 
   validateEqual(): boolean {

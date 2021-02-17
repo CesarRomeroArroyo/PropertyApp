@@ -10,17 +10,21 @@ import { UtilsService } from '../../services/utils.service';
 })
 export class MenuPage implements OnInit {
   dato: any;
+  val: boolean = false;
   constructor(private navCtrl: Router,
     private util: UtilsService,
     private menu: MenuController
   ) { }
 
   ngOnInit() {
+   this.ValidationSession();
+  }
 
+  menuModal() {
+    this.util.openModal();
   }
 
   logout() {
-    this.closeMenu();
     localStorage.removeItem("IDUSER");
     this.navCtrl.navigate(['/login']);
   }
@@ -29,9 +33,7 @@ export class MenuPage implements OnInit {
 
     this.dato = JSON.parse(localStorage.getItem('IDUSER'));
     if (this.dato)
-      return true;
-    else
-      return false
+      this.val = true
   }
 
   closeMenu() {
@@ -42,6 +44,7 @@ export class MenuPage implements OnInit {
     document.getElementById("home").classList.add("active");
     document.getElementById("evento").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
+    document.getElementById("mudanza").classList.remove("active");
     this.navCtrl.navigate(['/admin']);
 
   }
@@ -50,18 +53,27 @@ export class MenuPage implements OnInit {
     document.getElementById("evento").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
-    
+    document.getElementById("mudanza").classList.remove("active");
+
     this.navCtrl.navigate(['/home']);
   }
   redirectUser() {
     document.getElementById("usuarios").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("evento").classList.remove("active");
+    document.getElementById("mudanza").classList.remove("active");
 
     this.navCtrl.navigate(['/lista-usuarios']);
   }
-  redirectBuildings(){
-    
+  redirectBuildings() {
+
+  }
+  miMudanza() {
+    document.getElementById("mudanza").classList.add("active");
+    document.getElementById("usuarios").classList.remove("active");
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("evento").classList.remove("active");
+    this.navCtrl.navigate(['/codigo-mudanza']);
   }
 
 }

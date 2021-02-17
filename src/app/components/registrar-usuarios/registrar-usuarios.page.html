@@ -99,9 +99,11 @@
             <ion-item>
               <ion-label>Apartamentos</ion-label>
               <ion-select formControlName="apartamento">
-                <ion-select-option *ngFor="let item of apartamentos" [value]="item">
-                  {{item.name}}
-                </ion-select-option>
+                <div *ngFor="let apartamento of apartamentos">
+                  <ion-select-option *ngIf="apartamento.estado ===0" [value]="apartamento">
+                    {{apartamento.name}}
+                  </ion-select-option>
+                </div>
               </ion-select>
             </ion-item>
           </ion-list>

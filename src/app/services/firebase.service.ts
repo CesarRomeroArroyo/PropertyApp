@@ -14,6 +14,7 @@ import * as firebase from 'firebase/app';
 import { apartamento } from '../constants/states';
 import { edificiosModels } from '../models/edificios.models';
 import { userAdminModel } from '../models/usuariosAdmin.models';
+import { apartamentosModel } from '../models/apartamentos.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -263,9 +264,10 @@ export class FirebaseService {
 					frmAuth.reset();
 				}
 				localStorage.setItem("IDUSER", JSON.stringify(userlogin[0]));
-
+				localStorage.setItem("MODAL", JSON.stringify(true));
 				if (userlogin.length > states.EXISTS) {
 					if (userlogin[0].estado === states.ACTIVE) {
+
 
 						if (userlogin[0].tipo == roles.USER)
 							this.navCtrl.navigate(['/home']);
@@ -309,14 +311,45 @@ export class FirebaseService {
 		});
 	}
 
+	async assignApartment(apartmet: apartamentosModel, id: string): Promise<any> {
+		await this.db.doc(`${"apartamentos"}/${apartmet.id}`).update({
+			"estado": apartamento.OCUPADO,
+		});
+		this.db.collection('usuarios').doc(id).update({
+			apartamentos: firebase.firestore.FieldValue.arrayUnion(apartmet)
+		});
+	}
+
 	removeBuilding(edificio: edificiosModels, id: string): void {
 		this.db.collection('usuarios').doc(id).update({
 			edificios: firebase.firestore.FieldValue.arrayRemove(edificio)
 		});
 	}
 
+	async removeApartment(apartment: apartamentosModel, id: string): Promise<any> {
+		await this.db.doc(`${"apartamentos"}/${apartment.id}`).update({
+			"estado": apartamento.DESOCUPADO,
+		});
+		this.db.collection('usuarios').doc(id).update({
+			apartamentos: firebase.firestore.FieldValue.arrayRemove(apartment)
+		});
+	}
+
 	getData(tabla: string, codigoEdificio: string): Observable<any> {
 		this.itemsCollection = this.db.collection(tabla, ref => ref.where("codigoEdificio", '==', codigoEdificio));
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+					return retorno;
+				});
+			})
+		);
+	}
+
+	obtenerEdificio(tabla, codigo, show?): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where('codigoEdificios', 'array-contains', codigo));
 		return this.itemsCollection.snapshotChanges().pipe(
 			map(data => {
 				return data.map(d => {
