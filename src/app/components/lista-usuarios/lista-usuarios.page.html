@@ -39,12 +39,12 @@
                 </div>
             </div>
         </div>
-        <ion-label *ngIf="user.tipo == 'admin'">
+        <ion-label *ngIf="user.tipo == roles.ADMIN">
             <h2> Residentes </h2>
         </ion-label>
         <div class="container-group container--purple">
             <div class="container-item" *ngFor="let item of dato">
-                <div *ngIf="item.tipo == 'residente' && item.estado != 0 && user.tipo == 'admin' ">
+                <div *ngIf="item.tipo == roles.USER && item.estado == states.ACTIVE && user.tipo == roles.ADMIN ">
                     <img src="assets/img/foto.jpg" alt="">
                     <div class="elemet-container">
                         <ion-label>
@@ -65,14 +65,14 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="user.tipo == 'admin'">
+        <div *ngIf="user.tipo == roles.ADMIN">
             <ion-label>
                 <h2> Inactivos</h2>
             </ion-label>
         </div>
         <div class="contaner-group">
             <div *ngFor="let item of dato">
-                <div *ngIf="item.estado === 0 && user.tipo == 'admin'">
+                <div *ngIf="item.estado === states.DISABLE && user.tipo == roles.ADMIN ">
                     <img src="assets/img/foto.jpg" alt="">
                     <div class="elemet-container">
                         <ion-label>

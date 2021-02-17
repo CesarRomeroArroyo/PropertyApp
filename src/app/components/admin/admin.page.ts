@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 import { UtilsService } from '../../services/utils.service';
+import { storage } from '../../constants/storage';
 
 @Component({
   selector: 'app-admin',
@@ -17,21 +18,19 @@ export class AdminPage implements OnInit {
     ) { }
 
   ngOnInit() {
+
+this.menu.enable(true);
   }
 
   ionViewWillEnter() {
-    this.util.sessionActive();
+   this.util.sessionActive();
   }
 
   logout():void {
     this.menu.close("main-menu");
-    localStorage.removeItem("IDUSER");
+    localStorage.removeItem(storage.RESIDENTI_USER);
     this.navCtrl.navigate(['/login']);
   }
 
-  openMenu():void {
-    this.menu.enable(true, 'main-menu');
-    this.menu.open("main-menu");
-  }
-
+ 
 }

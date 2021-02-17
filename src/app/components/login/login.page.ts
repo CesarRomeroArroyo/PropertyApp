@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoadingController } from '@ionic/angular';
-import { promise } from 'selenium-webdriver';
+import { LoadingController, MenuController } from '@ionic/angular';
 
 import { messages } from 'src/app/constants/messages';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { inputs } from '../../constants/inputs';
-import { FirebaseService } from '../../services/firebase.service';
-import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +25,12 @@ export class LoginPage implements OnInit {
     private utils: UtilsService,
     private loadCtrl: LoadingController,
     public afAuth: AngularFireAuth,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
     this.initializeFormAuth();
+    this.menuCtrl.enable(false);
   }
 
   initializeFormAuth(): void {

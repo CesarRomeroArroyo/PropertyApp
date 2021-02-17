@@ -56,8 +56,11 @@ export class EditarUsuarioPage implements OnInit {
   editUser(): void {
     if (!this.frmEditarUser.valid) {
       console.log("invalido");
+
+      this.frmEditarUser.patchValue({estado: parseInt(this.frmEditarUser.value.estado)});
       console.log(this.frmEditarUser.value);
     } else {
+      this.frmEditarUser.patchValue({estado: parseInt(this.frmEditarUser.value.estado)});
       console.log(this.frmEditarUser.value);
     }
   }

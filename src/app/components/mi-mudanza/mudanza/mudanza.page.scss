@@ -1,79 +1,82 @@
 .container-primary {
-  width: 100%;
-  height: 150px;
-  background: #46289b;
-  background: linear-gradient(90deg, #46289b 0%, #22134d 100%);
+    width: 100%;
+    height: 150px;
+    background: #46289b;
+    background: linear-gradient(90deg, #46289b 0%, #22134d 100%);
 }
 
 .header-content {
-  position: absolute;
-  top: 20px;
-  left: 15px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  ion-toolbar {
-    --background: none;
-  }
-  ion-label {
-    font-size: 20px;
-    color: white;
-    font-weight: 300;
     position: absolute;
+    top: 20px;
     left: 15px;
-  }
-  ion-menu-button {
-    position: absolute;
-    right: 25px;
-    color: white;
-    font-size: 45px;
-  }
+    width: 100%;
+    display: flex;
+    align-items: center;
+    ion-toolbar {
+        --background: none;
+    }
+    ion-label {
+        font-size: 20px;
+        color: white;
+        font-weight: 300;
+        position: absolute;
+        left: 15px;
+    }
+    ion-menu-button {
+        position: absolute;
+        right: 25px;
+        color: white;
+        font-size: 45px;
+    }
 }
 
 .container-secundary {
-  position: absolute;
-  top: 93px;
-  height: auto;
-  width: 100%;
-  border-top-left-radius: 55px;
-  border-top-right-radius: 55px;
-  background-color: white;
-  h1,
-  h2 {
-    margin-top: 20px;
-    margin-left: 25px;
-    color: #22304a;
-    font-weight: 100;
-  }
+    position: absolute;
+    top: 93px;
+    height: auto;
+    width: 100%;
+    border-top-left-radius: 55px;
+    border-top-right-radius: 55px;
+    background-color: white;
+    h1,
+    h2 {
+        margin-top: 20px;
+        margin-left: 25px;
+        color: #22304a;
+        font-weight: 100;
+    }
 }
 
 .container-group {
-  height: auto;
-  margin: 35px 14px;
+    height: auto;
+    margin: 35px 14px;
 }
 
-.container-item > ion-item {
-  position: relative;
-  top: 10px;
-  height: auto;
-  width: 100%;
-  margin-bottom: 15px;
-  border-radius: 20px;
-  ion-text {
-    text-align: center;
-  }
+.container-item {
+    height: auto;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    ion-text {
+        display: flex;
+        align-items: center;
+    }
+    form {
+        margin-top: 30px;
+    }
 }
 
 .container-form-btn {
-  display: flex;
-  justify-content: center;
-  button {
-    height: 58px;
-    width: 60%;
-    color: white;
-    background-color: #5028bd;
-    border-radius: 200px;
-    font-size: 22px;
-    outline: none;
-  }
+    display: flex;
+    justify-content: center;
+    button {
+        height: 58px;
+        width: 60%;
+        color: white;
+        background-color: #5028bd;
+        border-radius: 200px;
+        font-size: 22px;
+        outline: none;
+        margin-top: 15px;
+    }
 }

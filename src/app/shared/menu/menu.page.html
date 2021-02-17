@@ -1,4 +1,4 @@
-<div *ngIf="ValidationSession()">
+<div *ngIf="valid">
     <ion-menu menuId="main-menu" contentId="main">
         <ion-content>
             <div class="menu-header"></div>
@@ -10,7 +10,7 @@
                 </ion-label>
             </div>
             <ion-list class="menu-items ">
-                <div *ngIf="dato.estado === 1">
+                <div *ngIf="dato.estado === states.ACTIVE">
                     <ion-item id="home" class="active">
                         <ion-icon name="home-outline">
                         </ion-icon> <button (click)="redirectHome()">Inicio</button>
@@ -27,7 +27,8 @@
                         <ion-icon name="cash-outline"></ion-icon>
                         <button>Pagos</button>
                     </ion-item>
-                    <ion-item id="mudanza" class="">
+
+                    <ion-item *ngIf="dato.tipo == roles.USER" id="mudanza" class="">
                         <ion-icon name="briefcase-outline"></ion-icon>
                         <button (click)="miMudanza()"> Mi mudanza</button>
                     </ion-item>

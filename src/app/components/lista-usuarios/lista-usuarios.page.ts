@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { roles } from 'src/app/constants/roles';
 import { storage } from 'src/app/constants/storage';
+import { StateApp } from 'src/app/services/state.service';
+import { states } from '../../constants/states';
 import { tables } from '../../constants/tables';
 import { FirebaseService } from '../../services/firebase.service';
-import { StateApp } from 'src/app/services/state.service';
+
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -13,7 +14,8 @@ import { StateApp } from 'src/app/services/state.service';
   styleUrls: ['./lista-usuarios.page.scss'],
 })
 export class ListaUsuariosPage implements OnInit {
-
+  roles = roles;
+  states = states;
   dato: any = [];
   user: any;
 
@@ -28,17 +30,14 @@ export class ListaUsuariosPage implements OnInit {
   }
 
   listUsers(): void {
-    const edificio = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
     this.user = JSON.parse(localStorage.getItem(storage.RESIDENTI_USER));
-
-    this.fb.obtenerEdificio(tables.USERS, edificio).subscribe(data => {
-      data.forEach(element => (element.tipo != roles.ADMIN && this.dato == "") ? this.dato.push(element) : null);
-    });
-
+    if (this.user.tipo == roles.ADMIN) {
+      const edificio = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
+      this.fb.obtenerEdificio(tables.USERS, edificio).subscribe(data => this.dato= data);
+    }
   }
 
   editUser(item): void {
-
     this.observable.setData([item]);
     this.navCtrl.navigate(['/editar-usuario']);
   }

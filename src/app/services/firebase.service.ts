@@ -3,17 +3,19 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { storage } from 'src/app/constants/storage';
 import { messages } from '../constants/messages';
 import { roles } from '../constants/roles';
-import {  apartamento, states } from '../constants/states';
-import { UserAuthentication,Usermodel  } from '../models/usuarios.model';
-import { UtilsService } from './utils.service';
-import * as firebase from 'firebase/app';
-
+import { apartamento, states } from '../constants/states';
 import { edificiosModels } from '../models/edificios.models';
+import { UserAuthentication, Usermodel } from '../models/usuarios.model';
 import { userAdminModel } from '../models/usuariosAdmin.models';
+import { UtilsService } from './utils.service';
+import { apartamentosModel } from '../models/apartamentos.model';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -260,17 +262,17 @@ export class FirebaseService {
 				const userlogin = await this.obtenerLoginPromise(frmAuth.value);
 
 				if (frmAuth.value.check) {
-					localStorage.setItem("REMEMBER_USER", JSON.stringify(frmAuth.value));
+					localStorage.setItem(storage.RESIDENTI_REMEMBER_USER, JSON.stringify(frmAuth.value));
 				} else {
-					localStorage.removeItem("REMEMBER_USER");
+					localStorage.removeItem(storage.RESIDENTI_REMEMBER_USER);
 					frmAuth.reset();
 				}
-				localStorage.setItem("IDUSER", JSON.stringify(userlogin[0]));
-				localStorage.setItem("MODAL", JSON.stringify(true));
+				localStorage.setItem(storage.RESIDENTI_USER, JSON.stringify(userlogin[0]));
+				localStorage.setItem(storage.RESIDENTI_MODAL, JSON.stringify(true));
 				if (userlogin.length > states.EXISTS) {
 					if (userlogin[0].estado === states.ACTIVE) {
 
-						
+
 						if (userlogin[0].tipo == roles.USER)
 							this.navCtrl.navigate(['/home']);
 						else
@@ -377,5 +379,23 @@ export class FirebaseService {
 			)
 		});
 		await this.sendVerifcationEmail();
+	}
+
+	async changeBuildingAndApartament(apartamentonuev: apartamentosModel, apartamentoViejo: apartamentosModel, iduser: string, ): Promise<any> {
+		await this.db.collection('apartamentos').doc(apartamentoViejo.id).update({ estado: apartamento.DESOCUPADO }).then(() => {
+
+			return this.db.collection('apartamentos').doc(apartamentonuev.id).update({ estado: apartamento.OCUPADO }).then(() => {
+
+		 		return this.db.collection('usuarios').doc(iduser).update({
+					apartamentos: firebase.firestore.FieldValue.arrayRemove(apartamentoViejo)
+
+				}).then(() => {
+
+					return this.db.collection('usuarios').doc(iduser).update({
+						apartamentos: firebase.firestore.FieldValue.arrayUnion(apartamentonuev)
+					});
+				}); 
+			})
+		});
 	}
 }
