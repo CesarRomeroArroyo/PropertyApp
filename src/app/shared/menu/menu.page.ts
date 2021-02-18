@@ -24,6 +24,7 @@ export class MenuPage implements OnInit {
     this.util.openModal();
   }
 
+
   logout() {
     localStorage.removeItem("IDUSER");
     this.navCtrl.navigate(['/login']);
@@ -54,7 +55,6 @@ export class MenuPage implements OnInit {
     document.getElementById("home").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
     document.getElementById("mudanza").classList.remove("active");
-
     this.navCtrl.navigate(['/home']);
   }
   redirectUser() {

@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { messages } from '../constants/messages';
 import { roles } from '../constants/roles';
-import { states } from '../constants/states';
-import { UserAuthentication, Usermodel } from '../models/usuarios.model';
+import {  apartamento, states } from '../constants/states';
+import { UserAuthentication,Usermodel  } from '../models/usuarios.model';
 import { UtilsService } from './utils.service';
 import * as firebase from 'firebase/app';
-import { apartamento } from '../constants/states';
+
 import { edificiosModels } from '../models/edificios.models';
 import { userAdminModel } from '../models/usuariosAdmin.models';
 import { apartamentosModel } from '../models/apartamentos.model';
@@ -136,10 +136,12 @@ export class FirebaseService {
 		var data = await this.db.collection('usuarios', ref => ref.where('email', '==', userAuth.user)).get().toPromise();
 
 		data.forEach(info => {
+			console.log("info" + info);
 			var d = info.data();
 			d["id"] = info.id;
 			returnData.push(d);
 		});
+
 		return returnData;
 	}
 
@@ -235,6 +237,7 @@ export class FirebaseService {
 		}
 	}
 
+
 	async sendVerifcationEmail(): Promise<void> {
 		try {
 			return (await this.afAuth.currentUser).sendEmailVerification();
@@ -268,7 +271,6 @@ export class FirebaseService {
 				if (userlogin.length > states.EXISTS) {
 					if (userlogin[0].estado === states.ACTIVE) {
 
-
 						if (userlogin[0].tipo == roles.USER)
 							this.navCtrl.navigate(['/home']);
 						else
@@ -283,6 +285,19 @@ export class FirebaseService {
 		} else {
 			this.utils.showToast(messages.login.INVALIDCREDENTIALS, 3000).then(toasData => toasData.present());
 		}
+	}
+
+	obtenerCodigo(tabla, codigo, show?): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where('codigo', '==', codigo));
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+					return retorno;
+				});
+			})
+		);
 	}
 
 	async registerUser(userAuth: Usermodel): Promise<any> {

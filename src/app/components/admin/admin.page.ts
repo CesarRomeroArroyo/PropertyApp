@@ -14,7 +14,8 @@ export class AdminPage implements OnInit {
 
   constructor(private navCtrl: Router,
     private util: UtilsService,
-    private menu: MenuController) { }
+    private menu: MenuController,
+    ) { }
 
   ngOnInit() {
     this.menu.enable(true);

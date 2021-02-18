@@ -2,13 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuPage } from './menu/menu.page';
 import { IonicModule } from '@ionic/angular';
-
+import { ModalPage } from './modal/modal.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UtilsService } from '../services/utils.service';
-import { ModalPage } from './modal/modal.page';
-
-
-
 
 @NgModule({
 

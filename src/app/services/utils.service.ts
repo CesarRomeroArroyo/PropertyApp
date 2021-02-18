@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { roles } from '../constants/roles';
 import { states } from '../constants/states';
@@ -11,12 +12,12 @@ import { ModalPage } from '../shared/modal/modal.page';
 })
 export class UtilsService {
 
-  constructor(
-    private toasCtrl: ToastController,
-    private alerCtrl: AlertController,
-    private navCtrl: Router,
-    private modalCtrl: ModalController
-  ) { }
+    constructor(
+        private toasCtrl: ToastController,
+        private alerCtrl: AlertController,
+        private navCtrl: Router,
+        private modalCtrl: ModalController
+    ) { }
 
   difereciaEntreDosPuntos(lon1, lat1, lon2, lat2) {
     var rad = function (x) { return x * Math.PI / 180; }
@@ -89,7 +90,6 @@ export class UtilsService {
       }
     }
   }
-
 
   sessionActive() {
     const user = JSON.parse(localStorage.getItem('IDUSER'));
