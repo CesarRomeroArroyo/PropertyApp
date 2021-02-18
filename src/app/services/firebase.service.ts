@@ -380,6 +380,13 @@ export class FirebaseService {
 		});
 		await this.sendVerifcationEmail();
 	}
+	
+	updateStateUSer(item:Usermodel){
+		if(item.estado == states.ACTIVE)
+			this.db.collection("usuarios").doc(item.id).update({estado: states.DISABLED});
+		else
+		this.db.collection("usuarios").doc(item.id).update({estado: states.ACTIVE});
+	}
 
 	async changeBuildingAndApartament(apartamentonuev: apartamentosModel, apartamentoViejo: apartamentosModel, iduser: string, ): Promise<any> {
 		await this.db.collection('apartamentos').doc(apartamentoViejo.id).update({ estado: apartamento.DESOCUPADO }).then(() => {

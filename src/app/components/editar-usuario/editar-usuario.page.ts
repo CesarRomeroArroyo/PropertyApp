@@ -15,7 +15,7 @@ import { StateApp } from 'src/app/services/state.service';
 })
 export class EditarUsuarioPage implements OnInit {
 
-  dato = [];
+  dato:any = [];
   frmEditarUser: FormGroup;
 
   apartamentosAsignados: any = {};
