@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FileManagerService } from '../services/file-manager.service';
 import { UtilsService } from '../services/utils.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +12,12 @@ export class HomePage {
 
   constructor(
     private fileManager: FileManagerService,
-    private util: UtilsService
+    private util: UtilsService,
+    private menu: MenuController
   ) { }
 
   ngOnInit() {
+    this.menu.enable(true);
   }
 
   ionViewWillEnter() {

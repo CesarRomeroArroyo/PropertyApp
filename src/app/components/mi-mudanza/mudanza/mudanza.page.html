@@ -17,33 +17,21 @@
         <div class="container-group">
             <div class="container-item">
                 <ion-text>Apartementos disponibles de edificio : {{edificio.name}} </ion-text>
-                <form>
+                <form [formGroup]="frmMoving">
                     <ion-item>
                         <ion-label>Apartamentos</ion-label>
-                        <ion-select>
-
-                            <ion-select-option *ngFor="let item of apartamentosDisponible">
+                        <ion-select formControlName="apartaments">
+                            <ion-select-option *ngFor="let item of apartamentosDisponible" [value]="item">
                                 {{item.name }}
                             </ion-select-option>
                         </ion-select>
                     </ion-item>
-
-
-                    <ion-text class="ion-padding-top">Edificio del cual es residente </ion-text>
-                    <ion-item>
-                        <ion-label> Edificio actual</ion-label>
-                        <ion-select value="">
-                            <ion-select-option value="admin">admistrador</ion-select-option>
-                            <ion-select-option value="residente">Residente</ion-select-option>
-                            <ion-select-option value="portero">Portero</ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                    <br>
                     <div class="container-form-btn">
-                        <button type="submit" class="form-btn custom-font">Enviar</button>
+                        <button (click)="changeBuilding()" class="form-btn custom-font">Enviar</button>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 </ion-content>
