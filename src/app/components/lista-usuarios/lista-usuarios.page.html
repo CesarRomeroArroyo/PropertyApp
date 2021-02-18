@@ -1,92 +1,92 @@
 <ion-content>
-  <div class="container-primary"></div>
-  <div class="header-content">
-    <ion-label>
-      <h1>Usuarios</h1>
-    </ion-label>
-    <ion-toolbar>
-      <ion-buttons>
-        <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </div>
-  <div class="container-secundary">
-    <div>
-      <ion-label>
-        <h2> Mi Perfil </h2>
-      </ion-label>
+    <div class="container-primary"></div>
+    <div class="header-content">
+        <ion-label>
+            <h1>Usuarios</h1>
+        </ion-label>
+        <ion-toolbar>
+            <ion-buttons>
+                <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
+            </ion-buttons>
+        </ion-toolbar>
     </div>
-    <div class="container-group">
-      <div class="container-item">
+    <div class="container-secundary">
         <div>
-          <img src="assets/img/foto.jpg" alt="">
-          <div class="elemet-container">
             <ion-label>
-              <h2> {{dataAdmin.name}} </h2>
-              <h6>{{dataAdmin.email}} </h6>
+                <h2> Mi Perfil </h2>
             </ion-label>
-          </div>
-          <ion-fab>
-            <button>
-              <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
-            </button>
-            <ion-fab-list>
-              <button (click)="editUser(dataAdmin,dataAdmin.id)">
-                <ion-icon name="brush-outline"></ion-icon>
-              </button>
-            </ion-fab-list>
-          </ion-fab>
         </div>
-      </div>
-    </div>
-    <ion-label *ngIf="dataAdmin.tipo == roles.ADMIN">
-      <h2> Residentes </h2>
-    </ion-label>
-    <div class="container-group2">
-      <div class="container-item" *ngFor="let user of datauser">
-        <div *ngIf="user.tipo == roles.USER && user.estado == states.ACTIVE && dataAdmin.tipo == roles.ADMIN ">
-          <img src="assets/img/foto.jpg" alt="">
-          <div class="elemet-container">
+        <div class="container-group">
+            <div class="container-item">
+                <div *ngIf=" user.estado != 0 ">
+                    <img src="assets/img/foto.jpg" alt="">
+                    <div class="elemet-container">
+                        <ion-label>
+                            <h2> {{user.name}} </h2>
+                            <h6>{{user.email}} </h6>
+                        </ion-label>
+                    </div>
+                    <ion-fab>
+                        <button>
+                            <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
+                        </button>
+                        <ion-fab-list>
+                            <button (click)="editUser(user,user.id)">
+                                <ion-icon name="brush-outline"></ion-icon>
+                            </button>
+                        </ion-fab-list>
+                    </ion-fab>
+                </div>
+            </div>
+        </div>
+        <ion-label *ngIf="user.tipo == roles.ADMIN">
+            <h2> Residentes </h2>
+        </ion-label>
+        <div class="container-group container--purple">
+            <div class="container-item" *ngFor="let item of dato">
+                <div *ngIf="item.tipo == roles.USER && item.estado == states.ACTIVE && user.tipo == roles.ADMIN ">
+                    <img src="assets/img/foto.jpg" alt="">
+                    <div class="elemet-container">
+                        <ion-label>
+                            <h2> {{item.name}} </h2>
+                            <h6>{{item.email}} </h6>
+                        </ion-label>
+                    </div>
+                    <ion-fab>
+                        <button>
+                            <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
+                        </button>
+                        <ion-fab-list>
+                            <button (click)="editUser(item)">
+                                <ion-icon name="brush-outline"></ion-icon>
+                            </button>
+                        </ion-fab-list>
+                    </ion-fab>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="user.tipo == roles.ADMIN">
             <ion-label>
-              <h2> {{user.name}} </h2>
-              <h6>{{user.email}} </h6>
+                <h2> Inactivos</h2>
             </ion-label>
-          </div>
-          <ion-fab>
-            <button>
-              <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
-            </button>
-            <ion-fab-list>
-              <button (click)="editUser(user)">
-                <ion-icon name="brush-outline"></ion-icon>
-              </button>
-            </ion-fab-list>
-          </ion-fab>
         </div>
-      </div>
-    </div>
-    <div *ngIf="dataAdmin.tipo == roles.ADMIN">
-      <ion-label>
-        <h2> Inactivos</h2>
-      </ion-label>
-    </div>
-    <div class="contaner-group">
-      <div class="container-item1" *ngFor="let user of datauser">
-        <div *ngIf="user.estado === states.DISABLE && dataAdmin.tipo == roles.ADMIN">
-          <img src="assets/img/foto.jpg" alt="">
-          <div class="elemet-container">
-            <ion-label>
-              <h2> {{user.name}} </h2>
-              <h6>{{user.email}} </h6>
-            </ion-label>
-          </div>
-          <ion-fab>
-            <button>
-              <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
-            </button>
-          </ion-fab>
+        <div class="contaner-group">
+            <div *ngFor="let item of dato">
+                <div *ngIf="item.estado === states.DISABLE && user.tipo == roles.ADMIN ">
+                    <img src="assets/img/foto.jpg" alt="">
+                    <div class="elemet-container">
+                        <ion-label>
+                            <h2> {{item.name}} </h2>
+                            <h6>{{item.email}} </h6>
+                        </ion-label>
+                    </div>
+                    <ion-fab>
+                        <button>
+                            <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
+                        </button>
+                    </ion-fab>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </ion-content>

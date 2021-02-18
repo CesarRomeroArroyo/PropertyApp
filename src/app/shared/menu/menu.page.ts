@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { roles } from 'src/app/constants/roles';
+import { states } from 'src/app/constants/states';
+import { storage } from 'src/app/constants/storage';
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
@@ -10,42 +13,46 @@ import { UtilsService } from '../../services/utils.service';
 })
 export class MenuPage implements OnInit {
   dato: any;
-  val: boolean = false;
+  states= states;
+  roles= roles;
+  valid :boolean= false;
   constructor(private navCtrl: Router,
     private util: UtilsService,
     private menu: MenuController
   ) { }
 
   ngOnInit() {
-   this.ValidationSession();
+    this.validationSession();
   }
 
-  menuModal() {
+  menuModal(){
     this.util.openModal();
   }
 
-
-  logout() {
-    localStorage.removeItem("IDUSER");
+  logout():void {
+    localStorage.removeItem(storage.RESIDENTI_USER);
+     localStorage.removeItem(storage.RESIDENTI_MODAL);
+    localStorage.removeItem(storage.RESIDENTI_BUILDING);
+    localStorage.removeItem(storage.RESIDENTI_APARTAMENT); 
+    this.closeMenu()
     this.navCtrl.navigate(['/login']);
   }
 
-  ValidationSession() {
-
-    this.dato = JSON.parse(localStorage.getItem('IDUSER'));
+  validationSession():void{
+    this.dato = JSON.parse(localStorage.getItem(storage.RESIDENTI_USER));
     if (this.dato)
-      this.val = true
+      this.valid= true; 
   }
 
   closeMenu() {
-    this.menu.close("main-menu");
+    this.menu.enable(false);
   }
 
   redirectHome() {
     document.getElementById("home").classList.add("active");
     document.getElementById("evento").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
-    document.getElementById("mudanza").classList.remove("active");
+  
     this.navCtrl.navigate(['/admin']);
 
   }
@@ -54,21 +61,22 @@ export class MenuPage implements OnInit {
     document.getElementById("evento").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
-    document.getElementById("mudanza").classList.remove("active");
+    
+    
     this.navCtrl.navigate(['/home']);
   }
   redirectUser() {
     document.getElementById("usuarios").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("evento").classList.remove("active");
-    document.getElementById("mudanza").classList.remove("active");
+  
 
     this.navCtrl.navigate(['/lista-usuarios']);
   }
-  redirectBuildings() {
-
+  redirectBuildings(){
+    
   }
-  miMudanza() {
+  miMudanza(){
     document.getElementById("mudanza").classList.add("active");
     document.getElementById("usuarios").classList.remove("active");
     document.getElementById("home").classList.remove("active");

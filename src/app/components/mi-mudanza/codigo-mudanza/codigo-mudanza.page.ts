@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { messages } from 'src/app/constants/messages';
@@ -16,6 +17,7 @@ export class CodigoMudanzaPage implements OnInit {
 
   frmCodigo: FormGroup;
   edificio: any = [];
+
   constructor(
     private frmbuilder: FormBuilder,
     private navCtrl: Router,

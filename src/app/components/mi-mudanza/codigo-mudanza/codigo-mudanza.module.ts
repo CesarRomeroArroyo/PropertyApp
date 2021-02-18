@@ -13,6 +13,7 @@ import { CodigoMudanzaPage } from './codigo-mudanza.page';
     IonicModule,
     CodigoMudanzaPageRoutingModule,
     ReactiveFormsModule
+    
   ],
   declarations: [CodigoMudanzaPage]
 })

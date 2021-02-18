@@ -1,29 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { roles } from 'src/app/constants/roles';
 import { storage } from 'src/app/constants/storage';
+import { StateApp } from 'src/app/services/state.service';
+import { states } from '../../constants/states';
 import { tables } from '../../constants/tables';
 import { FirebaseService } from '../../services/firebase.service';
-import { StateApp } from 'src/app/services/state.service';
-import { Subscription } from 'rxjs';
-import { userAdminModel } from 'src/app/models/usuariosAdmin.models';
-import { Usermodel } from 'src/app/models/usuarios.model';
-import { states } from 'src/app/constants/states';
+
 
 @Component({
   selector: 'app-lista-usuarios',
   templateUrl: './lista-usuarios.page.html',
   styleUrls: ['./lista-usuarios.page.scss'],
 })
-
-export class ListaUsuariosPage implements OnInit, OnDestroy {
-
-  datauser: Usermodel;
-  dataAdmin: userAdminModel;
+export class ListaUsuariosPage implements OnInit {
   roles = roles;
   states = states;
-  private subcripcionEdificio: Subscription = null;
+  dato: any = [];
+  user: any;
 
   constructor(
     private fb: FirebaseService,
@@ -35,20 +29,16 @@ export class ListaUsuariosPage implements OnInit, OnDestroy {
     this.listUsers();
   }
 
-  ngOnDestroy() {
-    this.subcripcionEdificio.unsubscribe();
-  }
-
   listUsers(): void {
-    const edificio = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
-    this.dataAdmin = JSON.parse(localStorage.getItem(storage.RESIDENTI_USER));
-    this.subcripcionEdificio = this.fb.obtenerEdificio(tables.USERS, edificio).subscribe(user => {
-      this.datauser = user;
-    });
+    this.user = JSON.parse(localStorage.getItem(storage.RESIDENTI_USER));
+    if (this.user.tipo == roles.ADMIN) {
+      const edificio = JSON.parse(localStorage.getItem(storage.RESIDENTI_BUILDING));
+      this.fb.obtenerEdificio(tables.USERS, edificio).subscribe(data => this.dato= data);
+    }
   }
 
-  editUser(user: Usermodel): void {
-    this.observable.setData([user]);
+  editUser(item): void {
+    this.observable.setData([item]);
     this.navCtrl.navigate(['/editar-usuario']);
   }
 
