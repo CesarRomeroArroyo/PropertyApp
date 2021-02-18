@@ -5,6 +5,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { EditarUsuarioPageRoutingModule } from './editar-usuario-routing.module';
 import { EditarUsuarioPage } from './editar-usuario.page';
+import { AddApartUserComponent } from './modals/add-apart-user/add-apart-user.component';
+import { HomeAddApartComponent } from './home-add-apart/home-add-apart.component';
 
 @NgModule({
   imports: [
@@ -12,8 +14,12 @@ import { EditarUsuarioPage } from './editar-usuario.page';
     FormsModule,
     IonicModule,
     EditarUsuarioPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [EditarUsuarioPage]
+  declarations: [
+    EditarUsuarioPage,
+    AddApartUserComponent,
+    HomeAddApartComponent
+  ]
 })
 export class EditarUsuarioPageModule {}

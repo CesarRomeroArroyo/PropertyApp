@@ -8,118 +8,113 @@
         </div>
     </div>
     <ion-row>
-        <ion-col class="ion-text-center">
-            <h1>Registrar usuario</h1>
-        </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <form [formGroup]="frmRegister" (ngSubmit)="registerUser()">
+          <div class="frm_input">
+            <input type="text" formControlName="name" placeholder="Nombre">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <div *ngIf="name.invalid && name.dirty" class="validation-errors">
+            <div *ngIf="name.errors.required">
+              {{errorInpus.NAME_REQUERID}}
+            </div>
+            <div *ngIf="name.errors.minlength">
+              {{errorInpus.NAME_MINLENGHT}}
+            </div>
+          </div>
+          <div class="frm_input">
+            <input type="text" inputmode="email" formControlName="email" placeholder="Correo electrónico">
+            <ion-icon name="mail-outline"></ion-icon>
+          </div>
+          <div *ngIf="email.invalid && email.dirty" class="validation-errors">
+            <div *ngIf="email.errors.required">
+              {{errorInpus.EMAIL_REQUERID}}
+            </div>
+            <div *ngIf="email.errors.pattern">
+              {{errorInpus.EMAI_LINVALID}}
+            </div>
+          </div>
+          <div class="frm_input">
+            <input type="text" formControlName="CC" placeholder="Cedula">
+            <ion-icon name="finger-print-outline"></ion-icon>
+          </div>
+          <div *ngIf="CC.invalid && CC.dirty " class="validation-errors">
+            <div *ngIf="CC.errors.required">
+              {{errorInpus.CC_QUERID}}
+            </div>
+            <div *ngIf="CC.errors.pattern">
+              {{errorInpus.NUMBRE}}
+            </div>
+            <div *ngIf="CC.errors.minlength">
+              {{errorInpus.CC_MINLENGHT}}
+            </div>
+          </div>
+          <div class="frm_input">
+            <input type="password" formControlName="password" placeholder="Contraseña">
+            <ion-icon name="key-outline"></ion-icon>
+          </div>
+          <div *ngIf="password.invalid && password.dirty" class="validation-errors">
+            <div *ngIf="password.errors.required">
+              {{errorInpus.PASS_REQUERID}}
+            </div>
+            <div *ngIf="password.errors.minlength">
+              {{errorInpus.PASS_MINLENGHT}}
+            </div>
+          </div>
+          <div class="frm_input">
+            <input type="password" formControlName="passConfirmation" placeholder="Confirmacióm">
+            <ion-icon name="key-outline"></ion-icon>
+          </div>
+          <div class="validation-errors" *ngIf="validateEqual()">
+            {{errorInpus.CONF_PASS}}
+          </div>
+          <div class="frm_input">
+            <input type="text" formControlName="tel" placeholder="Teléfono">
+            <ion-icon name="call-outline"></ion-icon>
+          </div>
+          <div *ngIf="tel.invalid && tel.dirty" class="validation-errors">
+            <div *ngIf="tel.errors.required">
+              {{errorInpus.TEL_REQUERID}}
+            </div>
+            <div *ngIf="tel.errors.minlength">
+              {{errorInpus.TEL_MINLEMGHT}}
+            </div>
+            <div *ngIf="tel.errors.pattern">
+              {{errorInpus.NUMBRE}}
+            </div>
+          </div>
+          <ion-list>
+            <ion-list-header>
+              <ion-label>
+                Selecione el apartamento
+              </ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>Apartamentos</ion-label>
+              <ion-select formControlName="apartamento">
+                <div *ngFor="let apartamento of apartamentos">
+                  <ion-select-option *ngIf="apartamento.estado ===0" [value]="apartamento">
+                    {{apartamento.name}}
+                  </ion-select-option>
+                </div>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-label>Tipo de inquilino</ion-label>
+              <ion-select formControlName="tipoInquilino">
+                <ion-select-option value="Propietario">Propietario</ion-select-option>
+                <ion-select-option value="Arendatario">Arendatario</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <div class="container-form-btn ">
+            <button class="form-btn" type="submit">Registrar</button>
+          </div>
+        </form>
+      </ion-col>
+      <ion-col size="1"></ion-col>
     </ion-row>
-    <ion-grid class="ion-no-padding">
-        <ion-row>
-            <ion-col size="1"></ion-col>
-            <ion-col size="10">
-                <form [formGroup]="frmRegister" (ngSubmit)="registerUser()">
-                    <div class="frm_input">
-                        <input type="text" formControlName="name" placeholder="Nombre">
-                        <ion-icon name="person-outline"></ion-icon>
-                    </div>
-                    <div *ngIf="name.invalid && name.dirty" class="validation-errors">
-                        <div *ngIf="name.errors.required">
-                            {{errorInpus.NAME_REQUERID}}
-                        </div>
-                        <div *ngIf="name.errors.minlength">
-                            {{errorInpus.NAME_MINLENGHT}}
-                        </div>
-                    </div>
-                    <div class="frm_input">
-                        <input type="text" inputmode="email" formControlName="email" placeholder="Correo electrónico">
-                        <ion-icon name="mail-outline"></ion-icon>
-                    </div>
-                    <div *ngIf="email.invalid && email.dirty" class="validation-errors">
-                        <div *ngIf="email.errors.required">
-                            {{errorInpus.EMAIL_REQUERID}}
-                        </div>
-                        <div *ngIf="email.errors.pattern">
-                            {{errorInpus.EMAI_LINVALID}}
-                        </div>
-                    </div>
-                    <div class="frm_input">
-                        <input type="text" formControlName="CC" placeholder="Cedula">
-                        <ion-icon name="finger-print-outline"></ion-icon>
-                    </div>
-                    <div *ngIf="CC.invalid && CC.dirty " class="validation-errors">
-                        <div *ngIf="CC.errors.required">
-                            {{errorInpus.CC_QUERID}}
-                        </div>
-                        <div *ngIf="CC.errors.pattern">
-                            {{errorInpus.NUMBRE}}
-                        </div>
-                        <div *ngIf="CC.errors.minlength">
-                            {{errorInpus.CC_MINLENGHT}}
-                        </div>
-                    </div>
-                    <div class="frm_input">
-                        <input type="password" formControlName="password" placeholder="Contraseña">
-                        <ion-icon name="key-outline"></ion-icon>
-                    </div>
-                    <div *ngIf="password.invalid && password.dirty" class="validation-errors">
-                        <div *ngIf="password.errors.required">
-                            {{errorInpus.PASS_REQUERID}}
-                        </div>
-                        <div *ngIf="password.errors.minlength">
-                            {{errorInpus.PASS_MINLENGHT}}
-                        </div>
-                    </div>
-                    <div class="frm_input">
-                        <input type="password" formControlName="passConfirmation" placeholder="Confirmacióm">
-                        <ion-icon name="key-outline"></ion-icon>
-                    </div>
-                    <div class="validation-errors" *ngIf="validateEqual()">
-                        {{errorInpus.CONF_PASS}}
-                    </div>
-                    <div class="frm_input">
-                        <input type="text" formControlName="tel" placeholder="Teléfono">
-                        <ion-icon name="call-outline"></ion-icon>
-                    </div>
-                    <div *ngIf="tel.invalid && tel.dirty" class="validation-errors">
-                        <div *ngIf="tel.errors.required">
-                            {{errorInpus.TEL_REQUERID}}
-                        </div>
-                        <div *ngIf="tel.errors.minlength">
-                            {{errorInpus.TEL_MINLEMGHT}}
-                        </div>
-                        <div *ngIf="tel.errors.pattern">
-                            {{errorInpus.NUMBRE}}
-                        </div>
-                    </div>
-                    <ion-list>
-                        <ion-list-header>
-                            <ion-label>
-                                Selecione el apartamento
-                            </ion-label>
-                        </ion-list-header>
-                        <ion-item>
-                            <ion-label>Apartamentos</ion-label>
-                            <ion-select formControlName="apartamento">
-                                <ion-select-option *ngFor="let item of apartamentos" [value]="item">
-                                    {{item.name}}
-                                </ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                    </ion-list>
-                    <ion-list>
-                        <ion-item>
-                            <ion-label>Tipo de inquilino</ion-label>
-                            <ion-select formControlName="tipoInquilino">
-                                <ion-select-option value="Propietario">Propietario</ion-select-option>
-                                <ion-select-option value="Arendatario">Arendatario</ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                    </ion-list>
-                    <div class="container-form-btn ">
-                        <button class="form-btn" type="submit">Registrar</button>
-                    </div>
-                </form>
-            </ion-col>
-            <ion-col size="1"></ion-col>
-        </ion-row>
-    </ion-grid>
 </ion-content>

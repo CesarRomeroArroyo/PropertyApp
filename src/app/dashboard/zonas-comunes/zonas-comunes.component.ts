@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 import { tables } from 'src/app/constants/tables';
 import { edificiosModels } from 'src/app/models/edificios.models';
@@ -14,9 +15,10 @@ import { EditZonasComponent } from '../modals/edit-zonas/edit-zonas.component';
   styleUrls: ['./zonas-comunes.component.scss'],
 })
 
-export class ZonasComunesComponent implements OnInit {
+export class ZonasComunesComponent implements OnInit, OnDestroy {
 
   zonasComunes: zonasComunesModel[] = [];
+  subZonasCumunes: Subscription = null;
   @Input() edificio: edificiosModels;
 
   constructor(
@@ -29,8 +31,12 @@ export class ZonasComunesComponent implements OnInit {
     this.loadZona();
   }
 
+  ngOnDestroy() {
+    this.subZonasCumunes.unsubscribe();
+  }
+
   loadZona() {
-    this.fbservice.getData(tables.ZONASCOMUNES, this.edificio[0].codigoEdificio).subscribe(zonasComunes => {
+    this.subZonasCumunes = this.fbservice.getData(tables.ZONASCOMUNES, this.edificio[0].codigoEdificio).subscribe(zonasComunes => {
       this.zonasComunes = zonasComunes;
     });
   }

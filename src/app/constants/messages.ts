@@ -34,11 +34,13 @@ export const messages = {
     TEL_MINLEMGHT: 'El telefono debe tener al menos 10 caracteres.',
   },
   INPUST_ERROR: {
-    REQUIRID: 'Campo requerido',
+    REQUIRID: 'Ingrese todos los campos',
     NODATA: 'no se encontraron registros'
   },
   PROCESOS: {
-    SUCCESSFUL: 'Registro creado correctamente'
+    SUCCESSFUL: 'Registro creado correctamente',
+    UPDATE:'Registro actualizado correctamente',
+    ERROR: 'Se presentaron erores, por favor intente nuevamente'
   },
   modal: {
     EMPTY_FIELDS: 'Por favor seleccione una opción'

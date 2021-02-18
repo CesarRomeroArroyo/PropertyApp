@@ -14,4 +14,5 @@ export const dashRouting: Routes = [
     { path: 'zonasComunes', component: ZonasComunesComponent, data: { title: "zonas comunes" } },
     { path: 'codigo', component: CodigoComponent, data: { title: "codigo" } },
     { path: 'asignar', component: AsignarComponent, data: { title: "asignar" } }
+
 ];

@@ -1,41 +1,43 @@
 <ion-content>
   <ion-button (click)="registerAdminModal()">Registrar administrador</ion-button>
   <div *ngFor="let dataAdmin of userAdmin">
-    <ion-card>
-      <ion-card-header>
-        <ion-list>
-          <ion-item>
-            <h4>Datos del administrador</h4>
-          </ion-item>
-          <ion-item>
-            Nombre: {{dataAdmin.name}}
-            Correo:{{dataAdmin.email}}
-          </ion-item>
-        </ion-list>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-          <ion-item>
-            <ion-label>
-              Edificios asignados
-            </ion-label>
-            <ion-button (click)="assignModal(dataAdmin.id)">
-              <ion-icon name="add-outline"></ion-icon>
-            </ion-button>
-          </ion-item>
-          <ion-item-sliding *ngFor="let dataEdificios of dataAdmin.edificios">
+     <div *ngIf="dataAdmin.tipo == 'admin'">
+      <ion-card>
+        <ion-card-header>
+          <ion-list>
+            <ion-item>
+              <h4>Datos del administrador</h4>
+            </ion-item>
+            <ion-item>
+              Nombre: {{dataAdmin.name}}
+              Correo:{{dataAdmin.email}}
+            </ion-item>
+          </ion-list>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
             <ion-item>
               <ion-label>
-                <h2>{{dataEdificios.name}} </h2>
+                Edificios asignados
               </ion-label>
-              <ion-button (click)="removeBuilding(dataEdificios, dataAdmin.id)">
-                <ion-icon name="trash-outline"></ion-icon>
+              <ion-button (click)="assignModal(dataAdmin.id)">
+                <ion-icon name="add-outline"></ion-icon>
               </ion-button>
             </ion-item>
-          </ion-item-sliding>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </div>
+            <ion-item-sliding *ngFor="let dataEdificios of dataAdmin.edificios">
+              <ion-item>
+                <ion-label>
+                  <h2>{{dataEdificios.name}} </h2>
+                </ion-label>
+                <ion-button (click)="removeBuilding(dataEdificios, dataAdmin.id)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-item-sliding>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div> 
+    </div>
   <ion-button (click)="Finalize()">Finalizar</ion-button>
 </ion-content>

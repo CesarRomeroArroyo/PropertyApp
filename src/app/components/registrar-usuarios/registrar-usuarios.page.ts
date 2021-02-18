@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+
+import { Subscription } from 'rxjs';
+
 import { inputs } from 'src/app/constants/inputs';
 import { messages } from 'src/app/constants/messages';
 import { roles } from 'src/app/constants/roles';
 import { tables } from 'src/app/constants/tables';
 import { apartamentosModel } from 'src/app/models/apartamentos.model';
-import { apartamento, states } from '../../constants/states';
+import { states } from '../../constants/states';
 import { validateEqual } from '../../constants/validadorEqual';
 import { FirebaseService } from '../../services/firebase.service';
 import { UtilsService } from '../../services/utils.service';
@@ -18,12 +21,14 @@ import { UtilsService } from '../../services/utils.service';
   styleUrls: ['./registrar-usuarios.page.scss'],
 })
 
-export class RegistrarUsuariosPage implements OnInit {
+export class RegistrarUsuariosPage implements OnInit, OnDestroy {
 
   frmRegister: FormGroup;
   errorInpus = messages.REGISTER_INPUST_ERROR;
   codigoEdificio: string;
-  apartamentos:apartamentosModel[] = [];
+  apartamentos: apartamentosModel[] = [];
+  private subscription: Subscription = null;
+  private subscriptionCodigo: Subscription = null;
 
   constructor(
     private fbservice: FirebaseService,
@@ -39,15 +44,18 @@ export class RegistrarUsuariosPage implements OnInit {
     this.initializeFormRegister();
   }
 
-  getData() {
-    this.router.params.subscribe(data => {
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.subscriptionCodigo.unsubscribe();
+  }
+
+  getData(): void {
+    this.subscriptionCodigo = this.router.params.subscribe(data => {
       this.codigoEdificio = data.codigoEdificio;
     });
 
-    this.fbservice.getData(tables.APARTAMENTS, this.codigoEdificio).subscribe(apartamentos => {
-      apartamentos.forEach(info => {
-        info.estado === apartamento.DESOCUPADO ? this.apartamentos.push(info) : null;
-      });
+    this.subscription = this.fbservice.getData(tables.APARTAMENTS, this.codigoEdificio).subscribe(apartamentos => {
+      this.apartamentos = apartamentos;
     });
   }
 
@@ -73,6 +81,7 @@ export class RegistrarUsuariosPage implements OnInit {
 
   async registerUser(): Promise<void> {
     if (!this.frmRegister.valid) {
+      console.log(this.frmRegister.value)
       this.utils.showToast(messages.INPUST_ERROR.REQUIRID, 1000).then(toasData => toasData.present());
     } else {
       let loader = this.loadCtrl.create({ message: messages.information.WAIT });
@@ -90,25 +99,25 @@ export class RegistrarUsuariosPage implements OnInit {
     }
   }
 
-  get name() {
+  get name(): AbstractControl {
     return this.frmRegister.get("name");
   }
-  get email() {
+  get email(): AbstractControl {
     return this.frmRegister.get("email");
   }
-  get CC() {
+  get CC(): AbstractControl {
     return this.frmRegister.get('CC');
   }
-  get user() {
+  get user(): AbstractControl {
     return this.frmRegister.get('user');
   }
-  get password() {
+  get password(): AbstractControl {
     return this.frmRegister.get('password');
   }
-  get passConfirmation() {
+  get passConfirmation(): AbstractControl {
     return this.frmRegister.get('password');
   }
-  get tel() {
+  get tel(): AbstractControl {
     return this.frmRegister.get('tel');
   }
 

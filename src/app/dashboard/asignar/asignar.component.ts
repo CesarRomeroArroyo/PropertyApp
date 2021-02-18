@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 
-import { roles } from 'src/app/constants/roles';
 import { tables } from 'src/app/constants/tables';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AddAdminComponent } from '../modals/add-admin/add-admin.component';
 import { ListEdifComponent } from '../modals/list-edif/list-edif.component';
 import { userAdminModel } from 'src/app/models/usuariosAdmin.models';
 import { edificiosModels } from 'src/app/models/edificios.models';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-asignar',
@@ -16,9 +16,10 @@ import { edificiosModels } from 'src/app/models/edificios.models';
   styleUrls: ['./asignar.component.scss'],
 })
 
-export class AsignarComponent implements OnInit {
+export class AsignarComponent implements OnInit, OnDestroy {
 
-  userAdmin: userAdminModel[]=[];
+  userAdmin: userAdminModel;
+  private subcription: Subscription = null;
 
   constructor(
     private fbservice: FirebaseService,
@@ -27,13 +28,17 @@ export class AsignarComponent implements OnInit {
     private navCtrl: Router
   ) { }
 
+  ngOnDestroy() {
+    this.subcription.unsubscribe();
+  }
+
   ngOnInit() {
     this.loadUserAdmin();
   }
 
   loadUserAdmin(): void {
-    this.fbservice.obtener(tables.USERS).subscribe(data => {
-      data.forEach(element => (element.tipo === roles.ADMIN) ? this.userAdmin.push(element): null);
+    this.subcription = this.fbservice.obtener(tables.USERS).subscribe(data => {
+      this.userAdmin = data;
     });
   }
 

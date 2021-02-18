@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
+
+import { Subscription } from 'rxjs';
 
 import { tables } from 'src/app/constants/tables';
 import { apartamentosModel } from 'src/app/models/apartamentos.model';
@@ -14,9 +16,10 @@ import { EditApartComponent } from '../modals/edit-apart/edit-apart.component';
   styleUrls: ['./apartamento.component.scss'],
 })
 
-export class ApartamentoComponent implements OnInit {
+export class ApartamentoComponent implements OnInit, OnDestroy {
 
   apartamentos: apartamentosModel[] = [];
+  private subApart: Subscription = null;
   @Input() edificio: edificiosModels;
 
   constructor(
@@ -29,8 +32,12 @@ export class ApartamentoComponent implements OnInit {
     this.loadApart();
   }
 
+  ngOnDestroy() {
+    this.subApart.unsubscribe();
+  }
+
   loadApart(): void {
-    this.fbservice.getData(tables.APARTAMENTS, this.edificio[0].codigoEdificio).subscribe(apartamentos => {
+    this.subApart = this.fbservice.getData(tables.APARTAMENTS, this.edificio[0].codigoEdificio).subscribe(apartamentos => {
       this.apartamentos = apartamentos;
     });
   }
