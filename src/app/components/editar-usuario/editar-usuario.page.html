@@ -1,63 +1,59 @@
 <ion-content>
-    <div class="container-primary"></div>
-    <div class="header-content">
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref='/lista-usuarios' text=""></ion-back-button>
-        </ion-buttons>
-        <ion-label>
-            <h1>Usuario: {{dato.name}} </h1>
-        </ion-label>
-        <ion-toolbar>
-            <ion-buttons>
-                <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
-            </ion-buttons>
-        </ion-toolbar>
+  <div class="container-primary"></div>
+  <div class="header-content">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='/lista-usuarios' text=""></ion-back-button>
+    </ion-buttons>
+    <ion-label>
+      <h1>{{userData.name}} </h1>
+    </ion-label>
+    <ion-toolbar>
+      <ion-buttons>
+        <ion-menu-button autoHide="false" name="settings"></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </div>
+  <div class="container-secundary">
+    <div class="container-group">
+      <div class="container-item">
+        <form [formGroup]="frmEditarUser" (ngSubmit)="editUser()">
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="name"></ion-input>
+          </ion-item>
+          <div *ngIf="userData.tipo != 'admin'">
+          </div>
+          <ion-item>
+            <ion-label position="floating">Telefono</ion-label>
+            <ion-input formControlName="tel"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Cedula</ion-label>
+            <ion-input formControlName="CC"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating" >Tipo</ion-label>
+            <ion-input  [attr.disabled]="true" formControlName="tipo"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="displey">Estado
+              <div *ngIf="userData.estado == 1">
+                <ion-icon class="active" name="radio-button-on-outline"></ion-icon>
+              </div>
+            </ion-label>
+            <ion-select formControlName="estado">
+              <ion-select-option value="1">Activo</ion-select-option>
+              <ion-select-option value="0">Desactivado</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div *ngIf="userData.tipo == roles.USER">
+            <app-home-add-apart [idUser]="idUser"></app-home-add-apart>
+          </div>
+          <div class="container-form-btn">
+            <button class="form-btn" type="submit">Actualizar</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="container-secundary">
-        <div class="container-group">
-            <div class="container-item">
-                <form [formGroup]="frmEditarUser" (ngSubmit)="editUser()">
-                    <ion-item>
-                        <ion-label position="floating">Nombre</ion-label>
-                        <ion-input formControlName="name"></ion-input>
-                    </ion-item>
-                    <div *ngIf="dato.tipo != 'admin'">
-                    </div>
-                    <ion-item>
-                        <ion-label position="floating">Telefono</ion-label>
-                        <ion-input formControlName="tel"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating">Cedula</ion-label>
-                        <ion-input formControlName="CC"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Tipo</ion-label>
-                        <ion-select formControlName="tipo">
-                            <ion-select-option value="admin">admistrador</ion-select-option>
-                            <ion-select-option value="residente">Residente</ion-select-option>
-                            <ion-select-option value="portero">Portero</ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Estado</ion-label>
-                        <ion-select formControlName="estado">
-                            <ion-select-option value="1">Activo</ion-select-option>
-                            <ion-select-option value="0">Desactivado</ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                    <div class="container-form-btn">
-                        <button type="submit" class="form-btn custom-font">Enviar</button>
-                    </div>
-                </form>
-                <div *ngFor="let item of dato.apartamentos">
-                    <ion-label>Apartamentos </ion-label>
-                    <ion-button>
-                        <ion-icon name="add-outline"></ion-icon>
-                    </ion-button>
-                    <ion-input>{{item.name}}</ion-input>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </ion-content>

@@ -1,0 +1,43 @@
+<ion-content>
+  <div class="container-primary"></div>
+  <div class="header-content">
+    <button (click)="closeModal()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+    <ion-label>
+      <h1>Agregar evento.</h1>
+    </ion-label>
+    <ion-toolbar>
+    </ion-toolbar>
+  </div>
+  <div class="container-secundary">
+    <div class="container-group">
+      <form [formGroup]="frmEvent">
+        <h2>Fecha</h2>
+        <h2 disabled> {{dateFormat}} </h2>
+        <h2>Zonas comunes</h2>
+        <ion-select (ionChange)="changeZoneCommon($event.detail.value)" placeholder="Selecione una Zona comun" formControlName="zoneCommon">
+          <ion-select-option *ngFor="let zone of zoneCommon" [value]="zone"> {{zone.name}}</ion-select-option>
+        </ion-select>
+        <h2>hora inicial</h2>
+        <ion-datetime formControlName="timeInitial" displayFormat="HH:mm" minuteValues="00" placeholder="Hora inicial"
+          [pickerOptions]="customPickerOptions" value="{{horas}}"></ion-datetime>
+        <h2>hora final</h2>
+        <ion-datetime formControlName="timeEnd" displayFormat="HH:mm" minuteValues="00" [hourValues]="horaFinal"
+          placeholder="numero de horas">
+        </ion-datetime>
+        <h2> Titulo </h2>
+        <input placeholder="Escriba el titulo" type="text" formControlName="title">
+        <h2>Descripción</h2>
+        <ion-textarea rows="5" formControlName="description" placeholder="Ingrese una descripcion...">
+        </ion-textarea>
+      </form>
+    </div>
+     <div class="ion--fab-button">
+    <button (click)="saveDataEvent()">
+      Guardar
+    </button>
+  </div>
+  </div>
+ 
+</ion-content>

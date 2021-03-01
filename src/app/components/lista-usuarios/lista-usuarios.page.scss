@@ -5,6 +5,13 @@
     background: linear-gradient(90deg, #46289b 0%, #22134d 100%);
 }
 
+.container-ion-text {
+    margin: 30px;
+    ion-text {
+        color: #5a31cc;
+    }
+}
+
 .header-content {
     position: absolute;
     top: 20px;

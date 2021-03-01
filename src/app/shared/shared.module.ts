@@ -1,20 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuPage } from './menu/menu.page';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ModalPage } from './modal/modal.page';
-import { ReactiveFormsModule } from '@angular/forms';
-import { UtilsService } from '../services/utils.service';
+import { MenuPage } from './menu/menu.page';
+import { ModalInicioComponent } from './modal-inicio/modal-inicio.component';
+import { PipesModule } from '../pipes/pipes.module';
+
+
 
 @NgModule({
-
-  declarations: [MenuPage, ModalPage],
+  declarations: [MenuPage, ModalInicioComponent],
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
     ReactiveFormsModule,
+    PipesModule
   ],
-    providers:[UtilsService],
-  exports:[MenuPage,ModalPage]
+  exports: [MenuPage],
 })
+
 export class SharedModule { }

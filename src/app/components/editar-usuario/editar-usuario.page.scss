@@ -5,6 +5,14 @@
   background: linear-gradient(90deg, #46289b 0%, #22134d 100%);
 }
 
+.active {
+  background-color: rgba(0, 255, 0, 0.623);
+  color:  rgba(0, 255, 0, 0.623);
+  border-radius: 50%;
+}
+.displey{
+  display: flex;
+}
 .header-content {
   position: absolute;
   top: 20px;
@@ -21,6 +29,7 @@
     font-weight: 300;
     position: absolute;
     left: 15px;
+    margin-left: 20px;
   }
   ion-menu-button {
     position: absolute;
@@ -67,4 +76,22 @@
   width: 100%;
   margin-bottom: 15px;
   border-radius: 20px;
+}
+
+.container-form-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.form-btn {
+  height: 58px;
+  width: 60%;
+  color: white;
+  background-color: #5028bd;
+  border-radius: 50px;
+  font-size: 22px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  outline: none;
+  margin-bottom: 15px;
 }

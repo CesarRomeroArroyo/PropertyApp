@@ -18,3 +18,55 @@
         --background: none;
     }
 }
+
+.ion-padding {
+    background-color: rgb(91, 50, 97) !important;
+}
+
+ion-calendar {
+    display: contents !important;
+    background-color: rgb(91, 50, 97) !important;
+    .transparent {
+        color: white !important;
+    }
+    ion-button {
+        color: white !important;
+    }
+    .on-selected {
+        background-color: rgba(0, 0, 0, 0.281) !important;
+        p {
+            color: black !important;
+        }
+    }
+    .month-packer-item {
+        button {
+            color: white !important;
+        }
+    }
+    .today {
+        p {
+            color: rgb(255, 255, 255) !important;
+        }
+    }
+    .last-month-day {
+        p {
+            position: absolute;
+            top: -9999px;
+        }
+    }
+    .next-month-day {
+        p {
+            color: rgb(39, 39, 39) !important;
+        }
+    }
+    .days-btn:not(.today, .next-month-day, .last-month-day) {
+        p {
+            color: rgba(255, 255, 255, 0.733) !important;
+        }
+    }
+    .days-btn:disabled {
+        p {
+            color: rgb(39, 39, 39) !important;
+        }
+    }
+}

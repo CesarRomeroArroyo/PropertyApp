@@ -13,9 +13,9 @@ import { UtilsService } from '../../services/utils.service';
 })
 export class MenuPage implements OnInit {
   dato: any;
-  states= states;
-  roles= roles;
-  valid :boolean= false;
+  states = states;
+  roles = roles;
+  valid: boolean = false;
   constructor(private navCtrl: Router,
     private util: UtilsService,
     private menu: MenuController
@@ -25,23 +25,23 @@ export class MenuPage implements OnInit {
     this.validationSession();
   }
 
-  menuModal(){
+  menuModal() {
     this.util.openModal();
   }
 
-  logout():void {
+  logout(): void {
     localStorage.removeItem(storage.RESIDENTI_USER);
-     localStorage.removeItem(storage.RESIDENTI_MODAL);
+    localStorage.removeItem(storage.RESIDENTI_MODAL);
     localStorage.removeItem(storage.RESIDENTI_BUILDING);
-    localStorage.removeItem(storage.RESIDENTI_APARTAMENT); 
+    localStorage.removeItem(storage.RESIDENTI_APARTAMENT);
     this.closeMenu()
     this.navCtrl.navigate(['/login']);
   }
 
-  validationSession():void{
+  validationSession(): void {
     this.dato = JSON.parse(localStorage.getItem(storage.RESIDENTI_USER));
     if (this.dato)
-      this.valid= true; 
+      this.valid = true;
   }
 
   closeMenu() {
@@ -52,31 +52,36 @@ export class MenuPage implements OnInit {
     document.getElementById("home").classList.add("active");
     document.getElementById("evento").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
-  
-    this.navCtrl.navigate(['/admin']);
 
+    if (this.dato.tipo == roles.ADMIN)
+     this.navCtrl.navigate(['/admin']);
+    else {
+      document.getElementById("mudanza").classList.remove("active");
+      this.navCtrl.navigate(['/home']);
+    }    
   }
 
   redirectEvent() {
     document.getElementById("evento").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("usuarios").classList.remove("active");
-    
-    
-    this.navCtrl.navigate(['/home']);
+    if(this.dato.tipo== roles.USER){
+      document.getElementById("mudanza").classList.remove("active");
+    }
+    this.navCtrl.navigate(['/eventos']);
   }
+
   redirectUser() {
     document.getElementById("usuarios").classList.add("active");
     document.getElementById("home").classList.remove("active");
     document.getElementById("evento").classList.remove("active");
-  
-
+    if(this.dato.tipo== roles.USER){
+      document.getElementById("mudanza").classList.remove("active");
+    }
     this.navCtrl.navigate(['/lista-usuarios']);
   }
-  redirectBuildings(){
-    
-  }
-  miMudanza(){
+
+  miMudanza() {
     document.getElementById("mudanza").classList.add("active");
     document.getElementById("usuarios").classList.remove("active");
     document.getElementById("home").classList.remove("active");

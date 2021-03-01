@@ -1,0 +1,57 @@
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-list>
+                    <ion-searchbar placeholder="Buscar" (ionChange)="searchbuildingOrApartaments($event)">
+                    </ion-searchbar>
+                    <div *ngIf="user.tipo == rol.ADMIN;">
+                        <ion-text>Por favor seleccione el Edificio que desea Administrar:</ion-text>
+                        <form [formGroup]="frmModal">
+                            <div class="form-ion-radio">
+                                <ion-list>
+                                    <ion-radio-group formControlName="modal">
+                                        <div *ngFor="let edificio of edificios | filter: textBuscar: 'name' ">
+                                            <ion-item>
+                                                <ion-label> {{edificio.name}} </ion-label>
+                                                <ion-radio slot="start" color="tertiary" [value]="edificio"></ion-radio>
+                                            </ion-item>
+                                        </div>
+                                    </ion-radio-group>
+                                </ion-list>
+                            </div>
+                            <div *ngIf="valid">
+                                <h4>seleccione una opcion</h4>
+                            </div>
+                        </form>
+                        <ion-button (click)="buildingOrApartamentsData()">Enviar</ion-button>
+                    </div>
+                    <div *ngIf="user.tipo == rol.USER">
+                        <ion-text>Por favor seleccione el Apartamento que desea Administrar</ion-text>
+                        <form [formGroup]="frmModal">
+                            <div class="form-ion-radio">
+                                <ion-list>
+                                    <ion-radio-group formControlName="modal">
+                                        <div *ngFor="let apartamento of apartamentos | filter: textBuscar: 'name'">
+                                            <ion-item>
+                                                <ion-label>
+                                                    {{apartamento.name}}
+                                                </ion-label>
+                                                <ion-radio slot="start" color="tertiary" [value]="apartamento">
+                                                </ion-radio>
+                                            </ion-item>
+                                        </div>
+                                    </ion-radio-group>
+                                </ion-list>
+                            </div>
+                            <div *ngIf="valid">
+                                <h4>seleccione una opcion</h4>
+                            </div>
+                        </form>
+                        <ion-button (click)="buildingOrApartamentsData()">Enviar</ion-button>
+                    </div>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
