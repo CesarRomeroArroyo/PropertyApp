@@ -21,9 +21,11 @@
                     <ion-item>
                         <ion-label>Apartamentos</ion-label>
                         <ion-select formControlName="apartaments">
-                            <ion-select-option *ngFor="let item of apartamentosDisponible" [value]="item">
-                                {{item.name }}
-                            </ion-select-option>
+                            <div *ngFor="let apartaments of apartamentosDisponible">
+                                <ion-select-option *ngIf="apartaments.estado == apartament.DESOCUPADO" [value]="apartaments">
+                                    {{apartaments.name }}
+                                </ion-select-option>
+                            </div>
                         </ion-select>
                     </ion-item>
                     <div class="container-form-btn">
@@ -31,7 +33,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </ion-content>

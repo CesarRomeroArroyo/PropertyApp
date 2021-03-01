@@ -1,0 +1,114 @@
+.container-primary {
+    width: 100%;
+    height: 200px;
+    background: rgb(102, 56, 109);
+    position: relative;
+}
+
+.header-content {
+    position: absolute;
+    top: 20px;
+    left: 18px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    ion-toolbar {
+        --background: none;
+    }
+    ion-label {
+        font-size: 25px;
+        color: white;
+        margin-top: 24px;
+        margin-left: 12px;
+        h1 {
+            font-weight: 700;
+        }
+    }
+    button {
+        color: white;
+        font-size: 37px;
+        background: none;
+        outline: none;
+    }
+}
+
+.container-secundary {
+    position: absolute;
+    top: 133px;
+    height: auto;
+    width: 100%;
+    border-top-left-radius: 55px;
+    border-top-right-radius: 55px;
+    background-color: white;
+    .ion--fab-button{
+        position: absolute;
+        right: 32px;
+        padding-bottom: 38px;
+        button{
+            background-color: #fa7c4f;
+            height: 65px;
+            width: 120px;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+        
+    }
+
+}
+
+.container-group {
+    height: auto;
+    margin: 34px 32px;
+    h2 {
+        color: rgb(102, 56, 109);
+        font-weight: revert;
+        font-size: 20px;
+    }
+    input {
+        width: 100%;
+        border-radius: 9px;
+        outline: none;
+        height: 49px;
+        border: none;
+        background-color: #e4dfe3d3;
+        padding: 5px;
+        color: #a19fa1;
+        font-weight: 700;
+    }
+    input::placeholder {
+        color: #a19fa1;
+        font-weight: 700;
+    }
+    ion-select {
+        width: 100%;
+        border-radius: 9px;
+        outline: none;
+        height: 49px;
+        border: none;
+        background-color: #e4dfe3d3;
+        padding: 7px;
+        color: #858385;
+        font-weight: 700;
+    }
+
+    ion-textarea{
+        width: 100%;
+        border-radius: 9px;
+        outline: none;
+        background-color: #e4dfe3d3;
+        height: 115px;
+     
+        overflow: scroll; 
+        
+        
+    }
+
+    
+}
+
+
+
+
+

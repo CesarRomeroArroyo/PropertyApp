@@ -66,6 +66,5 @@ export class AddApartUserComponent implements OnInit, OnDestroy {
       this.fbServices.assignApartment(this.frmApartment.value.apartamento, this.idUser);
       this.modalController.dismiss();
     }
-
   }
 }

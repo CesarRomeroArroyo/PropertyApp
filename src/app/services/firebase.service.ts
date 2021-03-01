@@ -393,6 +393,13 @@ export class FirebaseService {
 		});
 		await this.sendVerifcationEmail();
 	}
+	
+	updateStateUSer(item:Usermodel){
+		if(item.estado == states.ACTIVE)
+			this.db.collection("usuarios").doc(item.id).update({estado: states.DISABLED});
+		else
+		this.db.collection("usuarios").doc(item.id).update({estado: states.ACTIVE});
+	}
 
 	async changeBuildingAndApartament(apartamentonuev: apartamentosModel, apartamentoViejo: apartamentosModel, iduser: string, ): Promise<any> {
 		await this.db.collection('apartamentos').doc(apartamentoViejo.id).update({ estado: apartamento.DESOCUPADO }).then(() => {
@@ -411,4 +418,18 @@ export class FirebaseService {
 			})
 		});
 	}
+	
+	obtenerDataGeneral(tabla, id, campo): Observable<any> {
+		this.itemsCollection = this.db.collection(tabla, ref => ref.where(campo, '==', id));
+		return this.itemsCollection.snapshotChanges().pipe(
+			map(data => {
+				return data.map(d => {
+					const retorno = d.payload.doc.data();
+					retorno['id'] = d.payload.doc.id;
+					return retorno;
+				});
+			})
+		);
+	}
+	
 }

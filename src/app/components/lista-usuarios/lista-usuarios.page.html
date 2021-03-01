@@ -18,20 +18,20 @@
         </div>
         <div class="container-group">
             <div class="container-item">
-                <div *ngIf=" user.estado != 0 ">
+                <div *ngIf=" userStorage.estado != 0 ">
                     <img src="assets/img/foto.jpg" alt="">
                     <div class="elemet-container">
                         <ion-label>
-                            <h2> {{user.name}} </h2>
-                            <h6>{{user.email}} </h6>
+                            <h2> {{userStorage.name}} </h2>
+                            <h6>{{userStorage.email}} </h6>
                         </ion-label>
                     </div>
                     <ion-fab>
                         <button>
                             <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
                         </button>
-                        <ion-fab-list>
-                            <button (click)="editUser(user,user.id)">
+                        <ion-fab-list class="fab--list">
+                            <button (click)="editUser(userStorage)">
                                 <ion-icon name="brush-outline"></ion-icon>
                             </button>
                         </ion-fab-list>
@@ -39,54 +39,67 @@
                 </div>
             </div>
         </div>
-        <ion-label *ngIf="user.tipo == roles.ADMIN">
-            <h2> Residentes </h2>
-        </ion-label>
-        <div class="container-group container--purple">
-            <div class="container-item" *ngFor="let item of dato">
-                <div *ngIf="item.tipo == roles.USER && item.estado == states.ACTIVE && user.tipo == roles.ADMIN ">
-                    <img src="assets/img/foto.jpg" alt="">
-                    <div class="elemet-container">
-                        <ion-label>
-                            <h2> {{item.name}} </h2>
-                            <h6>{{item.email}} </h6>
-                        </ion-label>
-                    </div>
-                    <ion-fab>
-                        <button>
-                            <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
-                        </button>
-                        <ion-fab-list>
-                            <button (click)="editUser(item)">
-                                <ion-icon name="brush-outline"></ion-icon>
-                            </button>
-                        </ion-fab-list>
-                    </ion-fab>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="user.tipo == roles.ADMIN">
-            <ion-label>
-                <h2> Inactivos</h2>
+        <div *ngIf="datoUser != null">
+            <ion-label *ngIf="userStorage.tipo == roles.ADMIN">
+                <h2> Residentes </h2>
             </ion-label>
-        </div>
-        <div class="contaner-group">
-            <div *ngFor="let item of dato">
-                <div *ngIf="item.estado === states.DISABLE && user.tipo == roles.ADMIN ">
-                    <img src="assets/img/foto.jpg" alt="">
-                    <div class="elemet-container">
-                        <ion-label>
-                            <h2> {{item.name}} </h2>
-                            <h6>{{item.email}} </h6>
-                        </ion-label>
-                    </div>
-                    <ion-fab>
-                        <button>
+            <div class="container-group container--purple">
+                <div class="container-item" *ngFor="let item of datoUser">
+                    <div *ngIf="item.tipo == roles.USER && item.estado == states.ACTIVE && userStorage.tipo == roles.ADMIN ">
+                        <img src="assets/img/foto.jpg" alt="">
+                        <div class="elemet-container">
+                            <ion-label>
+                                <h2> {{item.name}} </h2>
+                                <h6>{{item.email}} </h6>
+                            </ion-label>
+                        </div>
+                        <ion-fab>
+                            <button>
                             <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
                         </button>
-                    </ion-fab>
+                            <ion-fab-list class="fab-list">
+                                <button (click)="editUser(item)">
+                                <ion-icon name="brush-outline"></ion-icon>
+                            </button>
+                                <button (click)="disableUser(item)">
+                                <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                            </ion-fab-list>
+                        </ion-fab>
+                    </div>
                 </div>
             </div>
+            <div *ngIf="userStorage.tipo == roles.ADMIN">
+                <ion-label>
+                    <h2> Inactivos</h2>
+                </ion-label>
+            </div>
+            <div class="container-group container--gray">
+                <div class="container-item " *ngFor="let item of datoUser">
+                    <div *ngIf="item.estado === states.DISABLED && userStorage.tipo == roles.ADMIN ">
+                        <img src="assets/img/foto.jpg" alt="">
+                        <div class="elemet-container">
+                            <ion-label>
+                                <h2> {{item.name}} </h2>
+                                <h6>{{item.email}} </h6>
+                            </ion-label>
+                        </div>
+                        <ion-fab>
+                            <button>
+                            <ion-icon name="ellipsis-vertical-outline"> </ion-icon>
+                        </button>
+                            <ion-fab-list class="fab--list">
+                                <button (click)="activeUser(item)">
+                                <ion-icon name="reload-outline"></ion-icon>
+                            </button>
+                            </ion-fab-list>
+                        </ion-fab>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-ion-text" *ngIf="datoUser == null &&  userStorage.tipo == roles.ADMIN">
+            <ion-text> Seleccione un edificio para administrar usuarios</ion-text>
         </div>
     </div>
 </ion-content>

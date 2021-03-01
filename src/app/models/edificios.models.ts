@@ -1,6 +1,6 @@
 export interface edificiosModels {
   id: string,
   codigoEdificio: string,
-  dirrection: string,
+  direction: string,
   name: string
 }

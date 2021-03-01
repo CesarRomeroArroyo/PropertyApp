@@ -1,0 +1,34 @@
+<ion-content>
+    <div class="img-toolbat-event fondo-event">
+        <div class="ion-padding-event">
+            <ion-calendar class="calendar" (change)="onChange($event)" [options]="optionsRange" [type]="type" [format]="'YYYY-MM-DD'">
+            </ion-calendar>
+        </div>
+        <div class="btn-start-event">
+            <ion-toolbar>
+                <ion-buttons>
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </div>
+    </div>
+    <div class="container-group-event">
+        <div class="container-item-event">
+            <ion-list *ngFor="let dataEvent of event">
+                <ion-item>
+               <h6> {{dataEvent.title}} | {{dataEvent.zoneCommon.name}} | Horas: inicio {{dataEvent.timeInitial | date: 'shortTime' }} | final {{dataEvent.timeEnd | date: 'shortTime' }} </h6> 
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+
+
+    <ion-fab class="ion-fab-event" horizontal="end" vertical="bottom" slot="fixed">
+
+        <button (click)="addModalEvent()">    
+                <ion-icon name="add"></ion-icon>
+         </button>
+
+
+    </ion-fab>
+</ion-content>

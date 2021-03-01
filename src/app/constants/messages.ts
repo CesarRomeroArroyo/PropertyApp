@@ -44,6 +44,9 @@ export const messages = {
   },
   modal: {
     EMPTY_FIELDS: 'Por favor seleccione una opción'
+  },
+  eventos:{
+    EMPTY_FIELDS_EVENT: 'Por favor seleccione una fecha para el evento'
   }
 
 

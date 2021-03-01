@@ -35,9 +35,9 @@ export class EditZonasComponent implements OnInit {
 
   initializateFrmZona(): void {
     this.frmZona = this.frmbuild.group({
-      nombre: [this.zonaComun.nombre, [Validators.required]],
-      costo: [this.zonaComun.costo, [Validators.required]],
-      descripcion: [this.zonaComun.descripcion, [Validators.required]]
+      nombre: [this.zonaComun.name, [Validators.required]],
+      costo: [this.zonaComun.cost, [Validators.required]],
+      descripcion: [this.zonaComun.description, [Validators.required]]
     });
   }
 

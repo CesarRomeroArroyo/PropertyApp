@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { CalendarComponentOptions } from 'ion2-calendar';
 import { FileManagerService } from '../services/file-manager.service';
 import { UtilsService } from '../services/utils.service';
-import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+ 
 })
 export class HomePage {
+ 
 
   constructor(
     private fileManager: FileManagerService,
@@ -18,7 +21,10 @@ export class HomePage {
 
   ngOnInit() {
     this.menu.enable(true);
+ 
   }
+
+ 
 
   ionViewWillEnter() {
     this.util.sessionActive();
@@ -32,4 +38,6 @@ export class HomePage {
     console.log(url)
   }
 
+ 
+  
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { roles } from '../constants/roles';
 import { states } from '../constants/states';
-import { ModalPage } from '../shared/modal/modal.page';
+import { ModalInicioComponent } from '../shared/modal-inicio/modal-inicio.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -114,7 +114,7 @@ export class UtilsService {
 
   async openModal() {
     const modal = await this.modalCtrl.create({
-      component: ModalPage,
+      component: ModalInicioComponent,
     });
     await modal.present();
   }
